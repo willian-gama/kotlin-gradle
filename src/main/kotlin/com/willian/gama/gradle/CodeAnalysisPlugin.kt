@@ -22,7 +22,6 @@ class CodeAnalysisPlugin : Plugin<Project> {
             setUpKtLint()
             setUpDetekt()
             setUpUnitTest()
-            setUpCodeCoverage()
         }
     }
 
@@ -86,51 +85,6 @@ class CodeAnalysisPlugin : Plugin<Project> {
         // https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
         tasks.withType<GenerateReportsTask> {
             reportsOutputDirectory.set(project.layout.buildDirectory.dir("reports/ktlint/$name"))
-        }
-    }
-
-    private fun Project.setUpCodeCoverage() {
-        pluginManager.apply("jacoco")
-
-        extensions.configure<JacocoPluginExtension> {
-            toolVersion = "0.8.10"
-        }
-
-        tasks.withType<Test>().configureEach {
-            extensions.configure(JacocoTaskExtension::class) {
-                isIncludeNoLocationClasses = true // Robolectric support
-                excludes = listOf(
-                    "jdk.internal.*",
-                    "coil.compose.*"
-                )
-            }
-        }
-
-        tasks.register<JacocoReport>("generateCodeCoverage2") {
-            group = "Jacoco code coverage report"
-            sourceDirectories.from(file("${project.layout.projectDirectory}/src/main/java")) // main source set)
-            classDirectories.from(
-                fileTree(layout.buildDirectory.get()) { // build directory
-                    exclude(
-                        "**/BuildConfig.*",
-                        "**/*\$*",
-                        "**/Hilt_*.class",
-                        "hilt_**",
-                        "dagger/hilt/**",
-                        "**/*JsonAdapter.*"
-                    )
-                }
-            )
-            executionData.from(
-                fileTree(layout.buildDirectory.get()) {
-                    setIncludes(
-                        listOf(
-                            "**/*.exec", // unit tests
-                            "**/*.ec" // ui tests
-                        )
-                    )
-                }
-            )
         }
     }
 }
