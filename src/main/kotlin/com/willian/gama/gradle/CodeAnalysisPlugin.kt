@@ -7,30 +7,20 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.withType
-import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
-import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
-import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 import org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask
+import org.sonarqube.gradle.SonarExtension
 
 class CodeAnalysisPlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        project.setUpSonar()
         project.subprojects {
             setUpKtLint()
             setUpDetekt()
             setUpUnitTest()
-        }
-    }
-
-    private fun Project.setUpUnitTest() {
-        tasks.withType<Test>().configureEach {
-            testLogging {
-                exceptionFormat = TestExceptionFormat.FULL // Display the full log to identify Paparazzi test failures
-                showStackTraces = false
-            }
         }
     }
 
@@ -47,7 +37,7 @@ class CodeAnalysisPlugin : Plugin<Project> {
             autoCorrect = true
             buildUponDefaultConfig = true
             setSource(files(projectDir))
-            config.setFrom(file("${rootProject.rootDir}/config/detekt/detekt.yml"))
+            config.setFrom("/Users/android_dev_engineer/IdeaProjects/WillianGamaCI/src/main/resources/linting/detekt/detekt.yml")
 
             reports {
                 txt.required.set(false)
@@ -85,6 +75,43 @@ class CodeAnalysisPlugin : Plugin<Project> {
         // https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
         tasks.withType<GenerateReportsTask> {
             reportsOutputDirectory.set(project.layout.buildDirectory.dir("reports/ktlint/$name"))
+        }
+    }
+
+    private fun Project.setUpUnitTest() {
+        tasks.withType<Test>().configureEach {
+            testLogging {
+                exceptionFormat = TestExceptionFormat.FULL // Display the full log to identify Paparazzi test failures
+                showStackTraces = false
+            }
+        }
+    }
+
+    private fun Project.setUpSonar() {
+        pluginManager.apply("org.sonarqube")
+
+        extensions.configure<SonarExtension> {
+            description = "Sonar properties task"
+            setAndroidVariant("debug")
+
+            // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
+            properties {
+                property("sonar.host.url", "http://localhost:9000")
+                property("sonar.login", rootProject.extra.get("sonar_login")!!)
+                property("sonar.projectName", "KotlinComposeApp")
+                property("sonar.projectKey", rootProject.extra.get("sonar_project_key")!!)
+                property("sonar.projectVersion", rootProject.extra.get("sonar_project_version")!!)
+                property("sonar.sourceEncoding", "UTF-8")
+//                property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
+//                property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
+                property(
+                    "sonar.kotlin.ktlint.reportPaths",
+                    subprojects
+                        .mapNotNull { fileTree(it.layout.buildDirectory.dir("reports/ktlint")) }
+                        .flatMap { it.matching { include("**/*.json") }.files }
+                        .joinToString(separator = ",")
+                )
+            }
         }
     }
 }
