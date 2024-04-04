@@ -1,5 +1,7 @@
 package com.willian.gama.gradle
 
+import com.willian.gama.constants.ExtensionConstants.CODE_ANALYSIS_TOOL
+import com.willian.gama.extension.CodeAnalysisExtension
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -7,8 +9,10 @@ import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.withType
+import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
+import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
+import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 import org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask
@@ -16,11 +20,68 @@ import org.sonarqube.gradle.SonarExtension
 
 class CodeAnalysisPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.setUpSonar()
+        val codeAnalysisExtension = project.extensions.create(
+            CODE_ANALYSIS_TOOL,
+            CodeAnalysisExtension::class.java
+        )
+
+        project.setUpSonar(codeAnalysisExtension = codeAnalysisExtension)
         project.subprojects {
             setUpKtLint()
             setUpDetekt()
             setUpUnitTest()
+            setUpJacoco()
+        }
+    }
+
+    private fun Project.setUpJacoco() {
+        pluginManager.apply("jacoco")
+
+        configure<JacocoPluginExtension> {
+            toolVersion = "0.8.11"
+        }
+
+        tasks.withType(Test::class) {
+            configure<JacocoTaskExtension> {
+                isIncludeNoLocationClasses = true
+                excludes = listOf(
+                    "jdk.internal.*",
+                    "coil.compose.*"
+                )
+            }
+        }
+
+        tasks.register("generateCodeCoverage", JacocoReport::class.java) {
+            sourceDirectories.from(file(layout.projectDirectory.dir("src/main/java")))
+            classDirectories.setFrom(
+                files(
+                    fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/")) {
+                        exclude(
+                            listOf(
+                                "**/BuildConfig.*",
+                                "**/*$*",
+                                "**/Hilt_*.class",
+                                "hilt_**",
+                                "dagger/hilt/**",
+                                "**/*JsonAdapter.*"
+                            )
+                        )
+                    }
+                )
+            )
+            executionData.setFrom(files(
+                fileTree(layout.buildDirectory) {
+                    include(listOf("**/*.exec", "**/*.ec"))
+                }
+            ))
+
+            // run unit tests and ui tests to generate code coverage report
+            reports {
+                html.required.set(true)
+                html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco").get())
+                xml.required.set(true) // It's required for Sonar
+                xml.outputLocation.set(file(layout.buildDirectory.dir("reports/jacoco/jacoco.xml")))
+            }
         }
     }
 
@@ -87,7 +148,7 @@ class CodeAnalysisPlugin : Plugin<Project> {
         }
     }
 
-    private fun Project.setUpSonar() {
+    private fun Project.setUpSonar(codeAnalysisExtension: CodeAnalysisExtension) {
         pluginManager.apply("org.sonarqube")
 
         extensions.configure<SonarExtension> {
@@ -97,10 +158,10 @@ class CodeAnalysisPlugin : Plugin<Project> {
             // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
             properties {
                 property("sonar.host.url", "http://localhost:9000")
-                property("sonar.login", rootProject.extra.get("sonar_login")!!)
+                property("sonar.login", codeAnalysisExtension.sonarToken)
                 property("sonar.projectName", "KotlinComposeApp")
-                property("sonar.projectKey", rootProject.extra.get("sonar_project_key")!!)
-                property("sonar.projectVersion", rootProject.extra.get("sonar_project_version")!!)
+                property("sonar.projectKey", codeAnalysisExtension.sonarProjectKey)
+                property("sonar.projectVersion", codeAnalysisExtension.sonarProjectVersion)
                 property("sonar.sourceEncoding", "UTF-8")
 //                property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
 //                property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
