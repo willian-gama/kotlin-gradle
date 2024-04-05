@@ -1,5 +1,8 @@
 package com.willian.gama.gradle.config
 
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.LibraryExtension
+import com.android.build.gradle.BaseExtension
 import com.willian.gama.gradle.task.generateCodeCoverageTask
 import com.willian.gama.gradle.task.verifyCodeCoverageTask
 import org.gradle.api.Project
@@ -29,6 +32,39 @@ fun Project.setUpJacoco() {
         testLogging {
             exceptionFormat = TestExceptionFormat.FULL // Display the full log to identify Paparazzi test failures
             showStackTraces = false
+        }
+    }
+
+    val pluginId = if (pluginManager.hasPlugin("com.android.application")) {
+        "com.android.application"
+    } else if (pluginManager.hasPlugin("com.android.library")) {
+        "com.android.library"
+    } else {
+        ""
+    }
+
+    plugins.withId(pluginId) {
+        configure<BaseExtension> {
+            when (this) {
+                is ApplicationExtension -> {
+                    setUpAndroidTestReport(testOptions = testOptions)
+                    buildTypes {
+                        debug {
+                            enableAndroidTestCoverage = true
+                            enableUnitTestCoverage = true
+                        }
+                    }
+                }
+                is LibraryExtension -> {
+                    setUpAndroidTestReport(testOptions = testOptions)
+                    buildTypes {
+                        debug {
+                            enableAndroidTestCoverage = true
+                            enableUnitTestCoverage = true
+                        }
+                    }
+                }
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 package com.willian.gama.gradle.constants
 
 object ExtensionConstants {
-    const val CODE_ANALYSIS_TOOL = "code_analysis_tool"
+    const val CODE_ANALYSIS_PARAMS = "code_analysis_params"
 }

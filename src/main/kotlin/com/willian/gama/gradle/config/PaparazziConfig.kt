@@ -7,10 +7,10 @@ fun Project.setUpPaparazzi() {
     // pluginManager.apply("app.cash.paparazzi")
 
     // Paparazzi Google Guava compatibility
-    project.plugins.withId("app.cash.paparazzi") {
+    plugins.withId("app.cash.paparazzi") {
         // Defer until afterEvaluate so that testImplementation is created by Android plugin.
-        project.afterEvaluate {
-            project.dependencies.constraints {
+        afterEvaluate {
+            dependencies.constraints {
                 add(
                     "testImplementation",
                     "com.google.guava:guava"

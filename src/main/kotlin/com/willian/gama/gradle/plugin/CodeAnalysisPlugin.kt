@@ -1,8 +1,11 @@
 package com.willian.gama.gradle.plugin
 
-import com.willian.gama.gradle.constants.ExtensionConstants.CODE_ANALYSIS_TOOL
-import com.willian.gama.gradle.config.*
+import com.willian.gama.gradle.config.setUpDetekt
 import com.willian.gama.gradle.config.setUpJacoco
+import com.willian.gama.gradle.config.setUpKtLint
+import com.willian.gama.gradle.config.setUpPaparazzi
+import com.willian.gama.gradle.config.setUpSonar
+import com.willian.gama.gradle.constants.ExtensionConstants.CODE_ANALYSIS_PARAMS
 import com.willian.gama.gradle.model.CodeAnalysisParams
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -10,7 +13,7 @@ import org.gradle.api.Project
 class CodeAnalysisPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val codeAnalysisParams = project.extensions.create(
-            CODE_ANALYSIS_TOOL,
+            CODE_ANALYSIS_PARAMS,
             CodeAnalysisParams::class.java
         )
 
@@ -18,8 +21,10 @@ class CodeAnalysisPlugin : Plugin<Project> {
         project.subprojects {
             setUpKtLint()
             setUpDetekt()
-            setUpJacoco()
             setUpPaparazzi()
+            afterEvaluate {
+                setUpJacoco()
+            }
         }
     }
 }
