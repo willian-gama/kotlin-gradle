@@ -4,6 +4,8 @@ import org.gradle.api.Project
 import org.gradle.api.attributes.java.TargetJvmEnvironment
 
 fun Project.setUpPaparazzi() {
+    // pluginManager.apply("app.cash.paparazzi")
+
     // Paparazzi Google Guava compatibility
     project.plugins.withId("app.cash.paparazzi") {
         // Defer until afterEvaluate so that testImplementation is created by Android plugin.
