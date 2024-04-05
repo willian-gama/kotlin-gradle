@@ -1,7 +1,7 @@
 package com.willian.gama.gradle.constants
 
 object JacocoConstants {
-    val KOTLIN_CLASSES by lazy {
+    val JACOCO_EXCLUSION by lazy {
         listOf(
             "**/BuildConfig.*",
             "**/*$*",
@@ -11,7 +11,7 @@ object JacocoConstants {
             "**/*JsonAdapter.*"
         )
     }
-    val EXECUTION_DATA by lazy {
+    val JACOCO_EXECUTION_DATA by lazy {
         listOf(
             "**/*.exec",
             "**/*.ec"

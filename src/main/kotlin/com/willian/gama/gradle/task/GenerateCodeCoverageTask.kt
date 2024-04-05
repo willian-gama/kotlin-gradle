@@ -1,7 +1,7 @@
 package com.willian.gama.gradle.task
 
-import com.willian.gama.gradle.constants.JacocoConstants.EXECUTION_DATA
-import com.willian.gama.gradle.constants.JacocoConstants.KOTLIN_CLASSES
+import com.willian.gama.gradle.constants.JacocoConstants.JACOCO_EXCLUSION
+import com.willian.gama.gradle.constants.JacocoConstants.JACOCO_EXECUTION_DATA
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.tasks.JacocoReport
 
@@ -11,15 +11,17 @@ fun Project.generateCodeCoverageTask() {
         classDirectories.setFrom(
             files(
                 fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/")) {
-                    exclude(KOTLIN_CLASSES)
+                    exclude(JACOCO_EXCLUSION)
                 }
             )
         )
-        executionData.setFrom(files(
-            fileTree(layout.buildDirectory) {
-                include(EXECUTION_DATA)
-            }
-        ))
+        executionData.setFrom(
+            files(
+                fileTree(layout.buildDirectory) {
+                    include(JACOCO_EXECUTION_DATA)
+                }
+            )
+        )
 
         // run unit tests and ui tests to generate code coverage report
         reports {

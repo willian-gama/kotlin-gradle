@@ -16,12 +16,12 @@ fun Project.setUpSonar(codeAnalysisParams: CodeAnalysisParams) {
         properties {
             property("sonar.host.url", "http://localhost:9000")
             property("sonar.login", codeAnalysisParams.sonarToken)
-            property("sonar.projectName", "KotlinComposeApp")
+            property("sonar.projectName", codeAnalysisParams.sonarProjectName)
             property("sonar.projectKey", codeAnalysisParams.sonarProjectKey)
             property("sonar.projectVersion", codeAnalysisParams.sonarProjectVersion)
             property("sonar.sourceEncoding", "UTF-8")
-//                property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
-//                property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
+            property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
+            property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
             property(
                 "sonar.kotlin.ktlint.reportPaths",
                 subprojects

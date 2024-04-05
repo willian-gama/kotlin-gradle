@@ -1,6 +1,7 @@
 package com.willian.gama.gradle.task
 
-import com.willian.gama.gradle.constants.JacocoConstants
+import com.willian.gama.gradle.constants.JacocoConstants.JACOCO_EXCLUSION
+import com.willian.gama.gradle.constants.JacocoConstants.JACOCO_EXECUTION_DATA
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import java.math.BigDecimal
@@ -12,15 +13,17 @@ fun Project.verifyCodeCoverageTask() {
         classDirectories.setFrom(
             files(
                 fileTree(layout.buildDirectory.dir("tmp/kotlin-classes/")) {
-                    exclude(JacocoConstants.KOTLIN_CLASSES)
+                    exclude(JACOCO_EXCLUSION)
                 }
             )
         )
-        executionData.setFrom(files(
-            fileTree(layout.buildDirectory) {
-                include(JacocoConstants.EXECUTION_DATA)
-            }
-        ))
+        executionData.setFrom(
+            files(
+                fileTree(layout.buildDirectory) {
+                    include(JACOCO_EXECUTION_DATA)
+                }
+            )
+        )
 
         violationRules {
             rule {
