@@ -4,11 +4,9 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.BaseExtension
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
 
 fun Project.setUpCodeCoverage() {
-    configure<BaseExtension> {
-        setUpAndroidTestReport(testOptions = testOptions)
+    project.extensions.getByType(BaseExtension::class.java).run {
         when (this) {
             is ApplicationExtension -> buildTypes {
                 debug {
