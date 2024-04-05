@@ -1,4 +1,4 @@
-package com.willian.gama.gradle.extension
+package com.willian.gama.gradle.config
 
 import com.willian.gama.gradle.model.CodeAnalysisParams
 import org.gradle.api.Project

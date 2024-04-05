@@ -1,4 +1,4 @@
-package com.willian.gama.gradle.extension
+package com.willian.gama.gradle.config
 
 import org.gradle.api.Project
 import org.gradle.api.attributes.java.TargetJvmEnvironment
@@ -20,8 +20,10 @@ fun Project.setUpPaparazzi() {
                         )
                     }
                     because(
-                        "LayoutLib and sdk-common depend on Guava's -jre published variant." +
-                                "See https://github.com/cashapp/paparazzi/issues/906."
+                        """
+                            LayoutLib and sdk-common depend on Guava's -jre published variant.
+                            See https://github.com/cashapp/paparazzi/issues/906.
+                            """
                     )
                 }
             }

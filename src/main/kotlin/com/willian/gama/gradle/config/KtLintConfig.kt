@@ -1,4 +1,4 @@
-package com.willian.gama.gradle.extension
+package com.willian.gama.gradle.config
 
 import com.willian.gama.gradle.rule.KTLINT_RULES
 import org.gradle.api.Project
