@@ -24,8 +24,8 @@ dependencies {
 gradlePlugin {
     plugins {
         create("linting") {
-            id = "com.willian.gama.plugin.gradle.code-analysis"
-            implementationClass = "com.willian.gama.gradle.CodeAnalysisPlugin"
+            id = "com.willian.gama.gradle.plugin.gradle.code-analysis"
+            implementationClass = "com.willian.gama.gradle.plugin.CodeAnalysisPlugin"
         }
     }
 }
