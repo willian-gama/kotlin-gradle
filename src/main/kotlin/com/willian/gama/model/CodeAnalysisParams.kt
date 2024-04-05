@@ -1,6 +1,6 @@
-package com.willian.gama.extension
+package com.willian.gama.model
 
-open class CodeAnalysisExtension {
+open class CodeAnalysisParams {
     lateinit var sonarProjectKey: String
     lateinit var sonarProjectVersion: String
     lateinit var sonarToken: String
