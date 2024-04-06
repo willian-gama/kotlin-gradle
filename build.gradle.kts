@@ -1,5 +1,4 @@
 group = "com.willian.gama.gradle.plugin"
-version = "1.0.0"
 
 plugins {
     `kotlin-dsl`
@@ -36,7 +35,7 @@ publishing {
             from(components["java"])
             groupId = "com.willian.gama.gradle"
             artifactId = "plugin"
-            version = "1.0.0"
+            version = "0.0.1"
         }
     }
 }
