@@ -10,7 +10,7 @@ fun Project.setUpDetekt(configFile: File) {
     pluginManager.apply("io.gitlab.arturbosch.detekt")
 
     tasks.withType<Detekt>().configureEach {
-        include("**/*.kt")
+        include("**/*.kt", "**/*.kts")
         exclude("**/build/**")
         jvmTarget = JavaVersion.VERSION_17.toString()
 
@@ -26,9 +26,9 @@ fun Project.setUpDetekt(configFile: File) {
             sarif.required.set(false)
             md.required.set(false)
             html.required.set(true)
-            html.outputLocation.set(file("${project.layout.buildDirectory.get()}/reports/detekt/detekt.html"))
+            html.outputLocation.set(file(project.layout.buildDirectory.dir("reports/detekt/detekt.html").get()))
             xml.required.set(true) // It's required for Sonar
-            xml.outputLocation.set(file("${project.layout.buildDirectory.get()}/reports/detekt/detekt.xml"))
+            xml.outputLocation.set(file(project.layout.buildDirectory.dir("reports/detekt/detekt.xml").get()))
         }
     }
 }
