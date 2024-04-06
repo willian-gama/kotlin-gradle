@@ -19,10 +19,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-    /* Required for Circleci: https://app.circleci.com/pipelines/circleci/A5yyywdwJzMPnUc2dxVrDW/HrsAhkavEsbtRm2Sa87CZg/4/workflows/ec5662a1-1af9-4a0f-b923-5d5ee659a249/jobs/7?invite=true#step-104-4336_91
-       No matching toolchains found for requested specification: {languageVersion=11, vendor=any, implementation=vendor-specific} for LINUX on x86_64.
-       No locally installed toolchains match and toolchain download repositories have not been configured.
-    */
+    // https://youtrack.jetbrains.com/issue/KTIJ-24981/Gradle-8.-project-sync-fails-with-an-error-No-matching-toolchains-found-for-requested-specification-if-there-is-no-necessary-JDK
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
