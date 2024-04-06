@@ -14,7 +14,7 @@ fun Project.setUpJacoco() {
     pluginManager.apply("jacoco")
 
     configure<JacocoPluginExtension> {
-        toolVersion = "0.8.11"
+        toolVersion = "0.8.12"
     }
 
     tasks.withType<Test>().configureEach {

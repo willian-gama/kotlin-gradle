@@ -9,26 +9,30 @@ fun Project.setUpSonar(codeAnalysisParams: CodeAnalysisParams) {
     pluginManager.apply("org.sonarqube")
 
     extensions.configure<SonarExtension> {
-        description = "Sonar properties task"
         setAndroidVariant("debug")
 
         // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
         properties {
-            property("sonar.host.url", "http://localhost:9000")
-            property("sonar.login", codeAnalysisParams.sonarToken)
-            property("sonar.projectName", codeAnalysisParams.sonarProjectName)
-            property("sonar.projectKey", codeAnalysisParams.sonarProjectKey)
-            property("sonar.projectVersion", codeAnalysisParams.sonarProjectVersion)
-            property("sonar.sourceEncoding", "UTF-8")
-            property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
-            property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
-            property(
-                "sonar.kotlin.ktlint.reportPaths",
-                subprojects
-                    .mapNotNull { fileTree(it.layout.buildDirectory.dir("reports/ktlint")) }
-                    .flatMap { it.matching { include("**/*.json") }.files }
-                    .joinToString(separator = ",")
+            properties(
+                mapOf(
+                    "sonar.host.url" to "http://localhost:9000",
+                    "sonar.login" to codeAnalysisParams.sonarToken,
+                    "sonar.projectName" to codeAnalysisParams.sonarProjectName,
+                    "sonar.projectKey" to codeAnalysisParams.sonarProjectKey,
+                    "sonar.projectVersion" to codeAnalysisParams.sonarProjectVersion,
+                    "sonar.sourceEncoding" to "UTF-8",
+                    "sonar.kotlin.ktlint.reportPaths" to getKtLintReports(),
+                    "sonar.kotlin.detekt.reportPaths" to "build/reports/detekt/detekt.xml",
+                    "sonar.coverage.jacoco.xmlReportPaths" to "**/build/reports/jacoco/jacoco.xml"
+                )
             )
         }
     }
+}
+
+fun Project.getKtLintReports(): String {
+    return subprojects
+        .mapNotNull { fileTree(it.layout.buildDirectory.dir("reports/ktlint")) }
+        .flatMap { it.matching { include("**/*.json") }.files }
+        .joinToString(separator = ",")
 }
