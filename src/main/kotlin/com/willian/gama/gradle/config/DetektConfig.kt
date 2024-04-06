@@ -4,8 +4,9 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.withType
+import java.io.File
 
-fun Project.setUpDetekt() {
+fun Project.setUpDetekt(configFile: File) {
     pluginManager.apply("io.gitlab.arturbosch.detekt")
 
     tasks.withType<Detekt>().configureEach {
@@ -18,7 +19,7 @@ fun Project.setUpDetekt() {
         autoCorrect = true
         buildUponDefaultConfig = true
         setSource(files(projectDir))
-        config.setFrom("/Users/android_dev_engineer/IdeaProjects/WillianGamaCI/src/main/resources/linting/detekt/detekt.yml")
+        config.setFrom(configFile)
 
         reports {
             txt.required.set(false)
