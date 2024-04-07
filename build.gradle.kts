@@ -1,12 +1,13 @@
 import java.io.FileInputStream
 import java.util.*
 
-group = "com.willian.gama"
-version = "0.0.1"
-
+private val releaseVersion = "0.0.1"
 private val localProperties = Properties().apply {
     load(FileInputStream(rootProject.file("local.properties")))
 }
+
+group = "com.willian.gama"
+version = releaseVersion
 
 plugins {
     `kotlin-dsl`
@@ -39,6 +40,18 @@ gradlePlugin {
 }
 
 publishing {
+    // Publish locally ./gradlew publishPluginMavenPublicationToMavenLocal publishLintingPluginMarkerMavenPublicationToMavenLocal
+    publications {
+        // https://docs.gradle.org/current/userguide/publishing_maven.html#sec:identity_values_in_the_generated_pom
+        create<MavenPublication>("gpr") {
+            from(components["java"])
+            project.version = "$releaseVersion-local"
+        }
+    }
+}
+
+publishing {
+    // Publish on github packages ./gradlew publishPluginMavenPublicationToGitHubPackagesRepository publishLintingPluginMarkerMavenPublicationToGitHubPackagesRepository
     repositories {
         maven {
             name = "GitHubPackages"
