@@ -29,8 +29,8 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("linting") {
-            id = "com.willian.gama.kotlin.gradle.plugin.code.analysis"
+        create("code-analysis") {
+            id = "com.willian.gama.kotlin.gradle.plugin.code-analysis"
             displayName = "Code analysis plugin"
             description = "Kotlin Gradle Plugin to scan code linting"
             implementationClass = "com.willian.gama.kotlin.gradle.plugin.CodeAnalysisPlugin"
@@ -50,7 +50,8 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/${localProperties.getProperty("github_user_id")}/WillianGamaGradle")
+            // Repository name MUST NOT have upper case it's also defined in settings.gradle.kts in rootProject.name
+            url = uri("https://maven.pkg.github.com/${localProperties.getProperty("github_user_id")}/kotlin-gradle")
             credentials {
                 username = localProperties.getProperty("github_user_id")
                 password = localProperties.getProperty("github_key")
