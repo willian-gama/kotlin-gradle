@@ -1,4 +1,4 @@
-package com.willian.gama.kotlin.gradle.config
+package com.willian.gama.kgp.config
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension

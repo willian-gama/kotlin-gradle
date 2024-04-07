@@ -1,4 +1,4 @@
-package com.willian.gama.kotlin.gradle.file
+package com.willian.gama.kgp.file
 
 import java.io.File
 

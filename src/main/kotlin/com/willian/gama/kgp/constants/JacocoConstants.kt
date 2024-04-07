@@ -1,4 +1,4 @@
-package com.willian.gama.kotlin.gradle.constants
+package com.willian.gama.kgp.constants
 
 object JacocoConstants {
     val JACOCO_EXCLUSION by lazy {

@@ -1,6 +1,6 @@
-package com.willian.gama.kotlin.gradle.config
+package com.willian.gama.kgp.config
 
-import com.willian.gama.kotlin.gradle.model.CodeAnalysisParams
+import com.willian.gama.kgp.model.CodeAnalysisParams
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.sonarqube.gradle.SonarExtension
