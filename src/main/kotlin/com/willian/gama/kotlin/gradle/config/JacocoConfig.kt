@@ -1,7 +1,7 @@
-package com.willian.gama.gradle.config
+package com.willian.gama.kotlin.gradle.config
 
-import com.willian.gama.gradle.task.generateCodeCoverageTask
-import com.willian.gama.gradle.task.verifyCodeCoverageTask
+import com.willian.gama.kotlin.gradle.task.generateCodeCoverageTask
+import com.willian.gama.kotlin.gradle.task.verifyCodeCoverageTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat

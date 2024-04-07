@@ -1,9 +1,13 @@
-package com.willian.gama.gradle.plugin
+package com.willian.gama.kotlin.gradle.plugin
 
-import com.willian.gama.gradle.config.*
-import com.willian.gama.gradle.constants.ExtensionConstants.CODE_ANALYSIS_PARAMS
-import com.willian.gama.gradle.file.FileResource.getFileFromResource
-import com.willian.gama.gradle.model.CodeAnalysisParams
+import com.willian.gama.kotlin.gradle.config.setUpDetekt
+import com.willian.gama.kotlin.gradle.config.setUpJacoco
+import com.willian.gama.kotlin.gradle.config.setUpKtLint
+import com.willian.gama.kotlin.gradle.config.setUpPaparazzi
+import com.willian.gama.kotlin.gradle.config.setUpSonar
+import com.willian.gama.kotlin.gradle.constants.ExtensionConstants.CODE_ANALYSIS_PARAMS
+import com.willian.gama.kotlin.gradle.file.FileResource.getFileFromResource
+import com.willian.gama.kotlin.gradle.model.CodeAnalysisParams
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

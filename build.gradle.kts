@@ -1,8 +1,8 @@
 import java.io.FileInputStream
 import java.util.*
 
-group = "com.willian.gama.gradle"
-version = "0.0.1-SNAPSHOT"
+group = "com.willian.gama.kotlin.gradle"
+version = "0.0.1"
 
 private val localProperties = Properties().apply {
     load(FileInputStream(rootProject.file("local.properties")))
@@ -30,13 +30,23 @@ dependencies {
 gradlePlugin {
     plugins {
         create("linting") {
-            id = "com.willian.gama.gradle.plugin.code-analysis"
-            implementationClass = "com.willian.gama.gradle.plugin.CodeAnalysisPlugin"
+            id = "com.willian.gama.kotlin.gradle.plugin.code.analysis"
+            displayName = "Code analysis plugin"
+            description = "Kotlin Gradle Plugin to scan code linting"
+            implementationClass = "com.willian.gama.kotlin.gradle.plugin.CodeAnalysisPlugin"
         }
     }
 }
 
 publishing {
+    publications {
+        // https://docs.gradle.org/current/userguide/publishing_maven.html#sec:identity_values_in_the_generated_pom
+        create<MavenPublication>("gpr") {
+            from(components["java"])
+            artifactId = "plugin"
+        }
+    }
+
     repositories {
         maven {
             name = "GitHubPackages"
@@ -45,14 +55,6 @@ publishing {
                 username = localProperties.getProperty("github_user_id")
                 password = localProperties.getProperty("github_key")
             }
-        }
-    }
-
-    publications {
-        // https://docs.gradle.org/current/userguide/publishing_maven.html#sec:identity_values_in_the_generated_pom
-        create<MavenPublication>("gpr") {
-            from(components["java"])
-            artifactId = "plugin"
         }
     }
 }

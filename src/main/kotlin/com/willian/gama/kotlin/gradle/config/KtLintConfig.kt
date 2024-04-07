@@ -1,6 +1,6 @@
-package com.willian.gama.gradle.config
+package com.willian.gama.kotlin.gradle.config
 
-import com.willian.gama.gradle.rule.KTLINT_RULES
+import com.willian.gama.kotlin.gradle.rule.KTLINT_RULES
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType

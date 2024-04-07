@@ -1,4 +1,4 @@
-package com.willian.gama.gradle.rule
+package com.willian.gama.kotlin.gradle.rule
 
 val KTLINT_RULES by lazy {
     mapOf(

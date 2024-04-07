@@ -1,4 +1,4 @@
-package com.willian.gama.gradle.model
+package com.willian.gama.kotlin.gradle.model
 
 open class CodeAnalysisParams {
     lateinit var sonarProjectName: String

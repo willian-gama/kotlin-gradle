@@ -1,7 +1,7 @@
-package com.willian.gama.gradle.task
+package com.willian.gama.kotlin.gradle.task
 
-import com.willian.gama.gradle.constants.JacocoConstants.JACOCO_EXCLUSION
-import com.willian.gama.gradle.constants.JacocoConstants.JACOCO_EXECUTION_DATA
+import com.willian.gama.kotlin.gradle.constants.JacocoConstants.JACOCO_EXCLUSION
+import com.willian.gama.kotlin.gradle.constants.JacocoConstants.JACOCO_EXECUTION_DATA
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.tasks.JacocoCoverageVerification
 import java.math.BigDecimal
