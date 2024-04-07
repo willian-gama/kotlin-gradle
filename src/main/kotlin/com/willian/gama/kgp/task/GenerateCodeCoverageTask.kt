@@ -1,7 +1,7 @@
-package com.willian.gama.kotlin.gradle.task
+package com.willian.gama.kgp.task
 
-import com.willian.gama.kotlin.gradle.constants.JacocoConstants.JACOCO_EXCLUSION
-import com.willian.gama.kotlin.gradle.constants.JacocoConstants.JACOCO_EXECUTION_DATA
+import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_EXCLUSION
+import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_EXECUTION_DATA
 import org.gradle.api.Project
 import org.gradle.testing.jacoco.tasks.JacocoReport
 

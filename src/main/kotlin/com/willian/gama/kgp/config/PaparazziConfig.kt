@@ -1,4 +1,4 @@
-package com.willian.gama.kotlin.gradle.config
+package com.willian.gama.kgp.config
 
 import org.gradle.api.Project
 import org.gradle.api.attributes.java.TargetJvmEnvironment
