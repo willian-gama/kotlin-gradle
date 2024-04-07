@@ -1,7 +1,7 @@
 import java.io.FileInputStream
 import java.util.*
 
-group = "com.willian.gama.kgp"
+group = "com.willian.gama"
 version = "0.0.1"
 
 private val localProperties = Properties().apply {
