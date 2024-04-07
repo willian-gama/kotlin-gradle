@@ -24,4 +24,3 @@ plugins {
 }
 
 rootProject.name = "kgp"
-
