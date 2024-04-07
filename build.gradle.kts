@@ -42,6 +42,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
+            // Repository name MUST NOT have upper case it's also defined in settings.gradle.kts in rootProject.name="ksp" (it could be any name)
             url = uri("https://maven.pkg.github.com/${localProperties.getProperty("github_user_id")}/kgp")
             credentials {
                 username = localProperties.getProperty("github_user_id")
