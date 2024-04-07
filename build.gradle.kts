@@ -1,4 +1,12 @@
-group = "com.willian.gama.gradle.plugin"
+import java.io.FileInputStream
+import java.util.*
+
+group = "com.willian.gama.gradle"
+version = "0.0.1"
+
+private val githubProperties = Properties().apply {
+    load(FileInputStream(rootProject.file("local.properties")))
+}
 
 plugins {
     `kotlin-dsl`
@@ -22,20 +30,34 @@ dependencies {
 gradlePlugin {
     plugins {
         create("linting") {
-            id = "com.willian.gama.gradle.plugin.gradle.code-analysis"
+            id = "com.willian.gama.gradle.plugin.code-analysis"
             implementationClass = "com.willian.gama.gradle.plugin.CodeAnalysisPlugin"
         }
     }
 }
 
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/${githubProperties.getProperty("github_user_id")}/WillianGamaGradle")
+            credentials {
+                username = githubProperties.getProperty("github_user_id")
+                password = githubProperties.getProperty("github_key")
+            }
+        }
+    }
+
     publications {
         // https://docs.gradle.org/current/userguide/publishing_maven.html#sec:identity_values_in_the_generated_pom
-        create<MavenPublication>("release") {
+        create<MavenPublication>("gpr") {
             from(components["java"])
-            groupId = "com.willian.gama.gradle"
-            artifactId = "plugin"
-            version = "0.0.1"
+            afterEvaluate {
+                artifactId = "plugin"
+            }
+//            groupId = project.group.toString()
+//            artifactId = project.name
+//            version = project.version.toString()
         }
     }
 }
