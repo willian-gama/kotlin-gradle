@@ -7,6 +7,7 @@ import org.gradle.api.Project
 
 fun Project.setUpCodeCoverage() {
     project.extensions.getByType(BaseExtension::class.java).run {
+        setUpAndroidTestReport(testOptions)
         when (this) {
             is ApplicationExtension -> buildTypes {
                 debug {
