@@ -21,7 +21,7 @@ kotlin {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:8.3.1")
+    implementation("com.android.tools.build:gradle:8.3.2")
     implementation("org.jlleitschuh.gradle:ktlint-gradle:12.1.0")
     implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.6")
     implementation("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:5.0.0.4638")
