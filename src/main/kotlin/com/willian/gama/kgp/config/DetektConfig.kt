@@ -1,13 +1,20 @@
 package com.willian.gama.kgp.config
 
 import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
 import java.io.File
 
 fun Project.setUpDetekt(configFile: File) {
     pluginManager.apply("io.gitlab.arturbosch.detekt")
+
+    extensions.configure<DetektExtension> {
+        ignoredBuildTypes = listOf("release")
+        ignoredFlavors = listOf("snapshot")
+    }
 
     tasks.withType<Detekt>().configureEach {
         include("**/*.kt", "**/*.kts")
