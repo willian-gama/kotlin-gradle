@@ -19,15 +19,19 @@ fun Project.setUpKtLint() {
         verbose.set(true)
         additionalEditorconfig.set(KTLINT_RULES)
 
-        reporters {
-            reporter(ReporterType.HTML)
-            reporter(ReporterType.JSON) // it's required for Sonar
-        }
+        reporters(
+            action = {
+                reporter(reporterType = ReporterType.HTML)
+                reporter(reporterType = ReporterType.JSON) // it's required for Sonar
+            }
+        )
 
-        filter {
-            include("**/*.kt", "**/*.kts")
-            exclude("**/build/**")
-        }
+        filter(
+            filterAction = {
+                include("**/*.kt", "**/*.kts")
+                exclude("**/build/**")
+            }
+        )
     }
 
     // https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
