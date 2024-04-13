@@ -32,6 +32,6 @@ fun Project.setUpKtLint() {
 
     // https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
     tasks.withType<GenerateReportsTask> {
-        reportsOutputDirectory.set(project.layout.buildDirectory.dir("reports/ktlint/$name"))
+        reportsOutputDirectory.set(layout.buildDirectory.dir("reports/ktlint/$name"))
     }
 }
