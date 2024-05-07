@@ -6,7 +6,7 @@ private val localProperties = Properties().apply {
 }
 
 group = "com.willian.gama"
-version = "0.0.4"
+version = "0.0.5"
 
 plugins {
     `kotlin-dsl`
@@ -34,16 +34,6 @@ gradlePlugin {
             displayName = "Code analysis plugin"
             description = "Kotlin Gradle Plugin to scan code linting"
             implementationClass = "com.willian.gama.kgp.plugin.CodeAnalysisPlugin"
-        }
-    }
-}
-
-publishing {
-    // Publish locally ./gradlew publishPluginMavenPublicationToMavenLocal publishLintingPluginMarkerMavenPublicationToMavenLocal
-    publications {
-        // https://docs.gradle.org/current/userguide/publishing_maven.html#sec:identity_values_in_the_generated_pom
-        create<MavenPublication>("gpr") {
-            from(components["java"])
         }
     }
 }
