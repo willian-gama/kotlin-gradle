@@ -14,7 +14,7 @@ fun Project.setUpKtLint() {
 
     // https://github.com/JLLeitschuh/ktlint-gradle?tab=readme-ov-file#configuration
     extensions.configure<KtlintExtension> {
-        version.set("1.2.1")
+        version.set("1.3.0")
         android.set(true)
         verbose.set(true)
         additionalEditorconfig.set(KTLINT_RULES)
