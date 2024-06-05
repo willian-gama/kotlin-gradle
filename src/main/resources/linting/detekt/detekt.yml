@@ -26,10 +26,10 @@ complexity:
 naming:
   PackageNaming:
     active: true
-    packagePattern: '([a-z]+(\.[a-z][a-z_]*)*)'
+    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9_]*)*'
   FunctionNaming:
     active: true
-    functionPattern: '[a-zA-Z][a-zA-Z]*'
+    functionPattern: '[a-zA-Z][a-zA-Z0-9]*'
     ignoreAnnotated: [ 'Composable' ]
 
 coroutines:
