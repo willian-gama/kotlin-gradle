@@ -15,6 +15,9 @@ val KTLINT_RULES by lazy {
         "ktlint_standard_annotation" to "disabled",
         "ktlint_standard_parameter-list-wrapping" to "disabled",
         "ktlint_standard_trailing-comma-on-call-site" to "disabled",
-        "ktlint_standard_trailing-comma-on-declaration-site" to "disabled"
+        "ktlint_standard_trailing-comma-on-declaration-site" to "disabled",
+        "ktlint_standard_function-expression-body" to "disabled",
+        "ktlint_standard_chain-method-continuation" to "disabled",
+        "ktlint_standard_class-signature" to "disabled"
     )
 }
