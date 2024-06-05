@@ -6,7 +6,7 @@ private val localProperties = Properties().apply {
 }
 
 group = "com.willian.gama"
-version = "0.0.5"
+version = "0.0.6"
 
 plugins {
     `kotlin-dsl`
@@ -45,10 +45,10 @@ publishing {
         maven {
             name = "GitHubPackages"
             // Repository name MUST NOT have upper case it's also defined in settings.gradle.kts in rootProject.name="ksp" (it could be any name)
-            url = uri("https://maven.pkg.github.com/${localProperties.getProperty("github_user_id")}/kgp")
+            url = uri("https://maven.pkg.github.com/${localProperties.getProperty("gpr_username")}/kgp")
             credentials {
-                username = localProperties.getProperty("github_user_id")
-                password = localProperties.getProperty("github_key")
+                username = localProperties.getProperty("gpr_username")
+                password = localProperties.getProperty("gpr_key")
             }
         }
     }
