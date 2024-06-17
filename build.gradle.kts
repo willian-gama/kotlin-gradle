@@ -6,7 +6,7 @@ private val localProperties = Properties().apply {
 }
 
 group = "com.willian.gama"
-version = "0.0.8"
+version = "0.0.9"
 
 plugins {
     `kotlin-dsl`
@@ -21,7 +21,7 @@ kotlin {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:8.4.2")
+    implementation("com.android.tools.build:gradle:8.5.0")
     implementation("org.jlleitschuh.gradle:ktlint-gradle:12.1.1")
     implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.6")
     implementation("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:5.0.0.4638")
