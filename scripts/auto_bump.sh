@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## File path to the build.gradle
-file="build.gradle.kts"
+file="../build.gradle.kts"
 
 get_version_number() {
   local content="$1"
