@@ -89,8 +89,9 @@ echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-#  git config user.name "github-actions[bot]"
-#  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+  git config user.name "$GIT_USER_NAME"
+  git config user.email "$GIT_USER_EMAIL"
+  git config --add --bool push.autoSetupRemote true
   git add "$file"
   git commit -m "auto bump version"
   echo "$GITHUB_HEAD_REF"
