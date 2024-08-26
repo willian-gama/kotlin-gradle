@@ -20,7 +20,23 @@ jobs:
       - name: checkout project sources
         uses: actions/checkout@v4
         with:
-          # Allow to access files in the Pull Request
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.pull_request.head.ref }} # Allow to access files in the Pull Request
+
       - name: auto bump version if required
         run: ./auto_bump.sh
+
+  run_tests:
+    needs: auto_bump
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout project sources
+        uses: actions/checkout@v4
+
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: run tests
+        run: ./gradlew test
