@@ -95,6 +95,6 @@ if compare_versions "$remote_version" "$local_version"; then
   git config --add --bool push.autoSetupRemote true
   git add "$file"
   git commit -m "auto bump version"
-  echo "$GITHUB_HEAD_REF"
-  git push origin "HEAD:$GITHUB_HEAD_REF"
+  git checkout "$GITHUB_HEAD_REF"
+  git push
 fi
