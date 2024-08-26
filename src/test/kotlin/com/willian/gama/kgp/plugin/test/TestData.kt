@@ -64,6 +64,7 @@ object TestData {
         projectKey = projectKey,
         organizationKey = organizationKey,
         projectName = projectName,
+        projectVersion = codeAnalysis.projectVersion,
         buildType = buildType,
         kotlinVersion = kotlinVersion,
         exclusions = exclusions

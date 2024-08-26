@@ -5,6 +5,7 @@ data class SonarProperties(
     val projectKey: String,
     val organizationKey: String,
     val projectName: String,
+    val projectVersion: String,
     val buildType: String,
     val kotlinVersion: String,
     val exclusions: String
