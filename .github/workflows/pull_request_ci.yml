@@ -3,7 +3,6 @@ name: pull_request_ci
 on:
   pull_request:
     branches: [ "develop" ]
-  push:
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions:
@@ -36,9 +35,6 @@ jobs:
     steps:
       - name: checkout project sources
         uses: actions/checkout@v4
-        with:
-          # Allow to access files in the Pull Request
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: set up jdk
         uses: actions/setup-java@v4
