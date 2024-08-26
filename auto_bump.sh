@@ -74,7 +74,6 @@ commit_and_push_new_version() {
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-  git checkout "$GITHUB_HEAD_REF"
   git config --add --bool push.autoSetupRemote true
   git add "$FILE"
   git commit -m "auto bump version"
@@ -83,7 +82,8 @@ commit_and_push_new_version() {
 
 bump_version_if_needed() {
   git fetch origin "$GITHUB_HEAD_REF"
-  local_version=$(get_version_number "$(git show origin/"$GITHUB_HEAD_REF":"$FILE")")
+  git checkout "$GITHUB_HEAD_REF"
+  local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
   git fetch origin develop
