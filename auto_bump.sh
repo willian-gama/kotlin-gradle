@@ -81,7 +81,7 @@ bump_version() {
   echo "Updated pom_version_name from $current_version to $new_version"
 }
 
-git fetch origin develop:develop
+git fetch origin develop
 
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
