@@ -9,7 +9,7 @@ get_version_number() {
     echo "${BASH_REMATCH[1]}"
     return 0
   else
-    echo "Failed to find the line with the version number"
+    echo "failed to find the line with the version number"
     return 1
   fi
 }
@@ -24,31 +24,31 @@ compare_versions() {
 
   # compare major versions
   if [ "$remote_major" -gt "$local_major" ]; then
-    echo "Local major version is lower than remote version"
+    echo "local major version is lower than remote version"
     bump_version "$local_version" "$remote_version"
     return 0
   elif [ "$remote_major" -lt "$local_major" ]; then
-    echo "Local version: $local_version is greater than remote version: $remote_version"
+    echo "local version: $local_version is greater than remote version: $remote_version"
     return 1
   fi
 
   # compare minor versions
   if [ "$remote_minor" -gt "$local_minor" ]; then
-    echo "Local minor version is lower than remote version"
+    echo "local minor version is lower than remote version"
     bump_version "$local_version" "$remote_version"
     return 0
   elif [ "$remote_minor" -lt "$local_minor" ]; then
-    echo "Local version: $local_version is greater than remote version: $remote_version"
+    echo "local version: $local_version is greater than remote version: $remote_version"
     return 1
   fi
 
   # compare patch versions
   if [ "$remote_patch" -ge "$local_patch" ]; then
-    echo "Remote patch version is greater than or equal to local version"
+    echo "remote patch version is greater than or equal to local version"
     bump_version "$local_version" "$remote_version"
     return 0
   else
-    echo "Local version: $local_version is greater than remote version: $remote_version"
+    echo "local version: $local_version is greater than remote version: $remote_version"
     return 1
   fi
 }
@@ -84,11 +84,11 @@ commit_and_push_new_version() {
 bump_version_if_needed() {
   git fetch origin "$GITHUB_HEAD_REF"
   local_version=$(get_version_number "$(cat "$FILE")")
-  echo "Local version: $local_version"
+  echo "local version: $local_version"
 
   git fetch origin develop
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
-  echo "Remote version: $remote_version"
+  echo "remote version: $remote_version"
 
   if compare_versions "$local_version" "$remote_version" ; then
     commit_and_push_new_version
