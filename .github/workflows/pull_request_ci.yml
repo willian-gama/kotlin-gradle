@@ -35,6 +35,9 @@ jobs:
     steps:
       - name: checkout project sources
         uses: actions/checkout@v4
+        with:
+          # Allow to access files in the Pull Request
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: set up jdk
         uses: actions/setup-java@v4
