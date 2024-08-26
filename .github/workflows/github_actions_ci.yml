@@ -20,7 +20,8 @@ jobs:
       - name: checkout project sources
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.ref }} # Allow to access files in the Pull Request
+          # Allow to access files in the Pull Request
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: auto bump version if required
         run: ./auto_bump.sh
