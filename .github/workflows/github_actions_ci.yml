@@ -21,7 +21,6 @@ jobs:
     steps:
       - name: checkout project sources
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.github_head_ref }}
+
       - name: auto bump version if required
         run: ./auto_bump.sh
