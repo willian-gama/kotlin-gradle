@@ -6,11 +6,9 @@ jfrog = "5.2.3"
 detekt = "1.23.6"
 sonar = "5.1.0.4882"
 junit = "4.13.2"
-kotlin_dsl = "4.3.0"
 
 [plugins]
 jfrog = { id = "com.jfrog.artifactory", version.ref = "jfrog" }
-kotlin_dsl = { id = "org.gradle.kotlin.kotlin-dsl", version.ref = "kotlin_dsl" }
 
 [libraries]
 android = { module = "com.android.tools.build:gradle", version.ref = "android" }
