@@ -89,7 +89,7 @@ bump_version_if_needed() {
 
   git fetch origin develop
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
-#  echo "remote version: $remote_version"
+  echo "remote version: $remote_version"
 
 #  if compare_versions "$local_version" "$remote_version" ; then
 #    commit_and_push_new_version
