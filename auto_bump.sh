@@ -86,7 +86,7 @@ bump_version_if_needed() {
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
-  git fetch origin develop
+#  git fetch origin develop
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "remote version: $remote_version"
 
