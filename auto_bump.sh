@@ -81,7 +81,7 @@ bump_version() {
   echo "Updated pom_version_name from $current_version to $new_version"
 }
 
-git fetch origin "chore/$GITHUB_HEAD_REF"
+git fetch origin "$GITHUB_HEAD_REF"
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
 
