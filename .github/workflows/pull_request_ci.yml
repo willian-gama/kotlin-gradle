@@ -3,7 +3,6 @@ name: pull_request_ci
 on:
   pull_request:
     branches: [ "develop" ]
-  workflow_dispatch:
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions:
