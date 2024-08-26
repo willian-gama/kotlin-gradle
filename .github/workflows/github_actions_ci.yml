@@ -4,9 +4,6 @@ on:
   pull_request:
     branches: [ "develop" ]
 
-permissions:
-  contents: write
-
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
