@@ -17,43 +17,40 @@ get_version_number() {
 compare_versions() {
   local remote_version=$1
   local local_version=$2
-  echo "Comparing remote version: $remote_version and local version: $local_version"
+  echo "comparing remote version: $remote_version and local version: $local_version"
 
   IFS="." read -r remote_major remote_minor remote_patch <<<"$remote_version"
   IFS="." read -r local_major local_minor local_patch <<<"$local_version"
 
-  # Remote major version is HIGHER than local, it _has_ to be the higher version
-  if [[ $remote_major -gt $local_major ]]; then
-    echo "Remote major version is higher than local version"
+  # compare major versions
+  if [ "$remote_major" -gt "$local_major" ]; then
+    echo "Local major version is lower than remote version"
     bump_version "$remote_version" "$local_version"
     return 0
-  #Local major version is HIGHER than remote, it _has_ to be the higher version
-  elif [[ $remote_major -lt $local_major ]]; then
-    echo "Local major version is higher than remote version, no need to bump"
-    return 1
-  fi
-  # Major versions were the same, comparing minor versions with the same logic
-  if [[ $remote_minor -gt $local_minor ]]; then
-    echo "Remote minor version is higher than local version"
-    bump_version "$remote_version" "$local_version"
-    return 0
-  elif [[ $remote_minor -lt $local_minor ]]; then
-    echo "Local minor version is higher than remote version, no need to bump"
-    return 1
-  fi
-  # Minor versions were the same, comparing patch versions
-  if [[ $remote_patch -gt $local_patch ]]; then
-    echo "Remote patch version is higher than local version"
-    bump_version "$remote_version" "$local_version"
-    return 0
-  elif [[ $remote_patch -lt $local_patch ]]; then
-    echo "Local patch version is higher than remote version, no need to bump"
+  elif [ "$remote_major" -lt "$local_major" ]; then
+    echo "Local version: $local_version is greater than remote version: $remote_version"
     return 1
   fi
 
-  echo "The local and the remote versions are identical, bumping"
-  bump_version "$local_version" "$local_version"
-  return 0
+  # compare minor versions
+  if [ "$remote_minor" -gt "$local_minor" ]; then
+    echo "Local minor version is lower than remote version"
+    bump_version "$remote_version" "$local_version"
+    return 0
+  elif [ "$remote_minor" -lt "$local_minor" ]; then
+    echo "Local version: $local_version is greater than remote version: $remote_version"
+    return 1
+  fi
+
+  # compare patch versions
+  if [ "$remote_patch" -ge "$local_patch" ]; then
+    echo "Remote patch version is greater than or equal to local version"
+    bump_version "$remote_version" "$local_version"
+    return 0
+  else
+    echo "Local version: $local_version is greater than remote version: $remote_version"
+    return 1
+  fi
 }
 
 increment_version() {
