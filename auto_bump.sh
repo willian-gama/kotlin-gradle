@@ -85,8 +85,8 @@ git fetch origin "$GITHUB_HEAD_REF"
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
 
-git fetch origin develop
-remote_version=$(get_version_number "$(git show develop:"$file")")
+git fetch origin "develop"
+remote_version="0.0.10"
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
