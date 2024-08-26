@@ -81,22 +81,26 @@ bump_version() {
   echo "Updated pom_version_name from $current_version to $new_version"
 }
 
-git fetch origin "$GITHUB_HEAD_REF"
-local_version=$(get_version_number "$(cat "$file")")
-echo "Local version: $local_version"
+bump_version_if_needed() {
+  git fetch origin "$GITHUB_HEAD_REF"
+  local_version=$(get_version_number "$(cat "$file")")
+  echo "Local version: $local_version"
 
-git fetch origin develop
-remote_version=$(get_version_number "$(git show origin/develop:"$file")")
-echo "Remote version: $remote_version"
+  git fetch origin develop
+  remote_version=$(get_version_number "$(git show origin/develop:"$file")")
+  echo "Remote version: $remote_version"
 
-if compare_versions "$remote_version" "$local_version"; then
-  # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-  git config user.name "github-actions[bot]"
-  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+  if compare_versions "$remote_version" "$local_version"; then
+    # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
+    git config user.name "github-actions[bot]"
+    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-  git checkout "$GITHUB_HEAD_REF"
-  git config --add --bool push.autoSetupRemote true
-  git add "$file"
-  git commit -m "auto bump version"
-  git push
-fi
+    git checkout "$GITHUB_HEAD_REF"
+    git config --add --bool push.autoSetupRemote true
+    git add "$file"
+    git commit -m "auto bump version"
+    git push
+  fi
+}
+
+bump_version_if_needed
