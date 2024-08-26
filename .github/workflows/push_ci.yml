@@ -4,10 +4,6 @@ on:
   push:
     branches: [ "develop" ]
 
-# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
-permissions:
-  contents: write # Allows to commit files
-
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
@@ -17,7 +13,7 @@ env:
   GPR_KEY: ${{ secrets.GPR_KEY }}
 
 jobs:
-  release_plugin:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: checkout project sources
