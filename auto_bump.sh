@@ -81,16 +81,17 @@ commit_and_push_new_version() {
 }
 
 bump_version_if_needed() {
+  echo "$GITHUB_HEAD_REF"
   git fetch origin "$GITHUB_HEAD_REF"
-  git checkout "$GITHUB_HEAD_REF"
-  local_version=$(get_version_number "$(cat "$FILE")")
+  local_version=$(get_version_number "$(git show origin/"$GITHUB_HEAD_REF":"$FILE")")
   echo "local version: $local_version"
 
   git fetch origin develop
-  remote_version=$(get_version_number "$(git show develop:"$FILE")")
+  remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "remote version: $remote_version"
 
   if compare_versions "$local_version" "$remote_version" ; then
+    git checkout "$GITHUB_HEAD_REF"
     commit_and_push_new_version
   fi
 }
