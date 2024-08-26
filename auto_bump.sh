@@ -80,16 +80,17 @@ bump_version() {
 
   echo "Updated pom_version_name from $current_version to $new_version"
 }
+
+git fetch origin "chore/$GITHUB_HEAD_REF"
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
 
-#git fetch origin
+git fetch origin "develop"
 remote_version="0.0.10"
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-#  git fetch
   git checkout "$GITHUB_HEAD_REF"
   git config user.name "$GIT_USER_NAME"
   git config user.email "$GIT_USER_EMAIL"
