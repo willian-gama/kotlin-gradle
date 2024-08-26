@@ -40,6 +40,12 @@ jobs:
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
 
+      - name: set up jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
+          java-version: 21
+
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
 
