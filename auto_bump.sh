@@ -72,7 +72,7 @@ bump_version_if_needed() {
   echo "local version: $local_version"
 
   git fetch origin develop
-  remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
+  remote_version="0.0.10"
   echo "remote version: $remote_version"
 
   if compare_versions "$local_version" "$remote_version" == 0; then
