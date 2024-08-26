@@ -1,8 +1,6 @@
 package com.willian.gama.kgp.plugin.extension
 
 import com.android.build.gradle.BaseExtension
-import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
-import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_MAIN_SOURCE_SET
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_ARCHIVE_CLASSIFIER
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_FULL_RELEASE
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_JFROG_PLUGIN_ID
@@ -11,6 +9,8 @@ import com.willian.gama.kgp.constants.MavenConstants.MAVEN_MAIN_SOURCE_SET
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_PUBLISH_ID
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_SNAPSHOT_RELEASE
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_SOURCE_JAR
+import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
+import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_MAIN_SOURCE_SET
 import com.willian.gama.kgp.extension.setUpMavenPublish
 import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_LIB_ARTIFACT_ID
 import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_LIB_GROUP

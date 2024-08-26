@@ -35,11 +35,11 @@ object TestData {
     val TEST_DETEKT_CONFIG_FILE = File("detekt.yml")
     const val TEST_MAVEN_JFROG_REPO_KEY = "android-lib"
     const val TEST_MAVEN_REPO_URL = "https://test.jfrog.io/artifactory"
-    const val TEST_MAVEN_REPO_USERNAME = "test@kitmanlabs.com"
+    const val TEST_MAVEN_REPO_USERNAME = "test@repo_usermane.com"
     const val TEST_MAVEN_REPO_ACCESS_TOKEN = "DY3ODM6N1NCZjZDazFHZUNKenVpbUxRdlNDQU1QN0RE"
     const val TEST_JAVA_PLUGIN = "java"
     const val TEST_ANDROID_COMPILE_SDK = 34
-    const val TEST_NAMESPACE = "com.kitmanlabs.test"
+    const val TEST_NAMESPACE = "com.library.test"
 
     fun createCodeAnalysis(
         buildType: String = TEST_DEBUG_VARIANT,

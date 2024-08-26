@@ -1,9 +1,9 @@
 package com.willian.gama.kgp.plugin.plugin
 
-import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_GROUP_ID
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_GROUP_VERSION
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_JFROG_PLUGIN_ID
+import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
 import com.willian.gama.kgp.plugin.PublishLibPlugin
 import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_LIB_GROUP
 import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_LIB_VERSION
