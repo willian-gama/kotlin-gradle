@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: auto bump version if required
-        run: scripts/auto_bump.sh
+        run: auto_bump.sh
