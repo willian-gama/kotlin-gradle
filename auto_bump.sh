@@ -56,9 +56,10 @@ bump_and_push_new_version_to_git() {
 
   IFS='.' read -r major minor patch <<< "$remote_version"
   new_local_version="$major.$minor.$((patch + 1))"
-
   perl -i -pe "s/$local_version/$new_local_version/" "$FILE"
-  echo "version updated from $local_version to $new_local_version"
+
+  commit_message="auto bump version from $local_version to $new_local_version"
+  echo "$commit_message"
 
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   git config user.name "github-actions[bot]"
@@ -66,7 +67,7 @@ bump_and_push_new_version_to_git() {
   git config --add --bool push.autoSetupRemote true # create a new branch automatically
 
   git add "$FILE"
-  git commit -m "auto bump version from $local_version to $new_local_version"
+  git commit -m "$commit_message"
   git push
 }
 
