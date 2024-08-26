@@ -89,6 +89,7 @@ echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
+  git fetch
   git checkout "origin/$GITHUB_HEAD_REF"
   git config user.name "$GIT_USER_NAME"
   git config user.email "$GIT_USER_EMAIL"
