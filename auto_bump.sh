@@ -15,17 +15,17 @@ get_version_number() {
 }
 
 compare_versions() {
-  local remote_version=$1
-  local local_version=$2
+  local local_version=$1
+  local remote_version=$2
   echo "comparing remote version: $remote_version and local version: $local_version"
 
-  IFS="." read -r remote_major remote_minor remote_patch <<<"$remote_version"
   IFS="." read -r local_major local_minor local_patch <<<"$local_version"
+  IFS="." read -r remote_major remote_minor remote_patch <<<"$remote_version"
 
   # compare major versions
   if [ "$remote_major" -gt "$local_major" ]; then
     echo "Local major version is lower than remote version"
-    bump_version "$remote_version" "$local_version"
+    bump_version "$local_version" "$remote_version"
     return 0
   elif [ "$remote_major" -lt "$local_major" ]; then
     echo "Local version: $local_version is greater than remote version: $remote_version"
@@ -35,7 +35,7 @@ compare_versions() {
   # compare minor versions
   if [ "$remote_minor" -gt "$local_minor" ]; then
     echo "Local minor version is lower than remote version"
-    bump_version "$remote_version" "$local_version"
+    bump_version "$local_version" "$remote_version"
     return 0
   elif [ "$remote_minor" -lt "$local_minor" ]; then
     echo "Local version: $local_version is greater than remote version: $remote_version"
@@ -45,7 +45,7 @@ compare_versions() {
   # compare patch versions
   if [ "$remote_patch" -ge "$local_patch" ]; then
     echo "Remote patch version is greater than or equal to local version"
-    bump_version "$remote_version" "$local_version"
+    bump_version "$local_version" "$remote_version"
     return 0
   else
     echo "Local version: $local_version is greater than remote version: $remote_version"
@@ -61,12 +61,12 @@ increment_version() {
 
 # Function to actually bump the version
 bump_version() {
-  version_to_bump=$1
-  current_version=$2
-  new_version=$(increment_version "$version_to_bump")
+  local_version=$1
+  remote_version=$2
+  new_version=$(increment_version "$remote_version")
 
-  perl -i -pe "s/$current_version/$new_version/" "$FILE"
-  echo "version updated from $current_version to $new_version"
+  perl -i -pe "s/$local_version/$new_version/" "$FILE"
+  echo "version updated from $local_version to $new_version"
 }
 
 commit_and_push_new_version() {
@@ -90,7 +90,7 @@ bump_version_if_needed() {
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "Remote version: $remote_version"
 
-  if compare_versions "$remote_version" "$local_version"; then
+  if compare_versions "$local_version" "$remote_version" ; then
     commit_and_push_new_version
   fi
 }
