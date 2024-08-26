@@ -74,6 +74,18 @@ bump_version() {
   echo "version updated from $current_version to $new_version"
 }
 
+commit_and_push_new_version() {
+  # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
+  git config user.name "github-actions[bot]"
+  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+  git checkout "$GITHUB_HEAD_REF"
+  git config --add --bool push.autoSetupRemote true
+  git add "$FILE"
+  git commit -m "auto bump version"
+  git push
+}
+
 bump_version_if_needed() {
   git fetch origin "$GITHUB_HEAD_REF"
   local_version=$(get_version_number "$(cat "$FILE")")
@@ -84,15 +96,7 @@ bump_version_if_needed() {
   echo "Remote version: $remote_version"
 
   if compare_versions "$remote_version" "$local_version"; then
-    # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-    git config user.name "github-actions[bot]"
-    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-    git checkout "$GITHUB_HEAD_REF"
-    git config --add --bool push.autoSetupRemote true
-    git add "$FILE"
-    git commit -m "auto bump version"
-    git push
+    commit_and_push_new_version
   fi
 }
 
