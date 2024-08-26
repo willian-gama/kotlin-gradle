@@ -24,7 +24,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: auto bump version if required
-        run: auto_bump.sh
+        run: ./auto_bump.sh
 
   run_tests:
     needs: auto_bump
