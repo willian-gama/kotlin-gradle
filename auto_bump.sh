@@ -65,12 +65,7 @@ bump_version() {
   current_version=$2
   new_version=$(increment_version "$version_to_bump")
 
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i '' "s/$current_version/$new_version/" "$FILE"
-  else
-    sed -i "s/$current_version/$new_version/" "$FILE"
-  fi
-
+  perl -i -pe "s/$current_version/$new_version/" "$FILE"
   echo "version updated from $current_version to $new_version"
 }
 
