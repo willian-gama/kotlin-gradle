@@ -14,7 +14,6 @@ get_version_number() {
 compare_versions() {
   local local_version=$1
   local remote_version=$2
-  echo "comparing local version: $local_version and local version: $remote_version"
 
   IFS="." read -r local_major local_minor local_patch <<<"$local_version"
   IFS="." read -r remote_major remote_minor remote_patch <<<"$remote_version"
