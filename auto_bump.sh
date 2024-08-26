@@ -25,7 +25,6 @@ compare_versions() {
   # compare major versions
   if [ "$remote_major" -gt "$local_major" ]; then
     echo "local major version is lower than remote version"
-    bump_version "$local_version" "$remote_version"
     return 0
   elif [ "$remote_major" -lt "$local_major" ]; then
     echo "local version: $local_version is greater than remote version: $remote_version"
@@ -35,7 +34,6 @@ compare_versions() {
   # compare minor versions
   if [ "$remote_minor" -gt "$local_minor" ]; then
     echo "local minor version is lower than remote version"
-    bump_version "$local_version" "$remote_version"
     return 0
   elif [ "$remote_minor" -lt "$local_minor" ]; then
     echo "local version: $local_version is greater than remote version: $remote_version"
@@ -45,7 +43,6 @@ compare_versions() {
   # compare patch versions
   if [ "$remote_patch" -ge "$local_patch" ]; then
     echo "remote patch version is greater than or equal to local version"
-    bump_version "$local_version" "$remote_version"
     return 0
   else
     echo "local version: $local_version is greater than remote version: $remote_version"
@@ -53,30 +50,23 @@ compare_versions() {
   fi
 }
 
-increment_version() {
-  local version=$1
-  IFS='.' read -r major minor patch <<< "$version"
-  echo "$major.$minor.$((patch + 1))"
-}
-
-# Function to actually bump the version
-bump_version() {
+bump_and_push_new_version_to_git() {
   local_version=$1
   remote_version=$2
-  new_version=$(increment_version "$remote_version")
 
-  perl -i -pe "s/$local_version/$new_version/" "$FILE"
-  echo "version updated from $local_version to $new_version"
-}
+  IFS='.' read -r major minor patch <<< "$remote_version"
+  new_local_version="$major.$minor.$((patch + 1))"
 
-commit_and_push_new_version() {
+  perl -i -pe "s/$local_version/$new_local_version/" "$FILE"
+  echo "version updated from $local_version to $new_local_version"
+
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+  git config --add --bool push.autoSetupRemote true # create a new branch automatically
 
-  git config --add --bool push.autoSetupRemote true
   git add "$FILE"
-  git commit -m "auto bump version"
+  git commit -m "auto bump version from $local_version to $new_local_version"
   git push
 }
 
@@ -85,11 +75,11 @@ bump_version_if_needed() {
   echo "local version: $local_version"
 
   git fetch origin develop
-  remote_version=$(get_version_number "$(git show develop:"$FILE")")
+  remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "remote version: $remote_version"
 
-  if compare_versions "$local_version" "$remote_version"; then
-    commit_and_push_new_version
+  if compare_versions "$local_version" "$remote_version" == 0; then
+    bump_and_push_new_version_to_git "$local_version" "$remote_version"
   fi
 }
 
