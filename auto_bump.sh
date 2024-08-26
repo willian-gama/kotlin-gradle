@@ -58,12 +58,9 @@ compare_versions() {
 }
 
 increment_version() {
-  local parts
   local version=$1
-  local IFS=.
-  read -r -a parts <<<"$version"
-  parts[2]=$((parts[2] + 1)) # Increment patch version
-  echo "${parts[0]}.${parts[1]}.${parts[2]}"
+  IFS='.' read -r major minor patch <<< "$version"
+  echo "$major.$minor.$((patch + 1))"
 }
 
 # Function to actually bump the version
