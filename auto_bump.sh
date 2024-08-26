@@ -17,7 +17,7 @@ get_version_number() {
 compare_versions() {
   local local_version=$1
   local remote_version=$2
-  echo "comparing remote version: $remote_version and local version: $local_version"
+  echo "comparing local version: $local_version and local version: $remote_version"
 
   IFS="." read -r local_major local_minor local_patch <<<"$local_version"
   IFS="." read -r remote_major remote_minor remote_patch <<<"$remote_version"
@@ -70,11 +70,12 @@ bump_version() {
 }
 
 commit_and_push_new_version() {
+  git checkout "$GITHUB_HEAD_REF"
+
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-  git checkout "$GITHUB_HEAD_REF"
   git config --add --bool push.autoSetupRemote true
   git add "$FILE"
   git commit -m "auto bump version"
