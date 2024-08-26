@@ -1,17 +1,18 @@
 import java.io.FileInputStream
-import java.util.*
+import java.util.Properties
 
 private val localProperties = Properties().apply {
     load(FileInputStream(rootProject.file("local.properties")))
 }
 
 group = "com.willian.gama"
-version = "0.0.10"
+version = "0.0.11"
 
 plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     `maven-publish`
+    alias(libs.plugins.jfrog) apply true
 }
 
 kotlin {
@@ -20,25 +21,25 @@ kotlin {
     }
 }
 
-dependencies {
-    implementation("com.android.tools.build:gradle:8.5.2")
-    implementation("org.jlleitschuh.gradle:ktlint-gradle:12.1.1")
-    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.6")
-    implementation("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:5.1.0.4882")
-    testImplementation("junit:junit:4.13.2")
-}
-
 gradlePlugin {
     plugins {
-        create("linting") {
+        create("codeAnalysis") {
             id = "com.willian.gama.kgp.code.analysis"
             displayName = "Code analysis plugin"
             description = "Kotlin Gradle Plugin to scan code linting"
             implementationClass = "com.willian.gama.kgp.plugin.CodeAnalysisPlugin"
         }
+
+        create("publishLib") {
+            id = "com.willian.gama.kgp.publish.plugin"
+            displayName = "Code analysis plugin"
+            description = "Kotlin Gradle Plugin to scan code linting"
+            implementationClass = "com.willian.gama.kgp.plugin.PublishLibPlugin"
+        }
     }
 }
 
+// Github packages
 publishing {
     // Publish on github packages ./gradlew publishPluginMavenPublicationToGitHubPackagesRepository publishLintingPluginMarkerMavenPublicationToGitHubPackagesRepository
     repositories {
@@ -52,4 +53,38 @@ publishing {
             }
         }
     }
+}
+
+// Jfrog artifactory: https://github.com/jfrog/artifactory-gradle-plugin?tab=readme-ov-file#-installation
+artifactory {
+    setContextUrl(localProperties.getProperty("maven_repo_url"))
+
+    publish {
+        repository {
+            repoKey = "android-lib-code-analysis"
+            username = localProperties.getProperty("maven_repo_username")
+            password = localProperties.getProperty("maven_repo_access_token")
+        }
+
+        defaults {
+            setPublishArtifacts(true)
+            setPublishPom(true)
+            isPublishBuildInfo = false
+            publications(
+                "pluginMaven", // created automatically by "maven-publish"
+                "codeAnalysisPluginMarkerMaven", // created by gradlePlugin extension in "codeAnalysis" task
+                "publishLibPluginMarkerMaven" // created by gradlePlugin extension in "publishLib" task
+            )
+        }
+    }
+}
+
+dependencies {
+    implementation(libs.android)
+    implementation(libs.ktlint)
+    implementation(libs.detekt)
+    implementation(libs.sonar)
+    implementation(libs.jfrog)
+
+    testImplementation(libs.junit)
 }

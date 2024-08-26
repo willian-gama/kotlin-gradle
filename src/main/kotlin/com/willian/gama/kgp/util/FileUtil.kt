@@ -1,8 +1,8 @@
-package com.willian.gama.kgp.file
+package com.willian.gama.kgp.util
 
 import java.io.File
 
-object FileResource {
+object FileUtil {
     private val DETEKT_FILE_CONFIG = File.createTempFile("detekt_", ".yml")
 
     fun getFileFromResource(fileName: String): File {
