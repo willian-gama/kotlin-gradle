@@ -68,10 +68,11 @@ bump_and_push_new_version_to_git() {
 }
 
 bump_version_if_needed() {
+  git fetch origin
+
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
-  git fetch origin develop
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "remote version: $remote_version"
 
