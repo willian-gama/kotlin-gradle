@@ -82,7 +82,6 @@ commit_and_push_new_version() {
 }
 
 bump_version_if_needed() {
-  git fetch origin "$GITHUB_HEAD_REF"
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
