@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -euo pipefail
 ## File path to the build.gradle
 file="build.gradle.kts"
 
