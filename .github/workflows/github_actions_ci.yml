@@ -20,6 +20,6 @@ jobs:
       - name: checkout project sources
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
       - name: auto bump version if required
         run: ./auto_bump.sh
