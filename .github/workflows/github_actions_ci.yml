@@ -1,4 +1,4 @@
-name: github_action_ci
+name: github_actions_ci
 
 on:
   pull_request:
