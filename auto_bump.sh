@@ -89,6 +89,7 @@ remote_version=$(get_version_number "$(git show develop:"$file")")
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
+  git config user.name "$GPR_USERNAME"
   git add "$file"
   git commit -m "auto bump version"
   git push
