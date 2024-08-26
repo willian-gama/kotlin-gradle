@@ -6,7 +6,7 @@ private val localProperties = Properties().apply {
 }
 
 group = "com.willian.gama"
-version = "1.0.3"
+version = "1.0.4"
 
 plugins {
     `kotlin-dsl`
@@ -41,7 +41,7 @@ gradlePlugin {
 
 // Github packages
 publishing {
-    // Publish on github packages ./gradlew publishPluginMavenPublicationToGitHubPackagesRepository publishLintingPluginMarkerMavenPublicationToGitHubPackagesRepository
+    // Publish on github packages ./gradlew publishPluginMavenPublicationToGitHubPackagesRepository publishCodeAnalysisPluginMarkerMavenPublicationToGitHubPackagesRepository publishPublishLibPluginMarkerMavenPublicationToGitHubPackagesRepository
     repositories {
         maven {
             name = "GitHubPackages"
