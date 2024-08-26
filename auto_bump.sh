@@ -1,7 +1,7 @@
 #!/bin/bash
 
-## File path to the build.gradle
-file="build.gradle.kts"
+## file path to the build.gradle
+FILE="build.gradle.kts"
 
 get_version_number() {
   local content="$1"
@@ -66,9 +66,9 @@ bump_version() {
   new_version=$(increment_version "$version_to_bump")
 
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    sed -i '' "s/$current_version/$new_version/" "$file"
+    sed -i '' "s/$current_version/$new_version/" "$FILE"
   else
-    sed -i "s/$current_version/$new_version/" "$file"
+    sed -i "s/$current_version/$new_version/" "$FILE"
   fi
 
   echo "version updated from $current_version to $new_version"
@@ -76,11 +76,11 @@ bump_version() {
 
 bump_version_if_needed() {
   git fetch origin "$GITHUB_HEAD_REF"
-  local_version=$(get_version_number "$(cat "$file")")
+  local_version=$(get_version_number "$(cat "$FILE")")
   echo "Local version: $local_version"
 
   git fetch origin develop
-  remote_version=$(get_version_number "$(git show origin/develop:"$file")")
+  remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "Remote version: $remote_version"
 
   if compare_versions "$remote_version" "$local_version"; then
@@ -90,7 +90,7 @@ bump_version_if_needed() {
 
     git checkout "$GITHUB_HEAD_REF"
     git config --add --bool push.autoSetupRemote true
-    git add "$file"
+    git add "$FILE"
     git commit -m "auto bump version"
     git push
   fi
