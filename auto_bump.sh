@@ -83,7 +83,7 @@ bump_version() {
 
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
-remote_version=$(get_version_number "$(git show develop:"$file")")
+remote_version=$(get_version_number "$(git show master:"$file")")
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
