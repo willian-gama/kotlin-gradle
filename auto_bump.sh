@@ -63,7 +63,7 @@ bump_and_push_new_version_to_git() {
   git config --add --bool push.autoSetupRemote true # create a new branch automatically
 
   git add "$FILE"
-  git commit -m "[skip ci] $commit_message"
+  git commit -m "$commit_message"
   git push
 }
 
