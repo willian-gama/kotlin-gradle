@@ -89,10 +89,11 @@ remote_version=$(get_version_number "$(git show origin/develop:"$file")")
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
-  git config user.name "$GIT_USER_NAME"
-  git config user.email "$GIT_USER_EMAIL"
+  # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
+  git config --global user.name "github-actions[bot]"
+  git config --global user.email "github-actions[bot]@users.noreply.github.com"
   git add "$file"
   git commit -m "auto bump version"
   echo "$GITHUB_HEAD_REF"
-  git push origin "$GITHUB_HEAD_REF"
+  git push origin "HEAD:$GITHUB_HEAD_REF"
 fi
