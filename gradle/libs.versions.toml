@@ -1,8 +1,8 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 [versions]
-android = "8.4.2"
+android = "8.5.2"
 ktlint = "12.1.1"
-jfrog = "5.2.3"
+jfrog = "5.2.5"
 detekt = "1.23.6"
 sonar = "5.1.0.4882"
 junit = "4.13.2"
