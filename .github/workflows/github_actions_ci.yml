@@ -1,0 +1,56 @@
+name: github_actions_ci
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
+permissions:
+  contents: write # Allows to commit files
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+  GPR_KEY: ${{ secrets.GPR_KEY }}
+
+jobs:
+  auto_bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout project sources
+        uses: actions/checkout@v4
+        with:
+          # Allow to access files in the Pull Request
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: auto bump version if required
+        run: ./auto_bump.sh
+
+  run_tests:
+    needs: auto_bump
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout project sources
+        uses: actions/checkout@v4
+
+      - name: set up jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
+          java-version: 21
+
+      - name: validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: include local.properties from secret variables
+        run: scripts/include_local_properties.sh
+
+      - name: run tests
+        run: ./gradlew test

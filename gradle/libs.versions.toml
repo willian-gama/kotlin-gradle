@@ -1,0 +1,19 @@
+# https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+[versions]
+android = "8.4.2"
+ktlint = "12.1.1"
+jfrog = "5.2.3"
+detekt = "1.23.6"
+sonar = "5.1.0.4882"
+junit = "4.13.2"
+
+[plugins]
+jfrog = { id = "com.jfrog.artifactory", version.ref = "jfrog" }
+
+[libraries]
+android = { module = "com.android.tools.build:gradle", version.ref = "android" }
+ktlint = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlint" }
+detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+sonar = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonar" }
+junit = { module = "junit:junit", version.ref = "junit" }
+jfrog = { module = "org.jfrog.buildinfo:build-info-extractor-gradle", version.ref = "jfrog" }
