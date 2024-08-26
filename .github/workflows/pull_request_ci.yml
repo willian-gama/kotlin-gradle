@@ -1,6 +1,8 @@
 name: pull_request_ci
 
 on:
+  push:
+    branches: [ "*" ]
   pull_request:
     branches: [ "develop" ]
 
