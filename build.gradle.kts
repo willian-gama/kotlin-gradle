@@ -57,13 +57,13 @@ publishing {
 
 // Jfrog artifactory: https://github.com/jfrog/artifactory-gradle-plugin?tab=readme-ov-file#-installation
 artifactory {
-    setContextUrl(localProperties.getProperty("maven_repo_url"))
+    setContextUrl(localProperties.getProperty("gpr_url"))
 
     publish {
         repository {
             repoKey = "android-lib-code-analysis"
-            username = localProperties.getProperty("maven_repo_username")
-            password = localProperties.getProperty("maven_repo_access_token")
+            username = localProperties.getProperty("gpr_username")
+            password = localProperties.getProperty("gpr_key")
         }
 
         defaults {
