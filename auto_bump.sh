@@ -81,11 +81,9 @@ bump_version() {
   echo "Updated pom_version_name from $current_version to $new_version"
 }
 
-git fetch origin
-
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
-remote_version=$(get_version_number "$(git show develop:"$file")")
+remote_version=$(get_version_number "$(git show origin/develop:"$file")")
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
