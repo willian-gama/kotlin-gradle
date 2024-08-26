@@ -19,10 +19,9 @@ fun Properties.toSonarProperties(codeAnalysis: CodeAnalysis) = SonarProperties(
     projectKey = getPropertySafely(USER_PROPERTY_SONAR_PROJECT_KEY),
     organizationKey = getPropertySafely(USER_PROPERTY_SONAR_ORGANIZATION_KEY),
     projectName = getPropertySafely(USER_PROPERTY_SONAR_PROJECT_NAME_KEY),
-    projectVersion = codeAnalysis.projectVersion,
     buildType = codeAnalysis.buildType,
     kotlinVersion = codeAnalysis.kotlinVersion,
-    exclusions = SONAR_EXCLUSIONS_VALUE,
+    exclusions = SONAR_EXCLUSIONS_VALUE
 )
 
 fun Properties.toJfrogProperties(codeAnalysis: CodeAnalysis) = JFrogProperties(

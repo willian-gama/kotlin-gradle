@@ -64,16 +64,9 @@ object TestData {
         projectKey = projectKey,
         organizationKey = organizationKey,
         projectName = projectName,
-        projectVersion = codeAnalysis.projectVersion,
         buildType = buildType,
         kotlinVersion = kotlinVersion,
         exclusions = exclusions
-    )
-
-    fun createKtLintProperties(
-        ignoreFailures: Boolean = false
-    ) = KtLintProperties(
-        ignoreFailures = ignoreFailures
     )
 
     fun createDetektProperties(
