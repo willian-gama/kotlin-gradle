@@ -1,7 +1,9 @@
 name: pull_request_ci
 
-on: [push]
-
+on:
+  pull_request:
+    types: [synchronize]
+  
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions:
   contents: write # Allows to commit files
