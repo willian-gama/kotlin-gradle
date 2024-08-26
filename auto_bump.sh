@@ -91,7 +91,7 @@ bump_version_if_needed() {
   echo "remote version: $remote_version"
 
   if compare_versions "$local_version" "$remote_version" ; then
-    git checkout "$GITHUB_HEAD_REF"
+    git checkout "origin/$GITHUB_HEAD_REF"
     commit_and_push_new_version
   fi
 }
