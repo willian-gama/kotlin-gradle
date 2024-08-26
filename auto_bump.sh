@@ -70,8 +70,6 @@ bump_version() {
 }
 
 commit_and_push_new_version() {
-  git checkout "$GITHUB_HEAD_REF"
-
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   git config user.name "github-actions[bot]"
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -83,13 +81,13 @@ commit_and_push_new_version() {
 }
 
 bump_version_if_needed() {
-  git fetch origin "$GITHUB_HEAD_REF"
-  local_version=$(get_version_number "$(cat "$FILE")")
-  echo "Local version: $local_version"
-
   git fetch origin develop
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "Remote version: $remote_version"
+
+  git checkout "$GITHUB_HEAD_REF"
+  local_version=$(get_version_number "$(cat "$FILE")")
+  echo "Local version: $local_version"
 
   if compare_versions "$local_version" "$remote_version" ; then
     commit_and_push_new_version
