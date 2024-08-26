@@ -85,7 +85,7 @@ bump_version_if_needed() {
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "remote version: $remote_version"
 
-#  git fetch origin "$GITHUB_HEAD_REF"
+  git fetch origin "$GITHUB_HEAD_REF"
   git checkout "$GITHUB_HEAD_REF"
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
