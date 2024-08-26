@@ -81,7 +81,7 @@ bump_version() {
   echo "Updated pom_version_name from $current_version to $new_version"
 }
 
-git fetch origin
+git fetch origin develop:develop
 
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
@@ -93,6 +93,6 @@ if compare_versions "$remote_version" "$local_version"; then
   git config user.email "$GIT_USER_EMAIL"
   git add "$file"
   git commit -m "auto bump version"
-  echo "$GITHUB_REF"
-  git push origin "$GITHUB_REF"
+  echo "$GITHUB_HEAD_REF"
+  git push origin "$GITHUB_HEAD_REF"
 fi
