@@ -71,7 +71,7 @@ bump_version() {
     sed -i "s/$current_version/$new_version/" "$file"
   fi
 
-  echo "Updated pom_version_name from $current_version to $new_version"
+  echo "version updated from $current_version to $new_version"
 }
 
 bump_version_if_needed() {
