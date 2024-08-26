@@ -83,13 +83,13 @@ bump_version() {
 local_version=$(get_version_number "$(cat "$file")")
 echo "Local version: $local_version"
 
-git fetch origin
-remote_version=$(get_version_number "$(git show origin/develop:"$file")")
+#git fetch origin
+remote_version="0.0.10"
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-  git checkout "origin/$GITHUB_HEAD_REF"
+#  git checkout "origin/$GITHUB_HEAD_REF"
   git config user.name "$GIT_USER_NAME"
   git config user.email "$GIT_USER_EMAIL"
   git config --add --bool push.autoSetupRemote true
