@@ -64,8 +64,7 @@ bump_and_push_new_version_to_git() {
 
   git add "$FILE"
   git commit -m "$commit_message"
-  git push
-  exit 0
+#  git push
 }
 
 bump_version_if_needed() {
