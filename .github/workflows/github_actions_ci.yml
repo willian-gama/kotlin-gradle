@@ -9,7 +9,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
 
 jobs:
   auto_bump:

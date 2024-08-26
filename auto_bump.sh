@@ -89,9 +89,10 @@ remote_version=$(get_version_number "$(git show origin/develop:"$file")")
 echo "Remote version: $remote_version"
 
 if compare_versions "$remote_version" "$local_version"; then
-  git config user.name "$GPR_USERNAME"
-  git config --add --bool push.autoSetupRemote true
+  git config user.name "$GIT_USER_NAME"
+  git config user.email "$GIT_USER_EMAIL"
   git add "$file"
   git commit -m "auto bump version"
-  git push origin HEAD:"$GITHUB_HEAD_REF"
+  echo "$GITHUB_REF"
+  git push origin "$GITHUB_REF"
 fi
