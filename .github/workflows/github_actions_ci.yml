@@ -43,7 +43,7 @@ jobs:
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: create local.properties from secret variables
+      - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
 
       - name: run tests
