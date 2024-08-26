@@ -71,7 +71,7 @@ bump_version_if_needed() {
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
-  remote_version="0.0.10"
+  remote_version="2.0.10"
   echo "remote version: $remote_version"
 
   if compare_versions "$local_version" "$remote_version" == 0; then
