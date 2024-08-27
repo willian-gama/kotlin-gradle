@@ -49,23 +49,23 @@ bump_and_push_new_version_to_git() {
 }
 
 bump_version_if_needed() {
-  local_file_content=$(cat "$FILE") || {
-    echo "Local $FILE could not be found or is empty";
+  if ! local_file_content=$(cat "$FILE" 2>/dev/null); then
+    echo "Local file $FILE could not be found or is empty"
     return 1
-  }
+  fi
 
-  remote_file_content=$(git show origin/develop:"$FILE") || {
-    echo "Remote $FILE could not be found or is empty"
+  if ! remote_file_content=$(git show origin/develop:"$FILE" 2>/dev/null); then
+    echo "Remote file $FILE could not be found or is empty in the develop branch"
     return 1
-  }
+  fi
 
   local_version=$(get_version_number "$local_file_content") || {
-    echo "Error when getting local version"
+    echo "Local version could not be found in the $FILE file"
     return 1
   }
 
   remote_version=$(get_version_number "$remote_file_content") || {
-    echo "Error when getting remote version"
+    echo "Remote version could not be found in the $FILE file"
     return 1
   }
 
