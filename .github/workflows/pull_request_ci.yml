@@ -35,9 +35,6 @@ jobs:
     steps:
       - name: checkout project sources
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT_TOKEN }}
-          
 
       - name: set up jdk
         uses: actions/setup-java@v4
@@ -54,6 +51,8 @@ jobs:
 
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: run tests
         run: ./gradlew test
