@@ -48,26 +48,12 @@ bump_and_push_new_version_to_git() {
 #  fi
 
   git config --add --bool push.autoSetupRemote true # create a new branch automatically
-
-
-#  git add "$FILE"
-#  git commit -m "$commit_message"
-
-  if ! git add "$FILE"; then
-    echo "Error: Failed to add $FILE to the staging area."
-    return 1
-  fi
-
-  # Commit the changes
+  git add "$FILE"
   if ! git commit -m "$commit_message"; then
-    echo "Error: Git commit failed."
-    return 1
-  fi
-
-  if ! git push; then
-    echo "Error when pushing new version"
+    echo "Error when committing file $FILE"
     exit 1
   fi
+  git push
 }
 
 bump_version_if_needed() {
