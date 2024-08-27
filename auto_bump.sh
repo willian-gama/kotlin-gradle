@@ -64,19 +64,19 @@ bump_and_push_new_version_to_git() {
 
   git add "$FILE"
   git commit -m "$commit_message" --allow-empty
-  git push
+#  git push
 
 #  WORKFLOW_FILE="pull_request_ci.yml"
 #  GIT_BRANCH="refs/heads/main"  # Branch or ref to trigger the workflow on
   # Trigger the workflow
-  REPO="$GIT_OWNER/$GIT_REPO"
-  gh run list --repo "$REPO"
-
-#  WORKFLOW_RUN_ID=$(gh run list --repo "$REPO" --branch "$BRANCH" --limit 1 --json databaseId --jq '.[0].databaseId')
-  if [ -z "$WORKFLOW_RUN_ID" ]; then
-   echo "No workflow runs found for the branch $BRANCH."
-   exit 1
-  fi
+#  REPO="$GIT_OWNER/$GIT_REPO"
+#  gh run list --repo "$REPO"
+#
+##  WORKFLOW_RUN_ID=$(gh run list --repo "$REPO" --branch "$BRANCH" --limit 1 --json databaseId --jq '.[0].databaseId')
+#  if [ -z "$WORKFLOW_RUN_ID" ]; then
+#   echo "No workflow runs found for the branch $BRANCH."
+#   exit 1
+#  fi
 
   # Re-run all jobs in the workflow
   gh run rerun "$WORKFLOW_RUN_ID" --debug
