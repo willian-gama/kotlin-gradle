@@ -1,13 +1,15 @@
 #!/bin/bash
 
+# Run locally in the Android Studio terminal for testing purposes: ./scripts/auto_bump.sh
 FILE="build.gradle.kts"
 
 get_version_number() {
   local content="$1"
   if [[ "$content" =~ version\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
+    return 0
   else
-    echo "failed to find the line with the version number"
+    return 1
   fi
 }
 
@@ -68,15 +70,29 @@ bump_and_push_new_version_to_git() {
 }
 
 bump_version_if_needed() {
-  git pull
-  local_version=$(get_version_number "$(cat "$FILE")")
-  echo "local version: $local_version"
+  local_file_content="$(cat "$FILE")"
+  if [ -z "$local_file_content" ]; then
+    echo "Local $FILE could not be found or is empty."
+    return 1
+  fi
 
-  git fetch origin develop
-  remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
-  echo "remote version: $remote_version"
+  remote_file_content="$(git show origin/develop:"$FILE")"
+  if [ -z "$remote_file_content" ]; then
+    echo "Remote $FILE could not be found or is empty."
+    return 1
+  fi
 
-  if compare_versions "$local_version" "$remote_version" == 0; then
+  if ! local_version=$(get_version_number "$local_file_content"); then
+    echo "Error when getting local version."
+    return 1
+  fi
+
+  if ! remote_version=$(get_version_number "$remote_file_content"); then
+    echo "Error when getting remote version."
+    return 1
+  fi
+
+  if compare_versions "$local_version" "$remote_version" -eq 0; then
     bump_and_push_new_version_to_git "$local_version" "$remote_version"
   fi
 }

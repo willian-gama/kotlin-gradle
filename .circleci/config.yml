@@ -1,0 +1,20 @@
+version: 2.1
+
+executors:
+  docker_lts:
+    docker:
+      - image: cimg/node:lts
+
+jobs:
+  auto_bump:
+    executor: docker_lts
+    steps:
+      - checkout
+      - run:
+          name: Auto bump version
+          command: scripts/auto_bump.sh
+
+workflows:
+  build_and_test:
+    jobs:
+      - auto_bump

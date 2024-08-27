@@ -1,3 +1,4 @@
+# Enable github action: https://github.com/willian-gama/kgp/settings/actions
 name: pull_request_ci
 
 on:
@@ -15,22 +16,27 @@ concurrency:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
+  # Not used, just saved for references
+  GIT_OWNER: ${{ github.repository_owner }}
+  GIT_REPO: ${{ github.event.repository.name }}
+  WORKFLOW_RUN_ID: ${{ github.run_id }}
+  PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
-  auto_bump:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout project sources
-        uses: actions/checkout@v4
-        with:
-          # Allow to access files in the Pull Request
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: auto bump version if required
-        run: ./auto_bump.sh
+# NOT USED, CURRENTLY GITHUB ACTION CAN NOT RERUN CHECKS WHEN BUMPING THE CURRENT VERSION THROUGH A PULL REQUEST
+#  auto_bump:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout project sources
+#        uses: actions/checkout@v4
+#        with:
+#          # Allow to access files in the Pull Request
+#          ref: ${{ github.event.pull_request.head.ref }}
+#
+#      - name: auto bump version if required
+#        run: ./auto_bump_not_used.sh
 
   run_tests:
-    needs: auto_bump
     runs-on: ubuntu-latest
     steps:
       - name: checkout project sources
