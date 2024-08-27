@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ls
+
 FILE="build.gradle.kts"
 
 get_version_number() {
