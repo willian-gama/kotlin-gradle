@@ -65,13 +65,14 @@ bump_and_push_new_version_to_git() {
   git add "$FILE"
   git commit -m "$commit_message"
   git push --force-with-lease
+  git fetch origin
 }
 
 bump_version_if_needed() {
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
-  git fetch origin develop
+  git fetch origin
   remote_version=$(get_version_number "$(git show origin/develop:"$FILE")")
   echo "remote version: $remote_version"
 
