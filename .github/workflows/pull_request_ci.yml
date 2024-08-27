@@ -21,6 +21,7 @@ env:
   GIT_OWNER: ${{ github.repository_owner }}
   GIT_REPO: ${{ github.event.repository.name }}
   BRANCH_REF: ${{ github.ref_name }}
+  PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
   auto_bump:
