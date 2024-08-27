@@ -75,7 +75,7 @@ bump_version_if_needed() {
     return 1
   fi
 
-  remote_file_content="$(git show develop:"$FILE")"
+  remote_file_content="$(git show origin/develop:"$FILE")"
   if [ -z "$remote_file_content" ]; then
     echo "Remote $FILE could not be found or is empty."
     return 1
