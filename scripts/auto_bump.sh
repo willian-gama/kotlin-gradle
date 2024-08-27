@@ -28,6 +28,7 @@ compare_versions() {
 }
 
 bump_and_push_new_version_to_git() {
+  local exit_code=0
   local_version=$1
   remote_version=$2
 
@@ -51,6 +52,10 @@ bump_and_push_new_version_to_git() {
   git add "$FILE"
   git commit -m "$commit_message"
   git push
+
+  if [ $exit_code -ne 0 ]; then
+    exit 1
+  fi
 }
 
 bump_version_if_needed() {
