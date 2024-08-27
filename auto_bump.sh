@@ -58,8 +58,8 @@ bump_and_push_new_version_to_git() {
   echo "$commit_message"
 
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-  git config user.name "willian-gama"
-  git config user.email "willian_gama@live.com"
+  git config user.name "renovate[bot]"
+  git config user.email "29139614+renovate[bot]@users.noreply.github.com"
   git config --add --bool push.autoSetupRemote true # create a new branch automatically
 
   git add "$FILE"
