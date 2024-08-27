@@ -93,6 +93,7 @@ bump_and_push_new_version_to_git() {
 #  fi
 
   if gh run cancel "$WORKFLOW_RUN_ID" ; then
+     sleep 10
      gh run rerun "$WORKFLOW_RUN_ID" --debug
   else
       echo "Failed to cancel workflow run $RUN_ID."
