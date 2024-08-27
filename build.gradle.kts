@@ -6,7 +6,7 @@ private val localProperties = Properties().apply {
 }
 
 group = "com.willian.gama"
-version = "1.0.40"
+version = "1.0.41"
 
 plugins {
     `kotlin-dsl`
