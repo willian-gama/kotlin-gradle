@@ -23,20 +23,20 @@ env:
   PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
-  auto_bump:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout project sources
-        uses: actions/checkout@v4
-        with:
-          # Allow to access files in the Pull Request
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: auto bump version if required
-        run: ./auto_bump_not_used.sh
+# NOT USED, CURRENTLY GITHUB ACTION CAN NOT RERUN CHECKS WHEN BUMPING THE CURRENT VERSION THROUGH A PULL REQUEST
+#  auto_bump:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout project sources
+#        uses: actions/checkout@v4
+#        with:
+#          # Allow to access files in the Pull Request
+#          ref: ${{ github.event.pull_request.head.ref }}
+#
+#      - name: auto bump version if required
+#        run: ./auto_bump_not_used.sh
 
   run_tests:
-#    needs: auto_bump
     runs-on: ubuntu-latest
     steps:
       - name: checkout project sources
