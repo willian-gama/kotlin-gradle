@@ -30,6 +30,8 @@ jobs:
 
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: run tests
         run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
