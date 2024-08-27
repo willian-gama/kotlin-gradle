@@ -51,7 +51,7 @@ jobs:
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: run tests
         run: ./gradlew test
