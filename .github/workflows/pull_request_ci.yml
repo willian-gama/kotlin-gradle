@@ -34,6 +34,9 @@ jobs:
       - name: auto bump version if required
         run: ./auto_bump.sh
 
+      - name: git
+        run: git push
+
   run_tests:
     runs-on: ubuntu-latest
     steps:
@@ -55,9 +58,6 @@ jobs:
 
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
-
-      - name: git
-        run: git push
 
       - name: run tests
         run: ./gradlew test
