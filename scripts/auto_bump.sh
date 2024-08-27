@@ -20,31 +20,10 @@ compare_versions() {
   IFS="." read -r local_major local_minor local_patch <<< "$local_version"
   IFS="." read -r remote_major remote_minor remote_patch <<< "$remote_version"
 
-  # compare major versions
-  if [ "$remote_major" -gt "$local_major" ]; then
-    echo "remote_major version: $remote_major is greater than local_major version: $local_major"
-    return 0
-  elif [ "$local_major" -gt "$remote_major" ]; then
-    echo "local_major version: $local_major is greater than remote_major version: $remote_major"
+  if [ "$local_major" -gt "$remote_major" ] || [ "$local_minor" -gt "$remote_minor" ] || [ "$local_patch" -gt "$remote_patch" ]; then
     return 1
-  fi
-
-  # compare minor versions
-  if [ "$remote_minor" -gt "$local_minor" ]; then
-    echo "remote_minor version: $remote_minor is greater than local_minor version: $local_minor"
-    return 0
-  elif [ "$local_minor" -gt "$remote_minor" ]; then
-    echo "local_minor version: $local_minor is greater than remote_minor version: $remote_minor"
-    return 1
-  fi
-
-  # compare patch versions
-  if [ "$remote_patch" -ge "$local_patch" ]; then
-    echo "remote_patch version: $remote_patch is greater than or equal to local_patch version: $local_patch"
-    return 0
   else
-    echo "local_patch version: $local_patch is greater than remote_patch version: $remote_patch"
-    return 1
+    return 0
   fi
 }
 
@@ -94,6 +73,8 @@ bump_version_if_needed() {
 
   if compare_versions "$local_version" "$remote_version" -eq 0; then
     bump_and_push_new_version_to_git "$local_version" "$remote_version"
+  else
+    echo "local version: $local_version is already greater than remote version: $remote_version"
   fi
 }
 
