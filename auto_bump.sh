@@ -62,10 +62,11 @@ bump_and_push_new_version_to_git() {
   git config user.email "29139614+renovate[bot]@users.noreply.github.com"
 #  git config --add --bool push.autoSetupRemote true # create a new branch automatically
 
+  git rebase origin/main
+
   git add "$FILE"
   git commit -m "$commit_message" --allow-empty
   git push
-  git rebase origin/main
 }
 
 bump_version_if_needed() {
