@@ -8,6 +8,7 @@ get_version_number() {
     echo "${BASH_REMATCH[1]}"
   else
     echo "failed to find the line with the version number"
+    exit 1
   fi
 }
 
@@ -81,16 +82,7 @@ bump_version_if_needed() {
   fi
 
   local_version=$(get_version_number "$local_file_content")
-  if [ -z "$local_version" ]; then
-    echo "local_version could not be found or is empty."
-    return 1
-  fi
-
   remote_version=$(get_version_number "$remote_file_content")
-  if [ -z "$remote_version" ]; then
-    echo "remote_version could not be found or is empty."
-    return 1
-  fi
 
   if compare_versions "$local_version" "$remote_version" == 0; then
     bump_and_push_new_version_to_git "$local_version" "$remote_version"
