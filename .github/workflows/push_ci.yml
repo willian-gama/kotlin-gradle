@@ -22,9 +22,10 @@ jobs:
       - name: set up jdk
         uses: actions/setup-java@v4
         with:
-          distribution: zulu
+          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
           java-version: 21
 
+      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
       - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
 
