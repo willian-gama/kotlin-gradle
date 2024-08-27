@@ -86,8 +86,6 @@ bump_and_push_new_version_to_git() {
 #  RUN_ID=$(gh run list --repo "$REPO" --pr "$PR_NUMBER" --json databaseId --jq '.[0].databaseId')
 #  echo "run_id=$RUN_ID"
 #  gh run rerun "$RUN_ID" --debug
-
-
 }
 
 bump_version_if_needed() {
