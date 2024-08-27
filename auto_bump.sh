@@ -79,6 +79,8 @@ bump_and_push_new_version_to_git() {
 #  fi
 
   # Re-run all jobs in the workflow
+
+  gh run cancel "$WORKFLOW_RUN_ID" --debug
   gh run rerun "$WORKFLOW_RUN_ID" --debug
   echo "Re-ran workflow with run ID: $WORKFLOW_RUN_ID"
 
