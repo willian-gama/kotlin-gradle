@@ -66,19 +66,7 @@ bump_and_push_new_version_to_git() {
   git commit -m "$commit_message"
   git push
 
-  REPO="$GIT_OWNER/$GIT_REPO"
-  echo "$REPO"
-
-  WORKFLOW_RUN_ID=$(gh run list --repo "$REPO" --branch "$BRANCH" --limit 1 --json databaseId --jq '.[0].databaseId')
-
-   if [ -z "$WORKFLOW_RUN_ID" ]; then
-     echo "No workflow runs found for the branch $BRANCH."
-     exit 1
-   fi
-
-   # Re-run all jobs in the workflow
-   gh run rerun "$WORKFLOW_RUN_ID" --repo "$REPO"
-   echo "Re-ran workflow with run ID: $WORKFLOW_RUN_ID"
+  exit 1
 }
 
 bump_version_if_needed() {
