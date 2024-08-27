@@ -17,4 +17,8 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - auto_bump
+      - auto_bump:
+          branches:
+            ignore:
+              - main
+              - develop
