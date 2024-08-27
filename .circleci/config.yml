@@ -1,0 +1,48 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@2.5.0
+
+references:
+  workspace: &workspace
+               ~/src
+
+  android_config: &android_config
+    working_directory: *workspace
+    environment:
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xms3g -Xmx3g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+      GRADLE_OPTS: '-Dorg.gradle.parallel=3 -Dorg.gradle.caching=true -Dorg.gradle.configureondemand=true -Dorg.gradle.workers.max=3 -Dkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs="-Xms2g -Xmx2g -XX:+UseParallelGC -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"'
+
+  generate_gradle_cache_key: &generate_gradle_cache_key
+    run:
+      name: Generate gradle cache key
+      command: ci/scripts/generate_gradle_checksum.sh gradle_checksum.txt
+
+  restore_gradle_cache: &restore_gradle_cache
+    restore_cache:
+      name: Restore gradle cache
+      key: gradle-{{ checksum "gradle_checksum.txt" }}
+
+jobs:
+  run_tests:
+    <<: *android_config
+    executor:
+      name: android/android-machine
+      resource-class: large
+      tag: default
+    steps:
+      - checkout
+      - *generate_gradle_cache_key
+      - *restore_gradle_cache
+      - run:
+          name: Include local.properties
+          command: include_local_properties.sh
+      - run:
+          name: Download android dependencies
+          command: ./gradlew test
+
+workflows:
+  build_and_test:
+    jobs:
+      - run_tests
