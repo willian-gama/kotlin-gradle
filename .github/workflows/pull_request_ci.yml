@@ -8,9 +8,9 @@ on:
 permissions:
   contents: write # Allows to commit files
 
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
+#concurrency:
+#  group: ${{ github.ref }}
+#  cancel-in-progress: true
 
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
@@ -31,4 +31,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: auto bump version if required
-        run: echo "test"
+        run: ./auto_bump.sh
