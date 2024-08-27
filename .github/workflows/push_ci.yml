@@ -32,5 +32,5 @@ jobs:
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
 
-      - name: run tests
+      - name: publish to github packages
         run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
