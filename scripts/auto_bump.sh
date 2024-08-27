@@ -1,7 +1,6 @@
 #!/bin/bash
 
-ls
-
+# Run locally in the Android Studio terminal for testing purposes: ./scripts/auto_bump.sh
 FILE="build.gradle.kts"
 
 get_version_number() {
