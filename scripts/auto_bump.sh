@@ -4,7 +4,7 @@ FILE="build.gradle.kts"
 
 get_version_number() {
   local content="$1"
-  if [[ "$content" =~ version\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
+  if [[ "$content" =~ versio\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
   else
     echo "failed to find the line with the version number"
@@ -74,15 +74,14 @@ bump_version_if_needed() {
     return 1
   fi
 
-  local_version=$(get_version_number "$local_file_content")
-  echo "local version: $local_version"
-
-  remote_file_content="$(git show develop:"$FILE")"
+  remote_file_content="$(git show origin/develop:"$FILE")"
   if [ -z "$remote_file_content" ]; then
     echo "Remote $FILE could not be found or is empty"
     return 1
   fi
 
+  local_version=$(get_version_number "$local_file_content")
+  echo "local version: $local_version"
   remote_version=$(get_version_number "$remote_file_content")
   echo "remote version: $remote_version"
 
