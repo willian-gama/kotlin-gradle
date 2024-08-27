@@ -82,8 +82,15 @@ bump_version_if_needed() {
     return 1
   fi
 
-  local_version=$(get_version_number "$local_file_content")
-  remote_version=$(get_version_number "$remote_file_content")
+  if ! local_version=$(get_version_number "$local_file_content"); then
+    echo "Error when getting local version."
+    return 1
+  fi
+
+  if ! remote_version=$(get_version_number "$remote_file_content"); then
+    echo "Error when getting remote version."
+    return 1
+  fi
 
   if compare_versions "$local_version" "$remote_version" == 0; then
     bump_and_push_new_version_to_git "$local_version" "$remote_version"
