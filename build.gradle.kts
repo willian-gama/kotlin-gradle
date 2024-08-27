@@ -6,7 +6,7 @@ private val localProperties = Properties().apply {
 }
 
 group = "com.willian.gama"
-version = "1.0.5"
+version = "1.0.6"
 
 plugins {
     `kotlin-dsl`
@@ -49,7 +49,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/${localProperties.getProperty("gpr_username")}/kgp")
             credentials {
                 username = localProperties.getProperty("gpr_username")
-                password = localProperties.getProperty("gpr_key")
+                password = localProperties.getProperty("gpr_key") // generate Personal Access token - https://github.com/settings/tokens
             }
         }
     }
