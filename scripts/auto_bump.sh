@@ -49,27 +49,25 @@ bump_and_push_new_version_to_git() {
 }
 
 bump_version_if_needed() {
-  local_file_content="$(cat "$FILE")"
-  if [ -z "$local_file_content" ]; then
-    echo "Local $FILE could not be found or is empty."
+  local_file_content=$(cat "$FILE") || {
+    echo "Local $FILE could not be found or is empty.";
     return 1
-  fi
+  }
 
-  remote_file_content="$(git show origin/develop:"$FILE")"
-  if [ -z "$remote_file_content" ]; then
+  remote_file_content=$(git show origin/develop:"$FILE") || {
     echo "Remote $FILE could not be found or is empty."
     return 1
-  fi
+  }
 
-  if ! local_version=$(get_version_number "$local_file_content"); then
+  local_version=$(get_version_number "$local_file_content") || {
     echo "Error when getting local version."
     return 1
-  fi
+  }
 
-  if ! remote_version=$(get_version_number "$remote_file_content"); then
+  remote_version=$(get_version_number "$remote_file_content") || {
     echo "Error when getting remote version."
     return 1
-  fi
+  }
 
   if compare_versions "$local_version" "$remote_version" -eq 0; then
     bump_and_push_new_version_to_git "$local_version" "$remote_version"
