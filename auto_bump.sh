@@ -69,11 +69,10 @@ bump_and_push_new_version_to_git() {
 #  WORKFLOW_FILE="pull_request_ci.yml"
 #  GIT_BRANCH="refs/heads/main"  # Branch or ref to trigger the workflow on
   # Trigger the workflow
-  REPO="$GIT_OWNER/GIT_REPO"
-  echo "PR=$PR_NUMBER"
-  gh run list --repo "$REPO" --pr "$PR_NUMBER"
+  REPO="$GIT_OWNER/$GIT_REPO"
+  gh run list --repo "$REPO"
 
-  RUN_ID=$(gh run list --repo OWNER/REPO --pr "$PR_NUMBER" --json databaseId --jq '.[0].databaseId')
+  RUN_ID=$(gh run list --repo "$REPO" --pr "$PR_NUMBER" --json databaseId --jq '.[0].databaseId')
   echo "run_id=$RUN_ID"
   gh run rerun "$RUN_ID" --debug
 }
