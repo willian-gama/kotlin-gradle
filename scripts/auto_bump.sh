@@ -50,22 +50,22 @@ bump_and_push_new_version_to_git() {
 
 bump_version_if_needed() {
   local_file_content=$(cat "$FILE") || {
-    echo "Local $FILE could not be found or is empty.";
+    echo "Local $FILE could not be found or is empty";
     return 1
   }
 
   remote_file_content=$(git show origin/develop:"$FILE") || {
-    echo "Remote $FILE could not be found or is empty."
+    echo "Remote $FILE could not be found or is empty"
     return 1
   }
 
   local_version=$(get_version_number "$local_file_content") || {
-    echo "Error when getting local version."
+    echo "Error when getting local version"
     return 1
   }
 
   remote_version=$(get_version_number "$remote_file_content") || {
-    echo "Error when getting remote version."
+    echo "Error when getting remote version"
     return 1
   }
 
