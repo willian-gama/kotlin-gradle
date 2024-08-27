@@ -17,7 +17,7 @@ references:
   generate_gradle_cache_key: &generate_gradle_cache_key
     run:
       name: Generate gradle cache key
-      command: ci/scripts/generate_gradle_checksum.sh gradle_checksum.txt
+      command: scripts/generate_gradle_checksum.sh gradle_checksum.txt
 
   restore_gradle_cache: &restore_gradle_cache
     restore_cache:
@@ -37,7 +37,7 @@ jobs:
       - *restore_gradle_cache
       - run:
           name: Include local.properties
-          command: include_local_properties.sh
+          command: scripts/include_local_properties.sh
       - run:
           name: Download android dependencies
           command: ./gradlew test
