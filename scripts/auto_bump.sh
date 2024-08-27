@@ -39,18 +39,18 @@ bump_and_push_new_version_to_git() {
   echo "$commit_message"
 
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-#  if [ -z "$(git config --get user.name)" ]; then
-#    git config user.name "renovate[bot]"
-#  fi
-#
-#  if [ -z "$(git config --get user.email)" ]; then
-#    git config user.email "29139614+renovate[bot]@users.noreply.github.com"
-#  fi
+  if [ -z "$(git config --get user.name)" ]; then
+    git config user.name "renovate[bot]"
+  fi
+
+  if [ -z "$(git config --get user.email)" ]; then
+    git config user.email "29139614+renovate[bot]@users.noreply.github.com"
+  fi
 
   git config --add --bool push.autoSetupRemote true # create a new branch automatically
   git add "$FILE"
   if ! git commit -m "$commit_message"; then
-    echo "Error when committing file $FILE"
+    echo "Error when committing the file $FILE"
     exit 1
   fi
   git push
