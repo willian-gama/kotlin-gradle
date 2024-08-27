@@ -65,6 +65,7 @@ bump_and_push_new_version_to_git() {
   git add "$FILE"
   git commit -m "$commit_message" --allow-empty
   git push
+  git rebase main
 }
 
 bump_version_if_needed() {
