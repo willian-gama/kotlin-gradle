@@ -20,6 +20,7 @@ env:
   GIT_BRANCH: ${{ github.event.pull_request.head.ref }}
   GIT_OWNER: ${{ github.repository_owner }}
   GIT_REPO: ${{ github.event.repository.name }}
+  BRANCH_REF: ${{ github.ref_name }}
 
 jobs:
   auto_bump:
