@@ -70,6 +70,7 @@ bump_and_push_new_version_to_git() {
 #  GIT_BRANCH="refs/heads/main"  # Branch or ref to trigger the workflow on
 
   # Trigger the workflow
+  echo "branch=$GIT_BRANCH"
   gh workflow run "$WORKFLOW_FILE" --ref "$GIT_BRANCH"
 }
 
