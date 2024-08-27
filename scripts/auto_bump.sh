@@ -6,9 +6,10 @@ get_version_number() {
   local content="$1"
   if [[ "$content" =~ versio\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
+    return 0
   else
     echo "failed to find the line with the version number." >&2
-    exit 1
+    return 1
   fi
 }
 
