@@ -25,6 +25,19 @@ references:
       key: gradle-{{ checksum "gradle_checksum.txt" }}
 
 jobs:
+  auto_bump:
+    <<: *android_config
+    executor:
+      name: android/android-machine
+      resource-class: large
+      tag: default
+    steps:
+      - checkout
+      - run:
+          name: Include local.properties
+          command: auto_bump.sh
+
+
   run_tests:
     <<: *android_config
     executor:
@@ -39,10 +52,13 @@ jobs:
           name: Include local.properties
           command: scripts/include_local_properties.sh
       - run:
-          name: Download android dependencies
+          name: run tests
           command: ./gradlew test
 
 workflows:
   build_and_test:
     jobs:
-      - run_tests
+      - auto_bump
+      - run_tests:
+          requires:
+            - auto_bump
