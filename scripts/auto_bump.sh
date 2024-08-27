@@ -7,7 +7,7 @@ get_version_number() {
   if [[ "$content" =~ versio\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
   else
-    echo "failed to find the line with the version number"
+    echo "failed to find the line with the version number." >&2
     exit 1
   fi
 }
