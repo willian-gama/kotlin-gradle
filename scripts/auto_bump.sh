@@ -1,10 +1,10 @@
 #!/bin/bash
 
-FILE="build.gradle.kts"
+FILE="../build.gradle.kts"
 
 get_version_number() {
   local content="$1"
-  if [[ "$content" =~ versio\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
+  if [[ "$content" =~ version\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
     return 0
   else
@@ -71,13 +71,13 @@ bump_and_push_new_version_to_git() {
 bump_version_if_needed() {
   local_file_content="$(cat "$FILE")"
   if [ -z "$local_file_content" ]; then
-    echo "Local $FILE could not be found or is empty"
+    echo "Local $FILE could not be found or is empty."
     return 1
   fi
 
-  remote_file_content="$(git show origin/develop:"$FILE")"
+  remote_file_content="$(git show develop:"$FILE")"
   if [ -z "$remote_file_content" ]; then
-    echo "Remote $FILE could not be found or is empty"
+    echo "Remote $FILE could not be found or is empty."
     return 1
   fi
 
@@ -91,7 +91,7 @@ bump_version_if_needed() {
     return 1
   fi
 
-  if compare_versions "$local_version" "$remote_version" == 0; then
+  if compare_versions "$local_version" "$remote_version" -eq 0; then
     bump_and_push_new_version_to_git "$local_version" "$remote_version"
   fi
 }
