@@ -15,6 +15,7 @@ concurrency:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   auto_bump:
@@ -50,8 +51,6 @@ jobs:
 
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: run tests
         run: ./gradlew test
