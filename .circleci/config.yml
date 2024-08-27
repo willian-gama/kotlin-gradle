@@ -6,7 +6,7 @@ executors:
       - image: cimg/node:lts
 
 jobs:
-  run_tests:
+  auto_bump:
     executor: docker_lts
     steps:
       - checkout
