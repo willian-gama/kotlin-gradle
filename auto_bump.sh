@@ -65,6 +65,12 @@ bump_and_push_new_version_to_git() {
   git add "$FILE"
   git commit -m "$commit_message" --allow-empty
   git push
+
+  WORKFLOW_FILE="pull_request_ci.yml"
+#  GIT_BRANCH="refs/heads/main"  # Branch or ref to trigger the workflow on
+
+  # Trigger the workflow
+  gh workflow run "$WORKFLOW_FILE" --ref "$GIT_BRANCH"
 }
 
 bump_version_if_needed() {
