@@ -16,7 +16,7 @@ concurrency:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   GIT_BRANCH: ${{ github.head_ref || github.ref_name }}
   GIT_OWNER: ${{ github.repository_owner }}
   GIT_REPO: ${{ github.event.repository.name }}
