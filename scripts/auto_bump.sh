@@ -8,7 +8,6 @@ get_version_number() {
     echo "${BASH_REMATCH[1]}"
     return 0
   else
-    echo "failed to find the line with the version number." >&2
     return 1
   fi
 }
