@@ -29,7 +29,6 @@ jobs:
         with:
           # Allow to access files in the Pull Request
           ref: ${{ github.event.pull_request.head.ref }}
-          token: ${{ secrets.GH_TOKEN }}
 
       - name: auto bump version if required
         run: ./auto_bump.sh
