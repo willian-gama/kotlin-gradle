@@ -79,7 +79,7 @@ bump_version_if_needed() {
 #    bump_and_push_new_version_to_git "$local_version" "$remote_version"
 #  fi
 
-  bump_and_push_new_version_to_git "$remote_version" "$remote_version"
+  bump_and_push_new_version_to_git "$local_version" "$local_version"
 }
 
 bump_version_if_needed
