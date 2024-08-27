@@ -16,6 +16,9 @@ env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GIT_BRANCH: ${{ github.event.pull_request.head.ref }}
+  GIT_OWNER: ${{ github.repository_owner }}
+  GIT_REPO: ${{ github.event.repository.name }}
 
 jobs:
   auto_bump:
@@ -26,6 +29,7 @@ jobs:
         with:
           # Allow to access files in the Pull Request
           ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: auto bump version if required
         run: ./auto_bump.sh

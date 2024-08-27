@@ -66,9 +66,12 @@ bump_and_push_new_version_to_git() {
   git commit -m "$commit_message"
   git push
 
-  WORKFLOW_RUN_ID=$(gh run list --repo "$REPO" --branch "$BRANCH" --json databaseId,headBranch,status --jq '.[] | select(.headBranch == "'"$BRANCH"'") | .databaseId' | head -n 1)
-  gh run rerun "$WORKFLOW_RUN_ID" --repo willian-gama/kgp
-  echo "Workflow re-run triggered for run ID: $WORKFLOW_RUN_ID"
+#  REPO="$GIT_OWNER/$GIT_REPO"
+#  echo "$REPO"
+#
+#  WORKFLOW_RUN_ID=$(gh run list --repo "$REPO" --branch "$GIT_BRANCH" --json databaseId,headBranch,status --jq '.[] | select(.headBranch == "'"$GIT_BRANCH"'") | .databaseId' | head -n 1)
+#  gh run rerun "$WORKFLOW_RUN_ID" --repo willian-gama/kgp
+#  echo "Workflow re-run triggered for run ID: $WORKFLOW_RUN_ID"
 }
 
 bump_version_if_needed() {
