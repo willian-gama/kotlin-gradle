@@ -49,7 +49,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/${localProperties.getProperty("gpr_username")}/kgp")
             credentials {
                 username = localProperties.getProperty("gpr_username")
-                password = localProperties.getProperty("gpr_key")
+                password = localProperties.getProperty("gpr_key") // generate Personal Access token - https://github.com/settings/tokens
             }
         }
     }
