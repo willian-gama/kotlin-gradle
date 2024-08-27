@@ -57,7 +57,6 @@ bump_and_push_new_version_to_git() {
   commit_message="auto bump version from $local_version to $new_local_version"
   echo "$commit_message"
 
-  git pull
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   git config user.name "renovate[bot]"
   git config user.email "29139614+renovate[bot]@users.noreply.github.com"
@@ -72,6 +71,7 @@ bump_and_push_new_version_to_git() {
 bump_version_if_needed() {
   echo "test: $GH_TOKEN"
 
+  git pull
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
