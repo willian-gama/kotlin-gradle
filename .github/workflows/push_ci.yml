@@ -1,3 +1,4 @@
+# Enable github action: https://github.com/willian-gama/kgp/settings/actions
 name: push_ci
 
 on:
