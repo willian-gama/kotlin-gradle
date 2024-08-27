@@ -72,6 +72,8 @@ bump_and_push_new_version_to_git() {
 }
 
 bump_version_if_needed() {
+  echo "test: $GITHUB_TOKEN"
+
   local_version=$(get_version_number "$(cat "$FILE")")
   echo "local version: $local_version"
 
