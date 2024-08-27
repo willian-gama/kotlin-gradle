@@ -2,8 +2,8 @@ name: pull_request_ci
 
 on:
   workflow_run:
-    workflows: [ pull_request_ci ]
-    types: [ completed ]
+    workflows: [ "pull_request_ci" ]
+    types: [ "completed" ]
 
 concurrency:
   group: ${{ github.ref }}
