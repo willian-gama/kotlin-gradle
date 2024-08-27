@@ -76,10 +76,10 @@ bump_version_if_needed() {
   remote_version=$(get_version_number "$(git show develop:"$FILE")")
   echo "remote version: $remote_version"
 
-  if compare_versions "$local_version" "$remote_version" == 0; then
-    bump_and_push_new_version_to_git "$local_version" "$remote_version"
-  fi
-#  bump_and_push_new_version_to_git "$local_version" "$local_version"
+#  if compare_versions "$local_version" "$remote_version" == 0; then
+#    bump_and_push_new_version_to_git "$local_version" "$remote_version"
+#  fi
+  bump_and_push_new_version_to_git "$local_version" "$local_version"
 }
 
 bump_version_if_needed
