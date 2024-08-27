@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Include local.properties
+          name: auto bump version
           command: scripts/auto_bump.sh
 
 #  run_tests:
