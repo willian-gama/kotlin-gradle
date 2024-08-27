@@ -35,7 +35,7 @@ jobs:
       - checkout
       - run:
           name: Include local.properties
-          command: auto_bump.sh
+          command: ./auto_bump.sh
 
 
   run_tests:
