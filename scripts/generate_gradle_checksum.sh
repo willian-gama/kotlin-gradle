@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RESULT_FILE=$FILE_NAME
+RESULT_FILE=$1
 
 if [ -f "$RESULT_FILE" ]; then
   rm "$RESULT_FILE"
