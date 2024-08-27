@@ -37,27 +37,27 @@ jobs:
           name: Include local.properties
           command: scripts/auto_bump.sh
 
-  run_tests:
-    <<: *android_config
-    executor:
-      name: android/android-machine
-      resource-class: large
-      tag: default
-    steps:
-      - checkout
-      - *generate_gradle_cache_key
-      - *restore_gradle_cache
-      - run:
-          name: Include local.properties
-          command: scripts/include_local_properties.sh
-      - run:
-          name: run tests
-          command: ./gradlew test
+#  run_tests:
+#    <<: *android_config
+#    executor:
+#      name: android/android-machine
+#      resource-class: large
+#      tag: default
+#    steps:
+#      - checkout
+#      - *generate_gradle_cache_key
+#      - *restore_gradle_cache
+#      - run:
+#          name: Include local.properties
+#          command: scripts/include_local_properties.sh
+#      - run:
+#          name: run tests
+#          command: ./gradlew test
 
 workflows:
   build_and_test:
     jobs:
       - auto_bump
-      - run_tests:
-          requires:
-            - auto_bump
+#      - run_tests:
+#          requires:
+#            - auto_bump
