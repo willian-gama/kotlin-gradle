@@ -39,35 +39,41 @@ bump_and_push_new_version_to_git() {
   echo "$commit_message"
 
   # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
-  git config user.name "renovate[bot]"
-  git config user.email "29139614+renovate[bot]@users.noreply.github.com"
-  git config --add --bool push.autoSetupRemote true # create a new branch automatically
+  if [ -z "$(git config --get user.name)" ]; then
+    git config user.name "renovate[bot]"
+  fi
 
+  if [ -z "$(git config --get user.email)" ]; then
+    git config user.email "29139614+renovate[bot]@users.noreply.github.com"
+  fi
+
+  git config --add --bool push.autoSetupRemote true # create a new branch automatically
   git add "$FILE"
-  git commit -m "$commit_message"
+  if ! git commit -m "$commit_message"; then
+    echo "Error when committing the file $FILE"
+    exit 1
+  fi
   git push
 }
 
 bump_version_if_needed() {
-  local_file_content="$(cat "$FILE")"
-  if [ -z "$local_file_content" ]; then
-    echo "Local $FILE could not be found or is empty."
+  if ! local_file_content=$(cat "$FILE" 2>/dev/null); then
+    echo "Local file $FILE could not be found or is empty"
     return 1
   fi
 
-  remote_file_content="$(git show origin/develop:"$FILE")"
-  if [ -z "$remote_file_content" ]; then
-    echo "Remote $FILE could not be found or is empty."
+  if ! remote_file_content=$(git show origin/develop:"$FILE" 2>/dev/null); then
+    echo "Remote file $FILE could not be found or is empty in the develop branch"
     return 1
   fi
 
   if ! local_version=$(get_version_number "$local_file_content"); then
-    echo "Error when getting local version."
+    echo "Local version could not be found in the $FILE file"
     return 1
   fi
 
   if ! remote_version=$(get_version_number "$remote_file_content"); then
-    echo "Error when getting remote version."
+    echo "Remote version could not be found in the $FILE file"
     return 1
   fi
 
