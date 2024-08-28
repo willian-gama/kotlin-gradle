@@ -13,11 +13,23 @@ get_current_version_number() {
   fi
 }
 
+push_new_tag_to_git() {
+  local version=$1
+
+  if ! git tag "$version"; then
+    echo "Error when creating git tag: $version"
+    exit 1
+  else
+    echo "Create git tag: $version"
+    git push origin "$version"
+  fi
+}
+
+
 create_new_git_tag() {
   file_content=$(cat "$FILE")
   version=$(get_current_version_number "$file_content")
-
-  git tag "$version"
+  push_new_tag_to_git "$version"
 }
 
 create_new_git_tag
