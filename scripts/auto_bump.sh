@@ -35,9 +35,9 @@ bump_remote_version() {
 }
 
 push_new_version_to_git() {
-  local_version=$1
-  new_remote_version=$2
-  commit_message="auto bump version from $local_version to $new_remote_version"
+  local local_version=$1
+  local new_remote_version=$2
+  local commit_message="auto bump version from $local_version to $new_remote_version"
 
   if [ -z "$(git config --get user.name)" ]; then
     git config user.name "renovate[bot]"
