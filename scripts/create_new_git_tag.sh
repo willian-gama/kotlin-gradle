@@ -13,7 +13,7 @@ get_current_version_number() {
   fi
 }
 
-create_new_git_tag() {
+push_new_tag_to_git() {
   local version=$1
 
   if ! git tag "$version"; then
@@ -26,10 +26,10 @@ create_new_git_tag() {
 }
 
 
-get_version_to_create_tag() {
+create_new_git_tag() {
   file_content=$(cat "$FILE")
   version=$(get_current_version_number "$file_content")
-  create_new_git_tag "$version"
+  push_new_tag_to_git "$version"
 }
 
-get_version_to_create_tag
+create_new_git_tag
