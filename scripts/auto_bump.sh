@@ -27,18 +27,18 @@ compare_versions() {
   fi
 }
 
-bump_and_push_new_version_to_git() {
-  local_version=$1
-  remote_version=$2
-
+bump_remote_version() {
+  local local_version=$1
+  local remote_version=$2
   IFS='.' read -r major minor patch <<< "$remote_version"
-  new_local_version="$major.$minor.$((patch + 1))"
-  perl -i -pe "s/$local_version/$new_local_version/" "$FILE"
+  echo "$major.$minor.$((patch + 1))"
+}
 
-  commit_message="auto bump version from $local_version to $new_local_version"
-  echo "$commit_message"
+push_new_version_to_git() {
+  local_version=$1
+  new_remote_version=$2
+  commit_message="auto bump version from $local_version to $new_remote_version"
 
-  # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   if [ -z "$(git config --get user.name)" ]; then
     git config user.name "renovate[bot]"
   fi
@@ -54,6 +54,8 @@ bump_and_push_new_version_to_git() {
     exit 1
   fi
   git push
+
+  echo "$commit_message"
 }
 
 bump_version_if_needed() {
@@ -78,7 +80,9 @@ bump_version_if_needed() {
   fi
 
   if compare_versions "$local_version" "$remote_version" -eq 0; then
-    bump_and_push_new_version_to_git "$local_version" "$remote_version"
+    new_remote_version=$(bump_remote_version "$local_version" "$remote_version")
+    perl -i -pe "s/$local_version/$new_remote_version/" "$FILE"
+    push_new_version_to_git "$local_version" "$new_remote_version"
   else
     echo "local version: $local_version is already greater than remote version: $remote_version"
   fi
