@@ -14,10 +14,29 @@ get_current_version_number() {
 }
 
 create_new_git_tag() {
-  file_content=$(cat "$FILE")
-  version=$(get_current_version_number "$file_content")
+  local version=$1
 
-  git tag "$version"
+  echo "Create git tag with version $version"
+
+  if [ -z "$(git config --get user.name)" ]; then
+    git config user.name "renovate[bot]"
+  fi
+
+  if [ -z "$(git config --get user.email)" ]; then
+    git config user.email "29139614+renovate[bot]@users.noreply.github.com"
+  fi
+
+  if ! git tag "$version"; then
+    echo "Error when creating git tag $version"
+    exit 1
+  fi
 }
 
-create_new_git_tag
+
+get_version_to_create_tag() {
+  file_content=$(cat "$FILE")
+  version=$(get_current_version_number "$file_content")
+  create_new_git_tag "$version"
+}
+
+get_version_to_create_tag
