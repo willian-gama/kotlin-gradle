@@ -2,7 +2,7 @@
 name: push_ci
 
 on:
-  pull_request:
+  push:
     branches: [ "develop" ]
 
 concurrency:
@@ -33,8 +33,8 @@ jobs:
       - name: include local.properties from secret variables
         run: scripts/include_local_properties.sh
 
-#      - name: publish to github packages
-#        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
+      - name: publish to github packages
+        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
 
       - name: create new tag
         run: ./scripts/create_new_git_tag.sh
