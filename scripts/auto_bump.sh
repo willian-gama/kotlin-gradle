@@ -44,6 +44,8 @@ push_new_version_to_git() {
   local new_local_version=$2
   local commit_message="auto bump version from $local_version to $new_local_version"
 
+  echo "$commit_message"
+
   if [ -z "$(git config --get user.name)" ]; then
     git config user.name "renovate[bot]"
   fi
@@ -59,8 +61,6 @@ push_new_version_to_git() {
     exit 1
   fi
   git push
-
-  echo "$commit_message"
 }
 
 bump_version_if_needed() {
