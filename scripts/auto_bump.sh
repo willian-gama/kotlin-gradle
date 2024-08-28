@@ -6,7 +6,7 @@ FILE="build.gradle.kts"
 set_new_version_number() {
   local local_version=$1
   local new_local_version=$2
-  perl -i -pe "s/version = \"$local_version\"/version = \"$new_local_version\"/" "$FILE"
+  perl -i -pe "s/version *= *\"$local_version\"/version = \"$new_local_version\"/" "$FILE"
 }
 
 get_current_version_number() {
