@@ -30,6 +30,8 @@ create_new_git_tag() {
     echo "Error when creating git tag $version"
     exit 1
   fi
+
+  git push origin "$version"
 }
 
 
