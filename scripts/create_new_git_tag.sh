@@ -16,14 +16,13 @@ get_current_version_number() {
 create_new_git_tag() {
   local version=$1
 
-  echo "Create git tag with version $version"
-
   if ! git tag "$version"; then
-    echo "Error when creating git tag $version"
+    echo "Error when creating git tag: $version"
     exit 1
+  else
+    echo "Create git tag: $version"
+    git push origin "$version"
   fi
-
-  git push origin "$version"
 }
 
 
