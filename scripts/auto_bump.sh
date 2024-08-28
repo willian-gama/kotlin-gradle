@@ -3,7 +3,13 @@
 # Run locally in the Android Studio terminal for testing purposes: ./scripts/auto_bump.sh
 FILE="build.gradle.kts"
 
-get_version_number() {
+set_new_version_number() {
+  local local_version=$1
+  local new_local_version=$2
+  perl -i -pe "s/$local_version/$new_local_version/" "$FILE"
+}
+
+get_current_version_number() {
   local content="$1"
   if [[ "$content" =~ version\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
@@ -27,18 +33,19 @@ compare_versions() {
   fi
 }
 
-bump_and_push_new_version_to_git() {
-  local_version=$1
-  remote_version=$2
-
+bump_remote_version() {
+  local remote_version=$1
   IFS='.' read -r major minor patch <<< "$remote_version"
-  new_local_version="$major.$minor.$((patch + 1))"
-  perl -i -pe "s/$local_version/$new_local_version/" "$FILE"
+  echo "$major.$minor.$((patch + 1))"
+}
 
-  commit_message="auto bump version from $local_version to $new_local_version"
+push_new_version_to_git() {
+  local local_version=$1
+  local new_local_version=$2
+  local commit_message="auto bump version from $local_version to $new_local_version"
+
   echo "$commit_message"
 
-  # https://github.com/actions/checkout/blob/main/README.md#push-a-commit-using-the-built-in-token
   if [ -z "$(git config --get user.name)" ]; then
     git config user.name "renovate[bot]"
   fi
@@ -67,18 +74,20 @@ bump_version_if_needed() {
     return 1
   fi
 
-  if ! local_version=$(get_version_number "$local_file_content"); then
+  if ! local_version=$(get_current_version_number "$local_file_content"); then
     echo "Local version could not be found in the $FILE file"
     return 1
   fi
 
-  if ! remote_version=$(get_version_number "$remote_file_content"); then
+  if ! remote_version=$(get_current_version_number "$remote_file_content"); then
     echo "Remote version could not be found in the $FILE file"
     return 1
   fi
 
   if compare_versions "$local_version" "$remote_version" -eq 0; then
-    bump_and_push_new_version_to_git "$local_version" "$remote_version"
+    new_local_version=$(bump_remote_version "$remote_version")
+    set_new_version_number "$local_version" "$new_local_version"
+    push_new_version_to_git "$local_version" "$new_local_version"
   else
     echo "local version: $local_version is already greater than remote version: $remote_version"
   fi
