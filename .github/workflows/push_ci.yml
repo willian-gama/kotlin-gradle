@@ -37,4 +37,4 @@ jobs:
 #        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
 
       - name: create new tag
-        run: ./scripts/create_new_git_tag
+        run: ./scripts/create_new_git_tag.sh
