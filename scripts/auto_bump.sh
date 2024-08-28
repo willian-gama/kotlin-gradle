@@ -61,6 +61,7 @@ push_new_version_to_git() {
     exit 1
   fi
   git push
+  git tag "$new_local_version"
 }
 
 bump_version_if_needed() {
