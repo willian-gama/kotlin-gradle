@@ -2,7 +2,7 @@
 name: push_ci
 
 on:
-  push:
+  pull_request:
     branches: [ "develop" ]
 
 concurrency:
