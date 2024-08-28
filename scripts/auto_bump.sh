@@ -9,7 +9,7 @@ set_new_version_number() {
   perl -i -pe "s/$local_version/$new_local_version/" "$FILE"
 }
 
-get_version_number() {
+get_current_version_number() {
   local content="$1"
   if [[ "$content" =~ version\ *=\ *\"([0-9]+\.[0-9]+\.[0-9]+)\" ]]; then
     echo "${BASH_REMATCH[1]}"
@@ -74,12 +74,12 @@ bump_version_if_needed() {
     return 1
   fi
 
-  if ! local_version=$(get_version_number "$local_file_content"); then
+  if ! local_version=$(get_current_version_number "$local_file_content"); then
     echo "Local version could not be found in the $FILE file"
     return 1
   fi
 
-  if ! remote_version=$(get_version_number "$remote_file_content"); then
+  if ! remote_version=$(get_current_version_number "$remote_file_content"); then
     echo "Remote version could not be found in the $FILE file"
     return 1
   fi
