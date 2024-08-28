@@ -14,10 +14,10 @@ get_current_version_number() {
 }
 
 create_new_git_tag() {
-  local_file_content=$(cat "$FILE")
-  local_version=$(get_current_version_number "$local_file_content")
+  file_content=$(cat "$FILE")
+  version=$(get_current_version_number "$file_content")
 
-  git tag "$local_version"
+  git tag "$version"
 }
 
 create_new_git_tag
