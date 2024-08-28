@@ -18,14 +18,6 @@ create_new_git_tag() {
 
   echo "Create git tag with version $version"
 
-#  if [ -z "$(git config --get user.name)" ]; then
-#    git config user.name "github-actions[bot]"
-#  fi
-#
-#  if [ -z "$(git config --get user.email)" ]; then
-#    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#  fi
-
   if ! git tag "$version"; then
     echo "Error when creating git tag $version"
     exit 1
