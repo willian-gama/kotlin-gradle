@@ -5,7 +5,7 @@ ktlint = "12.1.1"
 jfrog = "5.2.5"
 detekt = "1.23.6"
 sonar = "5.1.0.4882"
-junit = "4.13.2"
+junit = "4.13.1"
 
 [plugins]
 jfrog = { id = "com.jfrog.artifactory", version.ref = "jfrog" }
