@@ -30,11 +30,11 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - auto_sync_prs
-#          filters:
-#            branches:
-#              only:
-#                - develop
+      - auto_sync_prs:
+          filters:
+            branches:
+              only:
+                - develop
 
       - auto_bump:
           filters:
