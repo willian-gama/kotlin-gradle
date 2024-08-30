@@ -26,5 +26,6 @@ for branch in $PR_BRANCHES; do
     git merge --abort
     continue
   fi
+
   git push origin "$branch"
 done
