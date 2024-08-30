@@ -12,10 +12,6 @@ if [ -z "$(git config --get user.email)" ]; then
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 fi
 
-echo -e "\nFetching target branch: $GH_BRANCH"
-git fetch origin "$GH_BRANCH"
-git checkout "$GH_BRANCH"
-
 for branch in $PR_BRANCHES; do
   echo -e "\nSyncing $branch\n"
 
