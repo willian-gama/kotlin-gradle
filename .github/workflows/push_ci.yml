@@ -15,7 +15,6 @@ permissions:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
-#  GH_TOKEN: ${{ github.token }}
 
 jobs:
 #  deploy:
@@ -50,6 +49,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sync PRs with develop
-        run: ./scripts/auto_sync_prs.sh develop
         env:
           GH_TOKEN: ${{ github.token }}
+        run: ./scripts/auto_sync_prs.sh develop
