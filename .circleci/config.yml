@@ -36,9 +36,9 @@ workflows:
               only:
                 - develop
 
-#      - auto_bump:
-#          filters:
-#            branches:
-#              ignore:
-#                - main
-#                - develop
+      - auto_bump:
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop

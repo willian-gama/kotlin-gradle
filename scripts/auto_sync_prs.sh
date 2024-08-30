@@ -1,13 +1,8 @@
 #!/bin/bash
 
 GIT_BRANCH=$CIRCLE_BRANCH
-
-echo "$GIT_BRANCH"
-
 # https://cli.github.com/manual/gh_pr_view
 PR_BRANCHES=$(gh pr list --state open --base "$GIT_BRANCH" --json headRefName --jq '.[].headRefName')
-
-echo "$PR_BRANCHES"
 
 if [ -z "$(git config --get user.name)" ]; then
   git config user.name "github-actions[bot]"
