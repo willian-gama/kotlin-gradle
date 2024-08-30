@@ -47,10 +47,9 @@ jobs:
     steps:
       - name: checkout project sources
         uses: actions/checkout@v4
-
       - name: Sync PRs with develop
         id: get_branch
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_BRANCH: ${GITHUB_BASE_REF}
-        run: ./scripts/auto_sync_prs.sh
+          GH_BRANCH: ${GITHUB_REF#refs/heads}
+        run: ./scripts/auto_sync_prs.sh ${GITHUB_REF#refs/heads}
