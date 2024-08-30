@@ -20,18 +20,10 @@ for branch in $PR_BRANCHES; do
 
   git fetch origin "$branch"
   git checkout "$branch"
-  git pull
 
-  if ! git merge "origin/$GH_BRANCH" --no-edit; then
+  if ! git merge "origin/$GH_BRANCH"; then
     echo -e "\nMerge conflict detected on branch $branch.\n"
-
-    if ! git merge "origin/$GH_BRANCH" --no-edit --allow-unrelated-histories; then
-      git merge --abort
-      echo -e "\nMerge aborted for branch $branch. Skipping to the next branch.\n"
-    else
-      echo -e "\nNo merge to abort for branch $branch.\n"
-    fi
-
+    git merge --abort
     continue
   fi
 
