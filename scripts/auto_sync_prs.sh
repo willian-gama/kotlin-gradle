@@ -19,7 +19,7 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
     git fetch origin "$branch"
     git checkout "$branch"
 
-    if git merge "origin/$GIT_BRANCH" --no-edit 2>&1; then
+    if git merge "origin/$GIT_BRANCH" --no-edit > /dev/null 2>&1; then
       git push origin "$branch"
     else
       echo -e "\nThis branch: $branch has conflicts that must be resolved"
