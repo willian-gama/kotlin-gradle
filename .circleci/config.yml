@@ -6,6 +6,14 @@ executors:
       - image: cimg/node:lts
 
 jobs:
+  auto_sync_prs:
+    executor: docker_lts
+    steps:
+      - checkout
+      - run:
+          name: Auto sync prs
+          command: scripts/auto_sync_prs.sh
+
   auto_bump:
     executor: docker_lts
     steps:
@@ -14,21 +22,13 @@ jobs:
           name: Auto bump version
           command: scripts/auto_bump.sh
 
-  auto_sync_prs:
-    executor: docker_lts
-    steps:
-      - checkout
-      - run:
-          name: Auto bump version
-          command: scripts/auto_sync_prs.sh
-
 workflows:
   build_and_test:
     jobs:
+      - auto_sync_prs
       - auto_bump:
           filters:
             branches:
               ignore:
                 - main
                 - develop
-      - auto_sync_prs
