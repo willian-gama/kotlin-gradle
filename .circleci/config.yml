@@ -22,7 +22,9 @@ jobs:
             sudo apt install gh
       - run:
           name: Authenticate GitHub CLI
-          command: echo $GH_TOKEN | gh auth login --with-token
+          command: |
+            gh auth logout --all  # Ensure previous sessions are cleared
+            echo $GH_TOKEN | gh auth login --with-token
       - run:
           name: Auto sync prs
           command: scripts/auto_sync_prs.sh
