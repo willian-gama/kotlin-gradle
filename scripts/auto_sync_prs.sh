@@ -22,7 +22,7 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
     if git merge "origin/$GIT_BRANCH" --no-edit > /dev/null 2>&1; then
       git push origin "$branch"
     else
-      echo -e "\nThis branch: $branch has conflicts that must be resolved"
+      echo -e "This branch: $branch has conflicts that must be resolved"
       git merge --abort
     fi
   done
