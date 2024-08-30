@@ -15,6 +15,9 @@ jobs:
       - checkout
       - github-cli/setup
       - run:
+          name: Clear GH_TOKEN
+          command: unset GH_TOKEN
+      - run:
           name: Authenticate with GitHub
           command: echo $GH_TOKEN | gh auth login --with-token
       - run:
