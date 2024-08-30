@@ -12,17 +12,22 @@ if [ -z "$(git config --get user.email)" ]; then
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 fi
 
-for branch in $PR_BRANCHES; do
-  echo -e "\nSyncing $branch\n"
+git fetch origin "chore/downgrade-lib"
+git checkout "chore/downgrade-lib"
+git merge "origin/dev" --no-edit
+git push
 
-  git fetch origin "$branch"
-  git checkout "$branch"
-
-  if ! git merge "origin/$GH_BRANCH" --no-edit; then
-    git merge --abort
-    continue
-  fi
-
-  git push origin "$branch"
-  break 
-done
+#for branch in $PR_BRANCHES; do
+#  echo -e "\nSyncing $branch\n"
+#
+#  git fetch origin "$branch"
+#  git checkout "$branch"
+#
+#  if ! git merge "origin/$GH_BRANCH" --no-edit; then
+#    git merge --abort
+#    continue
+#  fi
+#
+#  git push origin "$branch"
+#  break
+#done
