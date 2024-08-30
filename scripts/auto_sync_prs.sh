@@ -12,7 +12,7 @@ if [ -z "$(git config --get user.email)" ]; then
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 fi
 
-if [ ${#PR_BRANCHES[@]} -eq 0 ]; then
+if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
   for branch in $PR_BRANCHES; do
     echo -e "\nSyncing $branch\n"
 
