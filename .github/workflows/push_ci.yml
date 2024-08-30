@@ -3,7 +3,7 @@ name: push_ci
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "develop" ]
 
 concurrency:
   group: ${{ github.ref }}
@@ -15,14 +15,40 @@ permissions:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
-  GH_TOKEN: ${{ github.token }}
 
 jobs:
-  auto-sync-prs:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project sources
         uses: actions/checkout@v4
 
-      - name: Sync PRs with target branch
-        run: ./scripts/auto_sync_prs.sh develop
+      - name: Set up jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
+          java-version: 21
+
+      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Include local.properties from secret variables
+        run: scripts/include_local_properties.sh
+
+      - name: Publish to github packages
+        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
+
+      - name: Create new git tag
+        run: ./scripts/create_new_git_tag.sh
+
+#  auto-sync-prs:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout project sources
+#        uses: actions/checkout@v4
+#
+#      - name: Sync PRs with target branch
+#        env:
+#          GH_TOKEN: ${{ github.token }}
+#        run: ./scripts/auto_sync_prs.sh ${GITHUB_BASE_REF}
