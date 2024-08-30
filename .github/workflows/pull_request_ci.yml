@@ -7,7 +7,7 @@ on:
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
 permissions:
-  contents: write # Allows to commit files
+  contents: write # Allows to commit and push files
 
 concurrency:
   group: ${{ github.ref }}
@@ -39,23 +39,23 @@ jobs:
   run_tests:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout project sources
+      - name: Checkout project sources
         uses: actions/checkout@v4
 
-      - name: set up jdk
+      - name: Set up jdk
         uses: actions/setup-java@v4
         with:
           distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
           java-version: 21
 
-      - name: validate gradle wrapper
+      - name: Validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
 
       # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-      - name: setup gradle
+      - name: Setup gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: include local.properties from secret variables
+      - name: Include local.properties from secret variables
         run: scripts/include_local_properties.sh
 
       - name: run tests
