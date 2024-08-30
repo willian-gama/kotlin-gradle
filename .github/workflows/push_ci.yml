@@ -15,7 +15,7 @@ permissions:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+#  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   auto-sync-prs:
