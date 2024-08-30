@@ -14,8 +14,8 @@ fi
 
 git fetch origin "chore/downgrade-lib"
 git checkout "chore/downgrade-lib"
-git merge "origin/dev" --no-edit --allow-unrelated-histories
-git pull origin "chore/downgrade-lib" --allow-unrelated-histories
+git merge "origin/dev" --no-edit
+git pull origin "chore/downgrade-lib"
 
 #for branch in $PR_BRANCHES; do
 #  echo -e "\nSyncing $branch\n"
