@@ -12,16 +12,16 @@ if [ -z "$(git config --get user.email)" ]; then
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 fi
 
-echo -e "\nFetching target branch: $GH_BRANCH"
-git fetch origin "$GH_BRANCH"
-
 for branch in $PR_BRANCHES; do
   echo -e "\nSyncing $branch\n"
 
   git fetch origin "$branch"
   git checkout "$branch"
+
   if ! git merge "origin/$GH_BRANCH" --no-edit; then
     git merge --abort
+    continue
   fi
+
   git push origin "$branch"
 done
