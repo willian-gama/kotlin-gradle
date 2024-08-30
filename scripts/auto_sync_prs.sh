@@ -14,15 +14,17 @@ fi
 
 if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
   for branch in $PR_BRANCHES; do
-    echo -e "\nSyncing $branch\n"
+    echo -e "\n- Syncing $branch with $GIT_BRANCH\n"
 
     git fetch origin "$branch"
     git checkout "$branch"
 
-    if ! git merge "origin/$GIT_BRANCH" --no-edit; then
-      git merge --abort
-    else
+    if git merge "origin/$GIT_BRANCH" --no-edit > /dev/null 2>&1; then
       git push origin "$branch"
+      echo -e "Branch: $branch has synced successfully"
+    else
+      git merge --abort
+      echo -e "Branch: $branch has conflicts that must be resolved"
     fi
   done
 else
