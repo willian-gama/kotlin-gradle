@@ -51,5 +51,4 @@ jobs:
         id: get_branch
         env:
           GH_TOKEN: ${{ github.token }}
-          GH_BRANCH: ${ GITHUB_BASE_REF }
-        run: ./scripts/auto_sync_prs.sh
+        run: ./scripts/auto_sync_prs.sh ${ GITHUB_BASE_REF }
