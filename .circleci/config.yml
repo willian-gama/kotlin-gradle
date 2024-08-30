@@ -13,18 +13,10 @@ jobs:
     executor: docker_lts
     steps:
       - checkout
-      - run:
-          name: Install GitHub CLI
-          command: |
-            curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg
-            echo "deb [arch=amd64 signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list
-            sudo apt update
-            sudo apt install gh
+      - github-cli/install
       - run:
           name: Authenticate GitHub CLI
-          command: |
-            gh auth logout --hostname github.com
-            echo $GH_TOKEN | gh auth login --with-token
+          command: echo $GITHUB_TOKEN 
       - run:
           name: Auto sync prs
           command: scripts/auto_sync_prs.sh
