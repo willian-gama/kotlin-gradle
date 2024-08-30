@@ -19,7 +19,7 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
     git fetch origin "$branch"
     git checkout "$branch"
 
-    if ! git merge "origin/$GIT_BRANCH" --no-edit; then
+    if ! git merge "origin/$GIT_BRANCH" --no-edit 2>/dev/null; then
       echo "This branch: $branch has conflicts that must be resolved"
       git merge --abort
       continue
