@@ -4,6 +4,14 @@ GH_BRANCH=$1
 # https://cli.github.com/manual/gh_pr_view
 PR_BRANCHES=$(gh pr list --state open --base "$GH_BRANCH" --json headRefName --jq '.[].headRefName')
 
+if [ -z "$(git config --get user.name)" ]; then
+  git config user.name "github-actions[bot]"
+fi
+
+if [ -z "$(git config --get user.email)" ]; then
+  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+fi
+
 echo "Fetching target branch: $GH_BRANCH"
 git fetch origin "$GH_BRANCH"
 
