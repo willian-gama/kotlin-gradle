@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GH_BRANCH=$1
+GH_BRANCH=develop
 # https://cli.github.com/manual/gh_pr_view
 PR_BRANCHES=$(gh pr list --state open --base "$GH_BRANCH" --json headRefName --jq '.[].headRefName')
 
