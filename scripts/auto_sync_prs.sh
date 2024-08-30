@@ -1,8 +1,9 @@
 #!/bin/bash
 
-GH_BRANCH=dev
+GIT_BRANCH=$CIRCLE_BRANCH
+
 # https://cli.github.com/manual/gh_pr_view
-PR_BRANCHES=$(gh pr list --state open --base "$GH_BRANCH" --json headRefName --jq '.[].headRefName')
+PR_BRANCHES=$(gh pr list --state open --base "$GIT_BRANCH" --json headRefName --jq '.[].headRefName')
 
 if [ -z "$(git config --get user.name)" ]; then
   git config user.name "github-actions[bot]"
@@ -18,7 +19,7 @@ for branch in $PR_BRANCHES; do
   git fetch origin "$branch"
   git checkout "$branch"
 
-  if ! git merge "origin/$GH_BRANCH" --no-edit; then
+  if ! git merge "origin/$GIT_BRANCH" --no-edit; then
     git merge --abort
     continue
   fi
