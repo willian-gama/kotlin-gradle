@@ -12,16 +12,20 @@ if [ -z "$(git config --get user.email)" ]; then
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 fi
 
-#echo -e "\nFetching target branch: $GH_BRANCH"
-#/git fetch origin "$GH_BRANCH"
+echo -e "\nFetching target branch: $GH_BRANCH"
+git fetch origin "$GH_BRANCH"
+git pull
 
 for branch in $PR_BRANCHES; do
   echo -e "\nSyncing $branch\n"
 
+  echo "git fetch origin $branch"
   git fetch origin "$branch"
-  git checkout "$branch"
-#  git checkout -b "$branch" origin/"$branch"
 
+  echo "git checkout $branch"
+  git checkout "$branch"
+
+  echo git merge "origin/$GH_BRANCH"
   if ! git merge "origin/$GH_BRANCH" --no-edit; then
     echo -e "\nMerge conflict detected on branch $branch.\n"
     git merge --abort
