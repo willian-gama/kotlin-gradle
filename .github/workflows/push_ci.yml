@@ -51,4 +51,5 @@ jobs:
       - name: Sync PRs with develop
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_BRANCH: ${GITHUB_REF#refs/heads}
         run: ./scripts/auto_sync_prs.sh develop
