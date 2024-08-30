@@ -49,4 +49,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Git
-        run: ./auto_sync_prs.sh ${{ github.ref }}
+        run: ./scripts/auto_sync_prs.sh ${{ github.ref }}
