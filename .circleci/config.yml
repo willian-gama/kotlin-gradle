@@ -13,7 +13,7 @@ jobs:
     executor: docker_lts
     steps:
       - checkout
-      - gh-cli/install
+      - gh-cli/setup
       - run:
           name: Auto sync prs
           command: scripts/auto_sync_prs.sh
