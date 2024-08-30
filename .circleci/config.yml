@@ -34,7 +34,7 @@ workflows:
           filters:
             branches:
               only:
-                - dev
+                - develop
 
       - auto_bump:
           filters:
@@ -42,4 +42,3 @@ workflows:
               ignore:
                 - main
                 - develop
-                
