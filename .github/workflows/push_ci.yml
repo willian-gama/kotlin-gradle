@@ -47,6 +47,7 @@ jobs:
     steps:
       - name: checkout project sources
         uses: actions/checkout@v4
+
       - name: Sync PRs with develop
         id: get_branch
         env:
