@@ -3,7 +3,8 @@
 TARGET_BRANCH=$1
 PR_BRANCHES=$(gh pr list --state open --base "$TARGET_BRANCH" --json headRefName --jq '.[].headRefName')
 
-echo "Target branch: $TARGET_BRANCH"
+echo "Fetching target branch: $TARGET_BRANCH"
+git fetch origin "$TARGET_BRANCH"
 
 for branch in $PR_BRANCHES; do
   echo "Syncing $branch"
