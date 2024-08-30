@@ -20,11 +20,15 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
     git checkout "$branch"
 
     if ! git merge "origin/$GIT_BRANCH" --no-edit; then
+      echo "This branch: $branch has conflicts that must be resolved"
       git merge --abort
-    else
-      git push origin "$branch"
+      continue
     fi
+
+    git push origin "$branch"
   done
 else
   echo "No PRs available for the target: $GIT_BRANCH"
 fi
+
+git checkout "$GIT_BRANCH"
