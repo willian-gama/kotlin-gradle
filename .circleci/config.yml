@@ -14,6 +14,14 @@ jobs:
           name: Auto bump version
           command: scripts/auto_bump.sh
 
+  auto_sync_prs:
+    executor: docker_lts
+    steps:
+      - checkout
+      - run:
+          name: Auto bump version
+          command: scripts/auto_sync_prs.sh
+
 workflows:
   build_and_test:
     jobs:
@@ -23,3 +31,4 @@ workflows:
               ignore:
                 - main
                 - develop
+      - auto_sync_prs
