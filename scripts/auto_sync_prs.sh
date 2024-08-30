@@ -10,6 +10,6 @@ for branch in $PR_BRANCHES; do
   echo "Syncing $branch"
   git fetch origin "$branch"
   git checkout "$branch"
-  git merge "$TARGET_BRANCH" --no-edit
+  git merge "origin/$TARGET_BRANCH" --no-edit
   git push origin "$branch"
 done
