@@ -15,6 +15,7 @@ permissions:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
+  GH_TOKEN: ${{ github.token }}
 
 jobs:
   auto-sync-prs:
@@ -24,6 +25,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Sync PRs with target branch
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: ./scripts/auto_sync_prs.sh develop
