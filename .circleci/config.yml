@@ -13,10 +13,10 @@ jobs:
     executor: docker_lts
     steps:
       - checkout
-      - github-cli/setup
       - run:
           name: Clear GH_TOKEN
           command: unset GH_TOKEN
+      - github-cli/setup
       - run:
           name: Authenticate with GitHub
           command: echo $GH_TOKEN | gh auth login --with-token
