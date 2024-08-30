@@ -23,7 +23,15 @@ for branch in $PR_BRANCHES; do
   git pull
 
   if ! git merge "origin/$GH_BRANCH" --no-edit; then
-    git merge --abort
+    echo -e "\nMerge conflict detected on branch $branch.\n"
+
+    if [ -f .git/MERGE_HEAD ]; then
+      git merge --abort
+      echo -e "\nMerge aborted for branch $branch. Skipping to the next branch.\n"
+    else
+      echo -e "\nNo merge to abort for branch $branch.\n"
+    fi
+
     continue
   fi
 
