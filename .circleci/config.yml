@@ -13,7 +13,8 @@ jobs:
     executor: docker_lts
     steps:
       - checkout
-      - github-cli/install
+      - github-cli/setup:
+          token: $GH_TOKEN
       - run:
           name: Authenticate with GitHub
           command: echo $GH_TOKEN | gh auth login --with-token
