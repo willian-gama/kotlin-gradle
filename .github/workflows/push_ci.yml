@@ -51,3 +51,5 @@ jobs:
 
       - name: Sync PRs with develop
         run: ./scripts/auto_sync_prs.sh develop
+        env:
+          GH_TOKEN: ${{ github.token }}
