@@ -2,8 +2,8 @@
 name: push_ci
 
 on:
-  push:
-    branches: [ "*" ]
+  pull_request:
+    branches: [ "develop" ]
 
 concurrency:
   group: ${{ github.ref }}
@@ -17,30 +17,30 @@ env:
   GPR_KEY: ${{ secrets.GPR_KEY }}
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout project sources
-        uses: actions/checkout@v4
-
-      - name: set up jdk
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
-          java-version: 21
-
-      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-      - name: setup gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: include local.properties from secret variables
-        run: scripts/include_local_properties.sh
-
-      - name: publish to github packages
-        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
-
-      - name: create new git tag
-        run: ./scripts/create_new_git_tag.sh
+#  deploy:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout project sources
+#        uses: actions/checkout@v4
+#
+#      - name: set up jdk
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
+#          java-version: 21
+#
+#      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+#      - name: setup gradle
+#        uses: gradle/actions/setup-gradle@v4
+#
+#      - name: include local.properties from secret variables
+#        run: scripts/include_local_properties.sh
+#
+#      - name: publish to github packages
+#        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
+#
+#      - name: create new git tag
+#        run: ./scripts/create_new_git_tag.sh
 
   auto-sync-prs:
     runs-on: ubuntu-latest
