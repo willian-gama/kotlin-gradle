@@ -15,7 +15,6 @@ permissions:
 env:
   GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
   GPR_KEY: ${{ secrets.GPR_KEY }}
-  GH_TOKEN: ${{ github.token }}
 
 jobs:
   deploy:
