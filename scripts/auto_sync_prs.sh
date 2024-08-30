@@ -20,6 +20,7 @@ for branch in $PR_BRANCHES; do
 
   git fetch origin "$branch"
   git checkout "$branch"
+  git pull
   if ! git merge "origin/$GH_BRANCH" --no-edit; then
     git merge --abort
     continue
