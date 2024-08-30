@@ -52,4 +52,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_BRANCH: ${GITHUB_REF#refs/heads}
-        run: ./scripts/auto_sync_prs.sh ${GITHUB_REF#refs/heads}
+        run: ./scripts/auto_sync_prs.sh ${GITHUB_BASE_REF}
