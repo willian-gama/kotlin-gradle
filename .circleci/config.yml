@@ -1,11 +1,26 @@
 version: 2.1
 
+orbs:
+  github-cli: circleci/github-cli@2.4.0
+
 executors:
   docker_lts:
     docker:
       - image: cimg/node:lts
 
 jobs:
+  auto_sync_prs:
+    executor: docker_lts
+    steps:
+      - checkout
+      - github-cli/install
+      - run:
+          name: Authenticate GitHub CLI
+          command: echo $GITHUB_TOKEN 
+      - run:
+          name: Auto sync prs
+          command: scripts/auto_sync_prs.sh
+
   auto_bump:
     executor: docker_lts
     steps:
@@ -17,6 +32,7 @@ jobs:
 workflows:
   build_and_test:
     jobs:
+      - auto_sync_prs
       - auto_bump:
           filters:
             branches:
