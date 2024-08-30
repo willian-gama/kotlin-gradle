@@ -15,9 +15,6 @@ jobs:
       - checkout
       - github-cli/install
       - run:
-          name: Authenticate GitHub CLI
-          command: echo $GITHUB_TOKEN 
-      - run:
           name: Auto sync prs
           command: scripts/auto_sync_prs.sh
 
