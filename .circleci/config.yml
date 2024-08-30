@@ -13,6 +13,7 @@ jobs:
     executor: docker_lts
     steps:
       - checkout
+      # GH_TOKEN as an environment variable -> https://app.circleci.com/settings/project/circleci/Ar3FX8SzxJyoksVDF9xyRr/LZH3jvGmAJqanR2yKDtZ1i/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fcircleci%2FAr3FX8SzxJyoksVDF9xyRr%2FLZH3jvGmAJqanR2yKDtZ1i%2F319%2Fworkflows%2F40703d41-8359-4902-bfbb-a7b9031cb7e1%2Fjobs%2F288
       - github-cli/install
       - run:
           name: Auto sync prs
@@ -29,7 +30,12 @@ jobs:
 workflows:
   build_and_test:
     jobs:
-      - auto_sync_prs
+      - auto_sync_prs:
+          filters:
+            branches:
+              only:
+                - dev
+
       - auto_bump:
           filters:
             branches:
