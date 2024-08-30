@@ -33,7 +33,7 @@ jobs:
 #          # Allow to access files in the Pull Request
 #          ref: ${{ github.event.pull_request.head.ref }}
 #
-#      - name: auto bump version if required
+#      - name: Auto bump version if required
 #        run: ./auto_bump_not_used.sh
 
   run_tests:
@@ -58,5 +58,5 @@ jobs:
       - name: Include local.properties from secret variables
         run: scripts/include_local_properties.sh
 
-      - name: run tests
+      - name: Run tests
         run: ./gradlew test
