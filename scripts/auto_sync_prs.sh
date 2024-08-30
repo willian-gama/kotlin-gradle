@@ -23,5 +23,5 @@ for branch in $PR_BRANCHES; do
     continue
   fi
 
-  git push
+  git push origin "$branch"
 done
