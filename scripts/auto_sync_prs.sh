@@ -24,4 +24,5 @@ for branch in $PR_BRANCHES; do
   fi
 
   git push origin "$branch"
+  break 
 done
