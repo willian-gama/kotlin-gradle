@@ -17,6 +17,7 @@ git fetch origin "$GH_BRANCH"
 
 for branch in $PR_BRANCHES; do
   echo -e "\nSyncing $branch\n"
+
   git fetch origin "$branch"
   git checkout "$branch"
   if ! git merge "origin/$GH_BRANCH" --no-edit; then
