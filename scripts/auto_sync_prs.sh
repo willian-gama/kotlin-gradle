@@ -19,6 +19,8 @@ for branch in $PR_BRANCHES; do
   echo "Syncing $branch"
   git fetch origin "$branch"
   git checkout "$branch"
-  git merge "origin/$GH_BRANCH" --no-edit
+  if ! git merge "origin/$GH_BRANCH" --no-edit; then
+    git merge --abort
+  fi
   git push origin "$branch"
 done
