@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Authenticate GitHub CLI
           command: |
-            gh auth logout --all  # Ensure previous sessions are cleared
+            gh auth logout --hostname github.com
             echo $GH_TOKEN | gh auth login --with-token
       - run:
           name: Auto sync prs
