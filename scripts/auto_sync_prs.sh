@@ -1,6 +1,7 @@
 #!/bin/bash
 
 GH_BRANCH=$1
+# https://cli.github.com/manual/gh_pr_view
 PR_BRANCHES=$(gh pr list --state open --base "$GH_BRANCH" --json headRefName --jq '.[].headRefName')
 
 echo "Fetching target branch: $GH_BRANCH"
