@@ -15,11 +15,11 @@ jobs:
       - checkout
       - run:
           name: Clear GH_TOKEN
-          command: unset GH_TOKEN
-      - github-cli/setup
+          command: unset GITHUB_TOKEN
+      - github-cli/install
       - run:
-          name: Authenticate with GitHub
-          command: echo $GH_TOKEN | gh auth login --with-token
+          name: Authenticate GitHub CLI
+          command: echo $GITHUB_TOKEN | gh auth login --with-token
       - run:
           name: Auto sync prs
           command: scripts/auto_sync_prs.sh
