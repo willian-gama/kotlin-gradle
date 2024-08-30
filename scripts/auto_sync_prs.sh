@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GIT_BRANCH=$CIRCLE_BRANCH
+GIT_BRANCH=develop
 # https://cli.github.com/manual/gh_pr_view
 PR_BRANCHES=$(gh pr list --state open --base "$GIT_BRANCH" --json headRefName --jq '.[].headRefName')
 
