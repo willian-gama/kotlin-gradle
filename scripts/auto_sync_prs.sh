@@ -12,16 +12,20 @@ if [ -z "$(git config --get user.email)" ]; then
   git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 fi
 
-for branch in $PR_BRANCHES; do
-  echo -e "\nSyncing $branch\n"
+if [ ${#PR_BRANCHES[@]} -eq 0 ]; then
+  for branch in $PR_BRANCHES; do
+    echo -e "\nSyncing $branch\n"
 
-  git fetch origin "$branch"
-  git checkout "$branch"
+    git fetch origin "$branch"
+    git checkout "$branch"
 
-  if ! git merge "origin/$GIT_BRANCH" --no-edit; then
-    git merge --abort
-    continue
-  fi
+    if ! git merge "origin/$GIT_BRANCH" --no-edit; then
+      git merge --abort
+      continue
+    fi
 
-  git push origin "$branch"
-done
+    git push origin "$branch"
+  done
+else
+  echo "No PRs available for the target: $GIT_BRANCH"
+fi
