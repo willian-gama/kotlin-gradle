@@ -1,62 +1,62 @@
-## Enable github action: https://github.com/willian-gama/kgp/settings/actions
-#name: pull_request_ci
-#
-#on:
-#  pull_request:
-#    branches: [ "develop" ]
-#
-## https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
-#permissions:
-#  contents: write # Allows to commit and push files
-#
-#concurrency:
-#  group: ${{ github.ref }}
-#  cancel-in-progress: true
-#
-#env:
-#  GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
-#  GPR_KEY: ${{ secrets.GPR_KEY }}
-#  # Not used, just saved for references
-#  GIT_OWNER: ${{ github.repository_owner }}
-#  GIT_REPO: ${{ github.event.repository.name }}
-#  WORKFLOW_RUN_ID: ${{ github.run_id }}
-#  PR_NUMBER: ${{ github.event.pull_request.number }}
-#
-#jobs:
-## NOT USED, CURRENTLY GITHUB ACTION CAN NOT RERUN CHECKS WHEN BUMPING THE CURRENT VERSION THROUGH A PULL REQUEST
-##  auto_bump:
-##    runs-on: ubuntu-latest
-##    steps:
-##      - name: checkout project sources
-##        uses: actions/checkout@v4
-##        with:
-##          # Allow to access files in the Pull Request
-##          ref: ${{ github.event.pull_request.head.ref }}
-##
-##      - name: Auto bump version if required
-##        run: ./auto_bump_not_used.sh
-#
-#  run_tests:
+# Enable github action: https://github.com/willian-gama/kgp/settings/actions
+name: pull_request_ci
+
+on:
+  pull_request:
+    branches: [ "develop" ]
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/controlling-permissions-for-github_token
+permissions:
+  contents: write # Allows to commit and push files
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+  GPR_KEY: ${{ secrets.GPR_KEY }}
+  # Not used, just saved for references
+  GIT_OWNER: ${{ github.repository_owner }}
+  GIT_REPO: ${{ github.event.repository.name }}
+  WORKFLOW_RUN_ID: ${{ github.run_id }}
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+
+jobs:
+# NOT USED, CURRENTLY GITHUB ACTION CAN NOT RERUN CHECKS WHEN BUMPING THE CURRENT VERSION THROUGH A PULL REQUEST
+#  auto_bump:
 #    runs-on: ubuntu-latest
 #    steps:
-#      - name: Checkout project sources
+#      - name: checkout project sources
 #        uses: actions/checkout@v4
-#
-#      - name: Set up jdk
-#        uses: actions/setup-java@v4
 #        with:
-#          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
-#          java-version: 21
+#          # Allow to access files in the Pull Request
+#          ref: ${{ github.event.pull_request.head.ref }}
 #
-#      - name: Validate gradle wrapper
-#        uses: gradle/actions/wrapper-validation@v4
-#
-#      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-#      - name: Setup gradle
-#        uses: gradle/actions/setup-gradle@v4
-#
-#      - name: Include local.properties from secret variables
-#        run: scripts/include_local_properties.sh
-#
-#      - name: Run tests
-#        run: ./gradlew test
+#      - name: Auto bump version if required
+#        run: ./auto_bump_not_used.sh
+
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+
+      - name: Set up jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu # Supported distributions: https://github.com/actions/setup-java#supported-distributions
+          java-version: 21
+
+      - name: Validate gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      # https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Include local.properties from secret variables
+        run: scripts/include_local_properties.sh
+
+      - name: Run tests
+        run: ./gradlew test
