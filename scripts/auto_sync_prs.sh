@@ -21,10 +21,9 @@ if [ ${#PR_BRANCHES[@]} -eq 0 ]; then
 
     if ! git merge "origin/$GIT_BRANCH" --no-edit; then
       git merge --abort
-      continue
+    else
+      git push origin "$branch"
     fi
-
-    git push origin "$branch"
   done
 else
   echo "No PRs available for the target: $GIT_BRANCH"
