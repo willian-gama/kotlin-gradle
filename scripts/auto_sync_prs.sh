@@ -22,6 +22,7 @@ for branch in $PR_BRANCHES; do
   git checkout "$branch"
   if ! git merge "origin/$GH_BRANCH" --no-edit; then
     git merge --abort
+    continue
   fi
   git push origin "$branch"
 done
