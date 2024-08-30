@@ -31,4 +31,4 @@ else
   echo "No PRs available for the target: $GIT_BRANCH"
 fi
 
-git checkout "$GIT_BRANCH"
+git checkout "test"
