@@ -29,3 +29,4 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
 else
   echo "No PRs available for the target: $GIT_BRANCH"
 fi
+# TESTING
