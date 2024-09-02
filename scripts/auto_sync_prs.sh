@@ -16,6 +16,7 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
   for branch in $PR_BRANCHES; do
     echo -e "\n- Syncing branches: $branch with $GIT_BRANCH\n"
 
+    git fetch origin "$branch"
     git checkout "$branch"
 
     if git merge "origin/$GIT_BRANCH" --no-edit > /dev/null 2>&1; then
@@ -29,4 +30,3 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
 else
   echo "No PRs available for the target: $GIT_BRANCH"
 fi
-# TESTING
