@@ -17,6 +17,7 @@ if [ ${#PR_BRANCHES[@]} -gt 0 ]; then
     echo -e "\n- Syncing branches: $branch with $GIT_BRANCH\n"
 
     git fetch origin "$branch"
+    git pull
     git checkout "$branch"
 
     if git merge "origin/$GIT_BRANCH" --no-edit > /dev/null 2>&1; then
