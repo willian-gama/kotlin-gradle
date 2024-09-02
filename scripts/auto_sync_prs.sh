@@ -1,7 +1,7 @@
 #!/bin/bash
 
 GIT_BRANCH=$CIRCLE_BRANCH
-# https://cli.github.com/manual/gh_pr_view
+# Github client: https://cli.github.com/manual/gh_pr_view
 PR_BRANCHES=$(gh pr list --state open --base "$GIT_BRANCH" --json headRefName --jq '.[].headRefName')
 
 if [ -z "$(git config --get user.name)" ]; then
