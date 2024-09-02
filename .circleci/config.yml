@@ -2,7 +2,9 @@ version: 2.1
 
 # HEY YOU
 orbs:
+  # https://circleci.com/developer/orbs/orb/circleci/github-cli
   github-cli: circleci/github-cli@2.4.0
+
 executors:
   docker_lts:
     docker:
