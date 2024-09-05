@@ -17,6 +17,7 @@ if [ -n "$PR_BRANCHES" ]; then
     echo -e "\n- Syncing branches: $branch with $GIT_BRANCH\n"
 
     git checkout "$branch"
+    git pull origin "$branch"
 
     if git merge "origin/$GIT_BRANCH" --no-edit > /dev/null 2>&1; then
       git push origin "$branch"
