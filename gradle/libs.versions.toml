@@ -3,7 +3,7 @@
 android = "8.6.0"
 ktlint = "12.1.1"
 jfrog = "5.2.5"
-detekt = "1.23.6"
+detekt = "1.23.7"
 sonar = "5.1.0.4882"
 junit = "4.13.2"
 
