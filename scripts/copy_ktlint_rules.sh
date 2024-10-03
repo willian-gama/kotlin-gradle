@@ -9,20 +9,19 @@ if [ ! -f "$KOTLIN_FILE" ]; then
   exit 1
 fi
 
-rules=$(sed -n '/KTLINT_RULES *=/,/^)/p' "$KOTLIN_FILE" | grep -E 'to' | sed 's/"//g; s/,//; s/)$//')
+rules=$(sed -n '/KTLINT_RULES *=/,/^)/p' "$KOTLIN_FILE" | grep -E 'to' | tr -d '"' | tr -d ',' | sed 's/)$//; s/to//g;')
 
-if [[ -z "$rules" ]]; then
-  echo "Error: No KTLINT rules found in '$KOTLIN_FILE'!"
+if [ -z "$rules" ]; then
+  echo "No Ktlint rules found in $KOTLIN_FILE"
   exit 1
 fi
 
-echo "[*.{kt,kts}]" > "$EDITORCONFIG_FILE"
-
-echo "$rules" | while IFS=' ' read -r rule _ status; do
-  rule=$(echo "$rule" | sed 's/"//g; s/,//')
-  status=$(echo "$status" | sed 's/"//g; s/,//; s/)$//')
-  echo "$rule = $status" >> "$EDITORCONFIG_FILE"
-done
+{
+  echo "[*.{kt,kts}]"
+  echo "$rules" | while read -r rule status; do
+    echo "$rule = $status"
+  done
+} > "$EDITORCONFIG_FILE"
 
 echo "$EDITORCONFIG_FILE created from $KOTLIN_FILE"
 cat "$EDITORCONFIG_FILE"
