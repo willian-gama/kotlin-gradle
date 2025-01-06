@@ -6,7 +6,6 @@ import com.willian.gama.kgp.constants.SonarConstants.SONAR_COVERAGE_JACOCO_XML_R
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_DESCRIPTION
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_EXCLUSIONS_PARAM
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_HOST_URL_PARAM
-import com.willian.gama.kgp.constants.SonarConstants.SONAR_HOST_URL_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_JACOCO_REPORT_PATH
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_KOTLIN_DETEKT_REPORT_PATHS_PARAM
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_KOTLIN_KTLINT_REPORT_PATHS_PARAM
@@ -37,7 +36,7 @@ fun Project.setUpSonar(properties: SonarProperties) {
         properties {
             properties(
                 mapOf(
-                    SONAR_HOST_URL_PARAM to SONAR_HOST_URL_VALUE,
+                    SONAR_HOST_URL_PARAM to properties.url,
                     SONAR_TOKEN_KEY_PARAM to properties.token,
                     SONAR_PROJECT_KEY_PARAM to properties.projectKey,
                     SONAR_ORGANIZATION_PARAM to properties.organizationKey,

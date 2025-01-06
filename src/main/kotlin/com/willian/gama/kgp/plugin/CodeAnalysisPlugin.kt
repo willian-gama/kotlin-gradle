@@ -2,9 +2,9 @@ package com.willian.gama.kgp.plugin
 
 import com.willian.gama.kgp.constants.CodeAnalysisConstants.CI_ENVIRONMENT
 import com.willian.gama.kgp.constants.CodeAnalysisConstants.CODE_ANALYSIS
-import com.willian.gama.kgp.constants.CodeAnalysisConstants.CODE_LINTING_AS_ERROR
 import com.willian.gama.kgp.constants.CodeAnalysisConstants.DETEKT_CONFIG_FILE_PATH
 import com.willian.gama.kgp.constants.CodeAnalysisConstants.LOCAL_PROPERTIES
+import com.willian.gama.kgp.extension.generateKtLintEditorConfig
 import com.willian.gama.kgp.extension.setUpDetekt
 import com.willian.gama.kgp.extension.setUpFrog
 import com.willian.gama.kgp.extension.setUpJacoco
@@ -28,18 +28,21 @@ class CodeAnalysisPlugin : Plugin<Project> {
         val properties = Properties().apply {
             load(project.file(LOCAL_PROPERTIES).inputStream())
         }
-        val isIgnoreLintingFailures = project.providers.environmentVariable(CI_ENVIRONMENT)
-            .getOrElse(CODE_LINTING_AS_ERROR)
-            .toBooleanStrict()
+        val isCiEnvironment = project.providers
+            .environmentVariable(CI_ENVIRONMENT)
+            .getOrNull()?.toBooleanStrict() ?: false
         val detektProperties = DetektProperties(
-            ignoreFailures = isIgnoreLintingFailures,
+            ignoreFailures = isCiEnvironment,
             configFile = getFileFromResource(fileName = DETEKT_CONFIG_FILE_PATH)
         )
 
         project.afterEvaluate {
+            generateKtLintEditorConfig()
+
             setUpSonar(
                 properties = properties.toSonarProperties(
-                    codeAnalysis = codeAnalysis
+                    codeAnalysis = codeAnalysis,
+                    isCiEnvironment = isCiEnvironment
                 )
             )
 
@@ -52,7 +55,7 @@ class CodeAnalysisPlugin : Plugin<Project> {
             }
 
             subprojects {
-                setUpKtLint(isIgnoreFailures = isIgnoreLintingFailures)
+                setUpKtLint(isIgnoreFailures = isCiEnvironment)
                 setUpDetekt(properties = detektProperties)
                 setUpJacoco(buildType = codeAnalysis.buildType)
             }

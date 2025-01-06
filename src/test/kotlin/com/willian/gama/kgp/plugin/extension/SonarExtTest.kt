@@ -1,5 +1,6 @@
 package com.willian.gama.kgp.plugin.extension
 
+import com.willian.gama.kgp.constants.SonarConstants.SONAR_LOCALHOST_URL_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_PLUGIN_ID
 import com.willian.gama.kgp.extension.setUpSonar
 import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_VARIANT
@@ -17,6 +18,7 @@ import org.junit.Test
 import org.sonarqube.gradle.SonarExtension
 
 private val TEST_SONAR_PROPERTIES = createSonarProperties(
+    url = SONAR_LOCALHOST_URL_VALUE,
     token = TEST_SONAR_TOKEN,
     projectKey = TEST_SONAR_PROJECT_KEY,
     organizationKey = TEST_SONAR_ORGANIZATION,

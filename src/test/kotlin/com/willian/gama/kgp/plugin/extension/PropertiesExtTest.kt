@@ -1,5 +1,6 @@
 package com.willian.gama.kgp.plugin.extension
 
+import com.willian.gama.kgp.constants.SonarConstants.SONAR_LOCALHOST_URL_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.getMissingPropertyErrorMessage
 import com.willian.gama.kgp.constants.UserPropertiesConstants.USER_MAVEN_REPO_ACCESS_TOKEN
 import com.willian.gama.kgp.constants.UserPropertiesConstants.USER_MAVEN_REPO_URL
@@ -39,6 +40,7 @@ class PropertiesExtTest {
     @Test
     fun `test properties to sonar properties parsing successfully`() {
         val expectedSonarProperties = createSonarProperties(
+            url = SONAR_LOCALHOST_URL_VALUE,
             token = TEST_SONAR_TOKEN,
             projectKey = TEST_SONAR_PROJECT_KEY,
             organizationKey = TEST_SONAR_ORGANIZATION,
@@ -51,7 +53,10 @@ class PropertiesExtTest {
             setProperty(USER_PROPERTY_SONAR_PROJECT_KEY, TEST_SONAR_PROJECT_KEY)
             setProperty(USER_PROPERTY_SONAR_ORGANIZATION_KEY, TEST_SONAR_ORGANIZATION)
             setProperty(USER_PROPERTY_SONAR_PROJECT_NAME_KEY, TEST_SONAR_PROJECT_NAME)
-        }.toSonarProperties(codeAnalysis = TEST_CODE_ANALYSIS)
+        }.toSonarProperties(
+            codeAnalysis = TEST_CODE_ANALYSIS,
+            isCiEnvironment = false
+        )
 
         assertEquals(expectedSonarProperties, sonarProperties)
     }
@@ -63,7 +68,10 @@ class PropertiesExtTest {
                 setProperty(USER_PROPERTY_SONAR_PROJECT_KEY, TEST_SONAR_PROJECT_KEY)
                 setProperty(USER_PROPERTY_SONAR_ORGANIZATION_KEY, TEST_SONAR_ORGANIZATION)
                 setProperty(USER_PROPERTY_SONAR_PROJECT_NAME_KEY, TEST_SONAR_PROJECT_NAME)
-            }.toSonarProperties(codeAnalysis = TEST_CODE_ANALYSIS)
+            }.toSonarProperties(
+                codeAnalysis = TEST_CODE_ANALYSIS,
+                isCiEnvironment = false
+            )
         }
         assertEquals(
             getMissingPropertyErrorMessage(USER_PROPERTY_SONAR_TOKEN_KEY),
@@ -78,7 +86,10 @@ class PropertiesExtTest {
                 setProperty(USER_PROPERTY_SONAR_TOKEN_KEY, TEST_SONAR_TOKEN)
                 setProperty(USER_PROPERTY_SONAR_ORGANIZATION_KEY, TEST_SONAR_ORGANIZATION)
                 setProperty(USER_PROPERTY_SONAR_PROJECT_NAME_KEY, TEST_SONAR_PROJECT_NAME)
-            }.toSonarProperties(codeAnalysis = TEST_CODE_ANALYSIS)
+            }.toSonarProperties(
+                codeAnalysis = TEST_CODE_ANALYSIS,
+                isCiEnvironment = false
+            )
         }
         assertEquals(
             getMissingPropertyErrorMessage(USER_PROPERTY_SONAR_PROJECT_KEY),
@@ -93,7 +104,10 @@ class PropertiesExtTest {
                 setProperty(USER_PROPERTY_SONAR_TOKEN_KEY, TEST_SONAR_TOKEN)
                 setProperty(USER_PROPERTY_SONAR_PROJECT_KEY, TEST_SONAR_PROJECT_KEY)
                 setProperty(USER_PROPERTY_SONAR_PROJECT_NAME_KEY, TEST_SONAR_PROJECT_NAME)
-            }.toSonarProperties(codeAnalysis = TEST_CODE_ANALYSIS)
+            }.toSonarProperties(
+                codeAnalysis = TEST_CODE_ANALYSIS,
+                isCiEnvironment = false
+            )
         }
         assertEquals(
             getMissingPropertyErrorMessage(USER_PROPERTY_SONAR_ORGANIZATION_KEY),
@@ -108,7 +122,10 @@ class PropertiesExtTest {
                 setProperty(USER_PROPERTY_SONAR_TOKEN_KEY, TEST_SONAR_TOKEN)
                 setProperty(USER_PROPERTY_SONAR_PROJECT_KEY, TEST_SONAR_PROJECT_KEY)
                 setProperty(USER_PROPERTY_SONAR_ORGANIZATION_KEY, TEST_SONAR_ORGANIZATION)
-            }.toSonarProperties(codeAnalysis = TEST_CODE_ANALYSIS)
+            }.toSonarProperties(
+                codeAnalysis = TEST_CODE_ANALYSIS,
+                isCiEnvironment = false
+            )
         }
         assertEquals(
             getMissingPropertyErrorMessage(USER_PROPERTY_SONAR_PROJECT_NAME_KEY),
