@@ -7,6 +7,5 @@ data class SonarProperties(
     val organizationKey: String,
     val projectName: String,
     val buildType: String,
-    val kotlinVersion: String,
-    val exclusions: String
+    val kotlinVersion: String
 )

@@ -7,13 +7,10 @@ object KtLintConstants {
     const val KTLINT_REPORT_PATH = "reports/ktlint"
     private const val KTLINT_RULE_DISABLED = "disabled"
     const val KTLINT_EDITORCONFIG = ".editorconfig"
+    const val KTLINT_FILE_PATTERNS = "[*.{kt,kts}]"
     val KTLINT_INCLUDE_PATTERN = listOf("**/*.kt", "**/*.kts")
     val KTLINT_EXCLUDE_PATTERN = listOf("**/build/**")
-    const val KTLINT_FILE_PATTERNS = "[*.{kt,kts}]"
-    val KTLINT_EDITOR_CONFIG_COMMENT = """
-        Code analysis plugin created $KTLINT_EDITORCONFIG with KtLint version $KTLINT_VERSION
-        Check it out here: https://kitmanlabs.atlassian.net/wiki/spaces/ENG/pages/180027635/Android+-+Code+analysis+plugin
-    """.trimIndent()
+    const val KTLINT_EDITOR_CONFIG_COMMENT = "Code analysis plugin created $KTLINT_EDITORCONFIG with KtLint version $KTLINT_VERSION"
     val KTLINT_RULES = mapOf(
         "max_line_length" to "off",
         "insert_final_newline" to "false",

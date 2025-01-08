@@ -4,7 +4,6 @@ import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_EDITOR_CONFIG_COMME
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_FILE_PATTERNS
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_REPORT_PATH
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_RULES
-import com.willian.gama.kgp.constants.SonarConstants.SONAR_EXCLUSIONS_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_LOCALHOST_URL_VALUE
 import com.willian.gama.kgp.model.CodeAnalysis
 import com.willian.gama.kgp.model.DetektProperties
@@ -66,8 +65,7 @@ object TestData {
         organizationKey: String = TEST_SONAR_ORGANIZATION,
         projectName: String = TEST_SONAR_PROJECT_NAME,
         buildType: String = TEST_DEBUG_VARIANT,
-        kotlinVersion: String = TEST_MAJOR_VERSION,
-        exclusions: String = SONAR_EXCLUSIONS_VALUE,
+        kotlinVersion: String = TEST_MAJOR_VERSION
     ) = SonarProperties(
         url = url,
         token = token,
@@ -75,8 +73,7 @@ object TestData {
         organizationKey = organizationKey,
         projectName = projectName,
         buildType = buildType,
-        kotlinVersion = kotlinVersion,
-        exclusions = exclusions
+        kotlinVersion = kotlinVersion
     )
 
     fun createDetektProperties(

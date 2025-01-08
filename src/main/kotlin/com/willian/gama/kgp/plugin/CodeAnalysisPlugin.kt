@@ -14,7 +14,7 @@ import com.willian.gama.kgp.extension.toJfrogProperties
 import com.willian.gama.kgp.extension.toSonarProperties
 import com.willian.gama.kgp.model.CodeAnalysis
 import com.willian.gama.kgp.model.DetektProperties
-import com.willian.gama.kgp.util.FileUtil.getFileFromResource
+import com.willian.gama.kgp.util.FileUtil.copyFileFromResource
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.util.Properties
@@ -28,12 +28,11 @@ class CodeAnalysisPlugin : Plugin<Project> {
         val properties = Properties().apply {
             load(project.file(LOCAL_PROPERTIES).inputStream())
         }
-        val isCiEnvironment = project.providers
-            .environmentVariable(CI_ENVIRONMENT)
+        val isCiEnvironment = project.providers.environmentVariable(CI_ENVIRONMENT)
             .getOrNull()?.toBooleanStrict() ?: false
         val detektProperties = DetektProperties(
             ignoreFailures = isCiEnvironment,
-            configFile = getFileFromResource(fileName = DETEKT_CONFIG_FILE_PATH)
+            configFile = copyFileFromResource(fileName = DETEKT_CONFIG_FILE_PATH)
         )
 
         project.afterEvaluate {

@@ -18,8 +18,6 @@ object SonarConstants {
     const val SONAR_KOTLIN_DETEKT_REPORT_PATHS_PARAM = "sonar.kotlin.detekt.reportPaths"
     const val SONAR_KOTLIN_KTLINT_REPORT_PATHS_PARAM = "sonar.kotlin.ktlint.reportPaths"
     const val SONAR_COVERAGE_JACOCO_XML_REPORT_PATHS_PARAM = "sonar.coverage.jacoco.xmlReportPaths"
-    const val SONAR_EXCLUSIONS_PARAM = "sonar.exclusions"
-    const val SONAR_EXCLUSIONS_VALUE = "**/*.java"
     const val SONAR_KTLINT_FILE_PATH = "**/*.json"
     const val SONAR_JACOCO_REPORT_PATH = "reports/jacoco"
     const val SONAR_XML_FILE_PATH = "*.xml"

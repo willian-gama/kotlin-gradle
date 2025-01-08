@@ -4,7 +4,6 @@ import com.willian.gama.kgp.constants.DetektConstants.DETEKT_REPORT_PATH
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_REPORT_PATH
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_COVERAGE_JACOCO_XML_REPORT_PATHS_PARAM
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_DESCRIPTION
-import com.willian.gama.kgp.constants.SonarConstants.SONAR_EXCLUSIONS_PARAM
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_HOST_URL_PARAM
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_JACOCO_REPORT_PATH
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_KOTLIN_DETEKT_REPORT_PATHS_PARAM
@@ -41,7 +40,6 @@ fun Project.setUpSonar(properties: SonarProperties) {
                     SONAR_PROJECT_KEY_PARAM to properties.projectKey,
                     SONAR_ORGANIZATION_PARAM to properties.organizationKey,
                     SONAR_PROJECT_NAME_PARAM to properties.projectName,
-                    SONAR_EXCLUSIONS_PARAM to properties.exclusions,
                     SONAR_KOTLIN_SOURCE_VERSION_PARAM to properties.kotlinVersion.getMajorMinorVersion(),
                     SONAR_SOURCE_ENCODING_PARAM to SONAR_SOURCE_ENCODING_VALUE,
                     SONAR_KOTLIN_DETEKT_REPORT_PATHS_PARAM to getReportPaths(

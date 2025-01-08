@@ -1,6 +1,5 @@
 package com.willian.gama.kgp.extension
 
-import com.willian.gama.kgp.constants.SonarConstants.SONAR_EXCLUSIONS_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_LOCALHOST_URL_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_REMOTE_URL_VALUE
 import com.willian.gama.kgp.constants.SonarConstants.getMissingPropertyErrorMessage
@@ -26,8 +25,7 @@ fun Properties.toSonarProperties(
     organizationKey = getPropertySafely(USER_PROPERTY_SONAR_ORGANIZATION_KEY),
     projectName = getPropertySafely(USER_PROPERTY_SONAR_PROJECT_NAME_KEY),
     buildType = codeAnalysis.buildType,
-    kotlinVersion = codeAnalysis.kotlinVersion,
-    exclusions = SONAR_EXCLUSIONS_VALUE
+    kotlinVersion = codeAnalysis.kotlinVersion
 )
 
 fun Properties.toJfrogProperties(codeAnalysis: CodeAnalysis) = JFrogProperties(
