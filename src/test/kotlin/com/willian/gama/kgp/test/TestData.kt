@@ -37,11 +37,11 @@ object TestData {
     val TEST_DETEKT_CONFIG_FILE = File("detekt.yml")
     const val TEST_MAVEN_JFROG_REPO_KEY = "android-lib"
     const val TEST_MAVEN_REPO_URL = "https://test.jfrog.io/artifactory"
-    const val TEST_MAVEN_REPO_USERNAME = "test@kitmanlabs.com"
+    const val TEST_MAVEN_REPO_USERNAME = "email@test.com"
     const val TEST_MAVEN_REPO_ACCESS_TOKEN = "DY3ODM6N1NCZjZDazFHZUNKenVpbUxRdlNDQU1QN0RE"
     const val TEST_JAVA_PLUGIN = "java"
     const val TEST_ANDROID_COMPILE_SDK = 34
-    const val TEST_NAMESPACE = "com.kitmanlabs.test"
+    const val TEST_NAMESPACE = "com.willian.gama.kgp.test"
     val TEST_KTLINT_RULES_CONTENT = buildList {
         addAll(KTLINT_EDITOR_CONFIG_COMMENT.lines().map { "# $it" })
         add(KTLINT_FILE_PATTERNS)
