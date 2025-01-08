@@ -1,4 +1,4 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
 import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_MAIN_SOURCE_SET
 import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_EXCLUSION
@@ -8,10 +8,8 @@ import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_INCLUDE_EXECUTION_D
 import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_PLUGIN_ID
 import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_TOOLS_VERSION
 import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_XML_REPORT_PATH
-import com.willian.gama.kgp.extension.generateCodeCoverageTask
-import com.willian.gama.kgp.extension.setUpJacoco
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_VARIANT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_JAVA_PLUGIN
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_JAVA_PLUGIN
 import com.willian.gama.kgp.util.ReportUtil.getGeneratedJavaReportPath
 import com.willian.gama.kgp.util.ReportUtil.getGeneratedKotlinReportPath
 import org.gradle.api.internal.file.collections.DefaultConfigurableFileCollection

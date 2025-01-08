@@ -1,15 +1,13 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_BASELINE_REPORT_PATH
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_EDITORCONFIG
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_PLUGIN_ID
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_RULES
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_VERSION
-import com.willian.gama.kgp.extension.generateKtLintEditorConfig
-import com.willian.gama.kgp.extension.setUpKtLint
-import com.willian.gama.kgp.plugin.test.TestData.TEST_KTLINT_CHECK_REPORT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_KTLINT_FORMAT_REPORT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_KTLINT_RULES_CONTENT
+import com.willian.gama.kgp.test.TestData.TEST_KTLINT_CHECK_REPORT
+import com.willian.gama.kgp.test.TestData.TEST_KTLINT_FORMAT_REPORT
+import com.willian.gama.kgp.test.TestData.TEST_KTLINT_RULES_CONTENT
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.gradle.testfixtures.ProjectBuilder

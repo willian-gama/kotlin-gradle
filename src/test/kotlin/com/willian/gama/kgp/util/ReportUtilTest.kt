@@ -1,13 +1,13 @@
-package com.willian.gama.kgp.plugin.util
+package com.willian.gama.kgp.util
 
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_ANDROID_TEST_DIRECTORY_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_GENERATED_JAVA_REPORT_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_GENERATED_KOTLIN_REPORT_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_VARIANT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_FULL_DEBUG_ANDROID_TEST_DIRECTORY_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_FULL_DEBUG_GENERATED_JAVA_REPORT_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_FULL_DEBUG_GENERATED_KOTLIN_REPORT_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_FULL_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_ANDROID_TEST_DIRECTORY_PATH
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_GENERATED_JAVA_REPORT_PATH
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_GENERATED_KOTLIN_REPORT_PATH
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_FULL_DEBUG_ANDROID_TEST_DIRECTORY_PATH
+import com.willian.gama.kgp.test.TestData.TEST_FULL_DEBUG_GENERATED_JAVA_REPORT_PATH
+import com.willian.gama.kgp.test.TestData.TEST_FULL_DEBUG_GENERATED_KOTLIN_REPORT_PATH
+import com.willian.gama.kgp.test.TestData.TEST_FULL_DEBUG_VARIANT
 import com.willian.gama.kgp.util.ReportUtil.getAndroidTestReportPath
 import com.willian.gama.kgp.util.ReportUtil.getGeneratedJavaReportPath
 import com.willian.gama.kgp.util.ReportUtil.getGeneratedKotlinReportPath

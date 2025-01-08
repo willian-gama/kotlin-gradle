@@ -1,4 +1,4 @@
-package com.willian.gama.kgp.plugin.plugin
+package com.willian.gama.kgp.plugin
 
 import com.android.build.gradle.LibraryExtension
 import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
@@ -6,6 +6,7 @@ import com.willian.gama.kgp.constants.CodeAnalysisConstants.DETEKT_CONFIG_FILE_P
 import com.willian.gama.kgp.constants.CodeAnalysisConstants.LOCAL_PROPERTIES
 import com.willian.gama.kgp.constants.DetektConstants.DETEKT_PLUGIN_IN
 import com.willian.gama.kgp.constants.JacocoConstants.JACOCO_PLUGIN_ID
+import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_EDITORCONFIG
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_PLUGIN_ID
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_JFROG_PLUGIN_ID
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_PLUGIN_ID
@@ -17,18 +18,18 @@ import com.willian.gama.kgp.constants.UserPropertiesConstants.USER_PROPERTY_SONA
 import com.willian.gama.kgp.constants.UserPropertiesConstants.USER_PROPERTY_SONAR_PROJECT_NAME_KEY
 import com.willian.gama.kgp.constants.UserPropertiesConstants.USER_PROPERTY_SONAR_TOKEN_KEY
 import com.willian.gama.kgp.model.CodeAnalysis
-import com.willian.gama.kgp.plugin.CodeAnalysisPlugin
-import com.willian.gama.kgp.plugin.test.TestData.TEST_ANDROID_COMPILE_SDK
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_JFROG_REPO_KEY
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_REPO_ACCESS_TOKEN
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_REPO_URL
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_REPO_USERNAME
-import com.willian.gama.kgp.plugin.test.TestData.TEST_NAMESPACE
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_ORGANIZATION
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_PROJECT_KEY
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_PROJECT_NAME
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_TOKEN
-import com.willian.gama.kgp.util.FileUtil.getFileFromResource
+import com.willian.gama.kgp.test.TestData.TEST_ANDROID_COMPILE_SDK
+import com.willian.gama.kgp.test.TestData.TEST_KTLINT_RULES_CONTENT
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_JFROG_REPO_KEY
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_REPO_ACCESS_TOKEN
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_REPO_URL
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_REPO_USERNAME
+import com.willian.gama.kgp.test.TestData.TEST_NAMESPACE
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_ORGANIZATION
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_PROJECT_KEY
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_PROJECT_NAME
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_TOKEN
+import com.willian.gama.kgp.util.FileUtil.copyFileFromResource
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.api.internal.project.DefaultProject
 import org.gradle.kotlin.dsl.configure
@@ -112,6 +113,19 @@ class CodeAnalysisPluginTest {
     }
 
     @Test
+    fun `test ktlint editorconfig is generated`() {
+        codeAnalysisPlugin.apply(project = rootProject)
+        rootProject.evaluate()
+
+        val editorConfigContent = File(rootProject.projectDir.path, KTLINT_EDITORCONFIG)
+            .readText()
+            .trimEnd('\n')
+            .lines()
+
+        assertEquals(TEST_KTLINT_RULES_CONTENT, editorConfigContent)
+    }
+
+    @Test
     fun `test detekt plugin is applied in subproject`() {
         val subProject = ProjectBuilder.builder().withParent(rootProject).build()
 
@@ -140,7 +154,7 @@ class CodeAnalysisPluginTest {
 
         subProject.tasks.withType<Detekt>().first().run {
             assertEquals(
-                getFileFromResource(fileName = DETEKT_CONFIG_FILE_PATH),
+                copyFileFromResource(fileName = DETEKT_CONFIG_FILE_PATH),
                 config.from.first()
             )
         }

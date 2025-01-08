@@ -1,4 +1,4 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
 import com.willian.gama.kgp.constants.DetektConstants.DETEKT_BASELINE_REPORT_PATH
 import com.willian.gama.kgp.constants.DetektConstants.DETEKT_EXCLUDE_PATTERN
@@ -8,9 +8,8 @@ import com.willian.gama.kgp.constants.DetektConstants.DETEKT_IGNORED_FLAVORS
 import com.willian.gama.kgp.constants.DetektConstants.DETEKT_INCLUDE_PATTERN
 import com.willian.gama.kgp.constants.DetektConstants.DETEKT_PLUGIN_IN
 import com.willian.gama.kgp.constants.DetektConstants.DETEKT_XML_REPORT_PATH
-import com.willian.gama.kgp.extension.setUpDetekt
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DETEKT_CONFIG_FILE
-import com.willian.gama.kgp.plugin.test.TestData.createDetektProperties
+import com.willian.gama.kgp.test.TestData.TEST_DETEKT_CONFIG_FILE
+import com.willian.gama.kgp.test.TestData.createDetektProperties
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension

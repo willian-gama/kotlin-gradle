@@ -1,13 +1,11 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
-import com.willian.gama.kgp.extension.getMajorMinorVersion
-import com.willian.gama.kgp.extension.splitToDirectoryPath
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_VARIANT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_FULL_DEBUG_DIRECTORY_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_FULL_DEBUG_VARIANT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAJOR_VERSION
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MINOR_VERSION
-import com.willian.gama.kgp.plugin.test.TestData.TEST_PATCH_VERSION
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_FULL_DEBUG_DIRECTORY_PATH
+import com.willian.gama.kgp.test.TestData.TEST_FULL_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_MAJOR_VERSION
+import com.willian.gama.kgp.test.TestData.TEST_MINOR_VERSION
+import com.willian.gama.kgp.test.TestData.TEST_PATCH_VERSION
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
