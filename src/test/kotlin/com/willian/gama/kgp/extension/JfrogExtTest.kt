@@ -1,13 +1,12 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_JFROG_PLUGIN_ID
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_PUBLISH_ID
-import com.willian.gama.kgp.extension.setUpFrog
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_JFROG_REPO_KEY
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_REPO_ACCESS_TOKEN
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_REPO_URL
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAVEN_REPO_USERNAME
-import com.willian.gama.kgp.plugin.test.TestData.createJfrogProperties
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_JFROG_REPO_KEY
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_REPO_ACCESS_TOKEN
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_REPO_URL
+import com.willian.gama.kgp.test.TestData.TEST_MAVEN_REPO_USERNAME
+import com.willian.gama.kgp.test.TestData.createJfrogProperties
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
@@ -16,7 +15,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-val TEST_JFROG_PROPERTIES = createJfrogProperties(
+private val TEST_JFROG_PROPERTIES = createJfrogProperties(
     repoUrl = TEST_MAVEN_REPO_URL,
     repoKey = TEST_MAVEN_JFROG_REPO_KEY,
     username = TEST_MAVEN_REPO_USERNAME,

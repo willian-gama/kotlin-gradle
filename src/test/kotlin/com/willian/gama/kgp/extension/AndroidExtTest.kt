@@ -1,13 +1,12 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_APPLICATION
 import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_BASELINE_REPORT_PATH
 import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
-import com.willian.gama.kgp.extension.enableCodeCoverage
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_ANDROID_TEST_DIRECTORY_PATH
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_ANDROID_TEST_DIRECTORY_PATH
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_VARIANT
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.testfixtures.ProjectBuilder

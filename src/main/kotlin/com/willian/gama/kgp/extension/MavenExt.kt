@@ -1,6 +1,7 @@
 package com.willian.gama.kgp.extension
 
 import com.android.build.gradle.BaseExtension
+import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_API_NODE
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_ARCHIVE_CLASSIFIER
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_ARTIFACT_ID_NODE
@@ -19,7 +20,6 @@ import com.willian.gama.kgp.constants.MavenConstants.MAVEN_SNAPSHOT
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_SNAPSHOT_RELEASE
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_SOURCE_JAR
 import com.willian.gama.kgp.constants.MavenConstants.MAVEN_VERSION_NODE
-import com.willian.gama.kgp.constants.AndroidConstants.ANDROID_LIBRARY
 import com.willian.gama.kgp.model.MavenProperties
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension

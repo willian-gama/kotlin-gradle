@@ -1,14 +1,13 @@
-package com.willian.gama.kgp.plugin.extension
+package com.willian.gama.kgp.extension
 
 import com.willian.gama.kgp.constants.SonarConstants.SONAR_PLUGIN_ID
-import com.willian.gama.kgp.extension.setUpSonar
-import com.willian.gama.kgp.plugin.test.TestData.TEST_DEBUG_VARIANT
-import com.willian.gama.kgp.plugin.test.TestData.TEST_MAJOR_VERSION
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_ORGANIZATION
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_PROJECT_KEY
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_PROJECT_NAME
-import com.willian.gama.kgp.plugin.test.TestData.TEST_SONAR_TOKEN
-import com.willian.gama.kgp.plugin.test.TestData.createSonarProperties
+import com.willian.gama.kgp.test.TestData.TEST_DEBUG_VARIANT
+import com.willian.gama.kgp.test.TestData.TEST_MAJOR_VERSION
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_ORGANIZATION
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_PROJECT_KEY
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_PROJECT_NAME
+import com.willian.gama.kgp.test.TestData.TEST_SONAR_TOKEN
+import com.willian.gama.kgp.test.TestData.createSonarProperties
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert.assertEquals

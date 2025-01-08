@@ -1,11 +1,13 @@
-package com.willian.gama.kgp.plugin.test
+package com.willian.gama.kgp.test
 
+import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_EDITOR_CONFIG_COMMENT
+import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_FILE_PATTERNS
 import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_REPORT_PATH
-import com.willian.gama.kgp.constants.SonarConstants
+import com.willian.gama.kgp.constants.KtLintConstants.KTLINT_RULES
+import com.willian.gama.kgp.constants.SonarConstants.SONAR_LOCALHOST_URL_VALUE
 import com.willian.gama.kgp.model.CodeAnalysis
 import com.willian.gama.kgp.model.DetektProperties
 import com.willian.gama.kgp.model.JFrogProperties
-import com.willian.gama.kgp.model.KtLintProperties
 import com.willian.gama.kgp.model.MavenProperties
 import com.willian.gama.kgp.model.SonarProperties
 import java.io.File
@@ -35,11 +37,16 @@ object TestData {
     val TEST_DETEKT_CONFIG_FILE = File("detekt.yml")
     const val TEST_MAVEN_JFROG_REPO_KEY = "android-lib"
     const val TEST_MAVEN_REPO_URL = "https://test.jfrog.io/artifactory"
-    const val TEST_MAVEN_REPO_USERNAME = "test@repo_usermane.com"
+    const val TEST_MAVEN_REPO_USERNAME = "email@test.com"
     const val TEST_MAVEN_REPO_ACCESS_TOKEN = "DY3ODM6N1NCZjZDazFHZUNKenVpbUxRdlNDQU1QN0RE"
     const val TEST_JAVA_PLUGIN = "java"
     const val TEST_ANDROID_COMPILE_SDK = 34
-    const val TEST_NAMESPACE = "com.library.test"
+    const val TEST_NAMESPACE = "com.willian.gama.kgp.test"
+    val TEST_KTLINT_RULES_CONTENT = buildList {
+        addAll(KTLINT_EDITOR_CONFIG_COMMENT.lines().map { "# $it" })
+        add(KTLINT_FILE_PATTERNS)
+        addAll(KTLINT_RULES.map { (key, value) -> "$key = $value" })
+    }
 
     fun createCodeAnalysis(
         buildType: String = TEST_DEBUG_VARIANT,
@@ -52,21 +59,21 @@ object TestData {
     }
 
     fun createSonarProperties(
+        url: String = SONAR_LOCALHOST_URL_VALUE,
         token: String = TEST_SONAR_TOKEN,
         projectKey: String = TEST_SONAR_PROJECT_KEY,
         organizationKey: String = TEST_SONAR_ORGANIZATION,
         projectName: String = TEST_SONAR_PROJECT_NAME,
         buildType: String = TEST_DEBUG_VARIANT,
-        kotlinVersion: String = TEST_MAJOR_VERSION,
-        exclusions: String = SonarConstants.SONAR_EXCLUSIONS_VALUE,
+        kotlinVersion: String = TEST_MAJOR_VERSION
     ) = SonarProperties(
+        url = url,
         token = token,
         projectKey = projectKey,
         organizationKey = organizationKey,
         projectName = projectName,
         buildType = buildType,
-        kotlinVersion = kotlinVersion,
-        exclusions = exclusions
+        kotlinVersion = kotlinVersion
     )
 
     fun createDetektProperties(
