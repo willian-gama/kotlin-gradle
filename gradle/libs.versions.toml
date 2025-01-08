@@ -4,7 +4,7 @@ android = "8.7.3"
 ktlint = "12.1.2"
 jfrog = "5.2.5"
 detekt = "1.23.7"
-sonar = "5.1.0.4882" # Version 6.0.0.5145 breaks Android tasks https://community.sonarsource.com/t/sonarqube-gradle-plugin-6-0-breaks-android-tasks/130863
+sonar = "6.0.1.5171" # Version 6.0.0.5145 breaks Android tasks https://community.sonarsource.com/t/sonarqube-gradle-plugin-6-0-breaks-android-tasks/130863
 junit = "4.13.2"
 
 [plugins]
