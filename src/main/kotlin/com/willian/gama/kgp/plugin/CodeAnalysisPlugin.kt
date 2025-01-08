@@ -28,7 +28,8 @@ class CodeAnalysisPlugin : Plugin<Project> {
         val properties = Properties().apply {
             load(project.file(LOCAL_PROPERTIES).inputStream())
         }
-        val isCiEnvironment = project.providers.environmentVariable(CI_ENVIRONMENT)
+        val isCiEnvironment = project.providers
+            .environmentVariable(CI_ENVIRONMENT)
             .getOrNull()?.toBooleanStrict() ?: false
         val detektProperties = DetektProperties(
             ignoreFailures = isCiEnvironment,
