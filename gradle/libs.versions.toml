@@ -4,8 +4,9 @@ android = "8.7.3"
 ktlint = "12.1.2"
 jfrog = "5.2.5"
 detekt = "1.23.7"
-sonar = "5.1.0.4882" # Version 6.0.0.5145 breaks Android tasks https://community.sonarsource.com/t/sonarqube-gradle-plugin-6-0-breaks-android-tasks/130863
+sonar = "6.0.1.5171"
 junit = "4.13.2"
+bouncycastle = "1.79"
 
 [plugins]
 jfrog = { id = "com.jfrog.artifactory", version.ref = "jfrog" }
@@ -17,3 +18,4 @@ detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.
 sonar = { module = "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin", version.ref = "sonar" }
 junit = { module = "junit:junit", version.ref = "junit" }
 jfrog = { module = "org.jfrog.buildinfo:build-info-extractor-gradle", version.ref = "jfrog" }
+bouncycastle = { module = "org.bouncycastle:bcutil-jdk18on", version.ref = "bouncycastle" }
