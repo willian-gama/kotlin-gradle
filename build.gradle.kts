@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.detekt)
     implementation(libs.sonar)
     implementation(libs.jfrog)
+    implementation(libs.bouncycastle) // Sonar 6.0.0.5145 breaks the connectedDebugAndroidTest task, this may be removed in the future: https://community.sonarsource.com/t/sonarqube-gradle-plugin-6-0-breaks-android-tasks/130863
 
     testImplementation(libs.junit)
 }
