@@ -2,7 +2,7 @@ package com.willian.gama.kgp.constants
 
 object KtLintConstants {
     const val KTLINT_PLUGIN_ID = "org.jlleitschuh.gradle.ktlint"
-    const val KTLINT_VERSION = "1.3.1"
+    const val KTLINT_VERSION = "1.5.0"
     const val KTLINT_BASELINE_REPORT_PATH = "baseline/ktlint/baseline.xml"
     const val KTLINT_REPORT_PATH = "reports/ktlint"
     private const val KTLINT_RULE_DISABLED = "disabled"
